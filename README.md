@@ -1,43 +1,37 @@
-# Astro Starter Kit: Minimal
+# Portfolio | brbn-jpg
 
-```sh
-npm create astro@latest -- --template minimal
-```
+This is the repository for my personal portfolio, built to showcase my skills, projects, and experience as a Backend Developer & AI Integrator.
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## About This Project
 
-## 🚀 Project Structure
+This portfolio is designed with a modern, terminal-inspired aesthetic. It dynamically fetches my latest commits from GitHub and presents my key competencies and projects.
 
-Inside of your Astro project, you'll see the following folders and files:
+## Technologies Used
 
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
+This project was built using a modern tech stack to ensure performance and a great developer experience:
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+- **Framework**: [Astro](https://astro.build/)
+- **UI Library**: [React](https://react.dev/) (for interactive components)
+- **Styling**: [Tailwind CSS](https://tailwindcss.com/)
+- **Icons**: [Lucide React](https://lucide.dev/)
+- **Languages**: TypeScript, JavaScript
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+## Local Development
 
-Any static assets, like images, can be placed in the `public/` directory.
+To run this project on your local machine, follow these steps:
 
-## 🧞 Commands
+1.  **Clone the repository:**
+    ```bash
+    git clone https://github.com/Brbn-jpg/tidal-trappist.git
+    cd tidal-trappist
+    ```
+2.  **Install dependencies:**
+    ```bash
+    npm install
+    ```
+3.  **Start the development server:**
+    ```bash
+    npm run dev
+    ```
 
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+The application will be available at `http://localhost:4321`.
