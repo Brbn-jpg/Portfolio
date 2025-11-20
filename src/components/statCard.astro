@@ -1,0 +1,14 @@
+---
+const { label, value, subtext, color } = Astro.props;
+---
+
+<div class="bg-slate-900/50 border border-slate-800 p-6 hover:border-slate-600 transition-all hover:bg-slate-900 group h-full rounded-sm">
+  <div class={`mb-4 p-3 rounded-lg inline-block bg-slate-950 ${color}`}>
+    <slot name="icon" />
+  </div>
+  <h3 class="text-slate-400 text-xs uppercase tracking-wider mb-1">{label}</h3>
+  <div class="text-xl font-bold text-slate-100 mb-1 group-hover:text-green-400 transition-colors">
+    {value}
+  </div>
+  <div class="text-slate-500 text-xs font-mono">{subtext}</div>
+</div>
