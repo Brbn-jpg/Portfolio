@@ -1,0 +1,57 @@
+<div class="space-y-6 text-slate-400 leading-relaxed">
+  <p>
+    Cibaria is a modern, full-stack recipe management application designed to bring culinary creativity to life. Built with a robust Spring Boot backend and a dynamic Angular frontend, it provides a seamless platform for discovering, sharing, and managing recipes with friends and fellow food enthusiasts.
+  </p>
+
+  <h3 class="text-2xl font-bold text-slate-200 pt-4 !mt-10 border-t border-slate-800">
+    Core Features
+  </h3>
+  <ul class="list-disc list-inside space-y-3 pl-2">
+    <li><span class="font-bold text-slate-300">Full Recipe Management:</span> Users can create, edit, and share detailed recipes, including ingredients, steps, nutritional information, and images with drag-and-drop support.</li>
+    <li><span class="font-bold text-slate-300">Secure User System:</span> Features JWT-based authentication, personalized user profiles, and a comprehensive admin panel for user and recipe management.</li>
+    <li><span class="font-bold text-slate-300">Advanced Search & Filtering:</span> A powerful search engine allows filtering recipes by category, difficulty, preparation time, and ingredients.</li>
+    <li><span class="font-bold text-slate-300">Internationalization (i18n):</span> Complete bilingual support for English and Polish, including dynamic language switching and smart unit translation (e.g., "tsp" to "łyżeczka").</li>
+  </ul>
+
+  <h3 class="text-2xl font-bold text-slate-200 pt-4 !mt-10 border-t border-slate-800">
+    Architecture
+  </h3>
+  <p>
+    The project follows a classic client-server architecture, ensuring a clear separation of concerns between the frontend and backend.
+  </p>
+  
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <div>
+      <h4 class="font-mono text-slate-300 mb-2">Frontend (Angular)</h4>
+      <pre class="bg-slate-900 border border-slate-800 rounded-md p-4 text-xs text-slate-300 font-mono overflow-x-auto h-full">
+<code class="language-bash">
+frontend/
+├── src/app/
+│   ├── components/
+│   ├── services/
+│   └── Interface/
+├── public/
+│   ├── i18n/
+│   └── images/
+└── styles.css
+</code>
+</pre>
+    </div>
+    <div>
+      <h4 class="font-mono text-slate-300 mb-2">Backend (Spring Boot)</h4>
+      <pre class="bg-slate-900 border border-slate-800 rounded-md p-4 text-xs text-slate-300 font-mono overflow-x-auto h-full">
+<code class="language-bash">
+backend/
+├── src/main/java/
+│   ├── recipe/
+│   ├── user/
+│   ├── auth/
+│   ├── admin/
+│   └── config/
+└── resources/
+    └── application.yml
+</code>
+</pre>
+    </div>
+  </div>
+</div>

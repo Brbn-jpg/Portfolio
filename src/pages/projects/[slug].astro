@@ -1,0 +1,64 @@
+---
+import { allProjects } from '../../data/projects';
+import Layout from '../../layouts/layout.astro';
+import { Github, ArrowLeft } from 'lucide-react';
+
+export async function getStaticPaths() {
+  return allProjects.map(project => ({
+    params: { slug: project.slug },
+    props: { project },
+  }));
+}
+
+const { project } = Astro.props;
+const projectComponents = await Astro.glob('../../components/project-details/*.astro');
+const projectModule = projectComponents.find(comp => 
+  comp.file.endsWith(`${project.name}.astro`)
+);
+const ProjectComponent = projectModule?.default;
+
+---
+<Layout title={`${project.name} | Project Details`}>
+  <main class="relative z-10 max-w-4xl mx-auto px-6 py-12 md:py-20">
+    <div class="mb-8">
+      <a href="/#repositories" class="flex items-center gap-2 text-slate-400 hover:text-green-400 transition-colors font-mono text-sm">
+        <ArrowLeft size={16} />
+        Back to all projects
+      </a>
+    </div>
+
+    <header class="mb-12 border-b border-slate-800 pb-8">
+      <h1 class="text-5xl md:text-6xl font-black text-slate-100 mb-4 tracking-tight">{project.name}</h1>
+      <div class="flex items-center justify-between">
+        <div class="text-sm font-mono text-slate-500">
+          Language(s): <span class="text-slate-300">{project.lang}</span>
+        </div>
+        <a href={project.link} target="_blank" rel="noreferrer" 
+           class="flex items-center gap-2 bg-slate-800 text-slate-300 px-4 py-2 font-bold hover:bg-green-500/20 hover:text-green-300 transition-colors rounded-sm text-sm">
+          <Github size={16} />
+          View on GitHub
+        </a>
+      </div>
+    </header>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+      <div class="md:col-span-2">
+        {ProjectComponent ? (
+          <ProjectComponent />
+        ) : (
+          <p class="text-slate-400 leading-relaxed">{project.longDescription}</p>
+        )}
+      </div>
+      <div class="md:col-span-1">
+        <h3 class="text-slate-100 font-bold mb-4 flex items-center gap-2 font-mono text-lg tracking-tight">
+          Technologies Used
+        </h3>
+        <div class="flex flex-wrap gap-2">
+          {project.technologies.map(tech => (
+            <span class="bg-slate-900 border border-slate-700 px-3 py-1 text-xs text-slate-300 font-mono rounded">{tech}</span>
+          ))}
+        </div>
+      </div>
+    </div>
+  </main>
+</Layout>

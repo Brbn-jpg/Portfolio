@@ -17,10 +17,8 @@ const languages = [
 
 const technologies = [
   "Spring Boot", "LangChain4j", "LangChain", "PostgreSQL", 
-  "Docker", "Git", "Angular", "Vue", "RAG Systems", "LLM Integration"
+  "Docker", "Git", "Angular", "Vue", "Astro", "RAG Systems", "LLM Integration"
 ];
-
-console.log('--- [DEBUG] Astro frontmatter script is running ---');
 
 // --- GitHub Activity ---
 interface GitHubCommit {
@@ -75,7 +73,6 @@ async function getRecentCommits(): Promise<GitHubCommit[]> {
   } catch (e) {
   }
 
-  console.log('--- [API] Fetching fresh commits from GitHub API ---');
   try {
     const reposResponse = await fetch('https://api.github.com/users/Brbn-jpg/repos?sort=pushed&direction=desc&per_page=5', {
       headers: { 'User-Agent': 'Astro-Portfolio' }
@@ -234,12 +231,12 @@ recentCommits = await getRecentCommits();
 
       {/* RIGHT COLUMN: PROJECTS */}
       <div class="lg:col-span-2">
-        <div class="flex items-center gap-3 mb-8 border-b border-slate-800 pb-2">
+        <div id="repositories" class="flex items-center gap-3 mb-8 border-b border-slate-800 pb-2 scroll-mt-20">
           <Server className="text-green-500" size={24} />
           <h2 class="text-2xl font-bold text-slate-100 font-mono tracking-tight">REPOSITORIES</h2>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {allProjects.map((project) => <ProjectCard project={project as any} />)}
+          {allProjects.map((project) => <ProjectCard project={project} />)}
           
           {/* Placeholder More */}
           <a href="https://github.com/Brbn-jpg" target="_blank" rel="noreferrer" class="border border-dashed border-slate-800 p-5 flex flex-col items-center justify-center text-slate-500 hover:text-slate-300 hover:border-slate-600 transition-all cursor-pointer group rounded-sm">

@@ -15,7 +15,7 @@ export const allProjects = [
       "SSE",
     ],
     longDescription:
-      "This project was developed to explore the capabilities of local Large Language Models (LLMs) within a robust Java ecosystem. The core of the application is a Spring Boot server that provides a RESTful API for interacting with the Llama2 model via Ollama. Key features include real-time streaming of responses using Server-Sent Events (SSE), persistent conversation history, and a Retrieval-Augmented Generation (RAG) pipeline for answering questions based on ingested documents. The architecture is designed to be modular, allowing for easy extension with new models or data sources.",
+      "This project explores local LLMs in a Java ecosystem. The Spring Boot server uses Ollama for a RESTful API to the Llama2 model, featuring real-time streaming via SSE, persistent chat history, and a RAG pipeline for document-based Q&A. The modular design allows easy expansion.",
   },
   {
     slug: "cibaria",
@@ -26,7 +26,7 @@ export const allProjects = [
     link: "https://github.com/Brbn-jpg/Recipe-management-app",
     technologies: ["Java", "Spring Boot", "Angular", "PostgreSQL", "REST API"],
     longDescription:
-      "Cibaria is a comprehensive solution for recipe enthusiasts. It allows users to create, store, and search for recipes. The backend, built with Spring Boot, exposes a secure and efficient REST API for all data operations. The frontend, developed using Angular, offers a modern and responsive user interface for a seamless experience across devices.",
+      "Cibaria is a full-stack solution for recipe enthusiasts. It allows users to create, store, and search for recipes. The backend, built with Spring Boot, exposes a secure and efficient REST API for all data operations. The frontend, developed using Angular, offers a modern and responsive user interface for a seamless experience across devices.",
   },
   {
     slug: "notepad-php",
@@ -37,6 +37,6 @@ export const allProjects = [
     link: "https://github.com/Brbn-jpg/Notepad-php",
     technologies: ["PHP", "HTML", "CSS", "Vue"],
     longDescription:
-      "This project is a back-to-basics implementation of a simple web-based notepad. It demonstrates foundational web development principles, including state management and server-side logic, using only pure PHP without any frameworks.",
+      "This project is a back-to-basics implementation of a simple web-based notepad. It demonstrates foundational web development principles, including state management and server-side logic, using only pure PHP without any frameworks. A touch of Vue.js was added for minor client-side reactivity.",
   },
 ];

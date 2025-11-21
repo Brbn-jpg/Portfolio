@@ -1,21 +1,21 @@
 ---
 interface Props {
   project: {
+    slug: string;
     name: string;
     description: string;
     technologies: string[];
-    link: string;
   };
 }
 
 const { project } = Astro.props;
 ---
 
-<a href={project.link} target="_blank" rel="noopener noreferrer" class="bg-slate-900/50 border border-slate-800 p-5 rounded-sm flex flex-col group hover:border-green-500 transition-colors">
+<a href={`/projects/${project.slug}`} class="bg-slate-900/50 border border-slate-800 p-5 rounded-sm flex flex-col group hover:border-green-500 transition-colors">
   <h3 class="text-lg font-bold text-slate-100 mb-2 group-hover:text-green-400 transition-colors">
     {project.name}
   </h3>
-  <p class="text-slate-400 text-sm mb-4 flex-grow">{project.description}</p>
+  <p class="text-slate-400 text-sm mb-4 flex-grow leading-relaxed">{project.description}</p>
   <div class="flex flex-wrap gap-2 mt-auto">
     {project.technologies.map(tag => (
       <span class="bg-slate-800 px-2 py-1 text-xs text-slate-400 font-mono rounded">
@@ -24,3 +24,4 @@ const { project } = Astro.props;
     ))}
   </div>
 </a>
+

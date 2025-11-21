@@ -1,0 +1,38 @@
+<div class="space-y-6 text-slate-400 leading-relaxed">
+  <p>
+    LlamaTalks is a Spring Boot-based chat application that leverages the power of LangChain4j and Ollama to provide an advanced conversational AI experience. The core of the project is its Retrieval-Augmented Generation (RAG) capability, which allows the AI to answer questions based on ingested documents, making the responses context-aware and significantly reducing "hallucinations".
+  </p>
+  <p>
+    The application supports real-time streaming of responses, persistent conversation history, and a modular architecture that makes it easy to integrate with various frontends or other services.
+  </p>
+
+  <h3 class="text-2xl font-bold text-slate-200 pt-4 !mt-10 border-t border-slate-800">
+    Key Features
+  </h3>
+  <ul class="list-disc list-inside space-y-2 pl-2">
+    <li><span class="font-bold text-slate-300">Conversational AI:</span> Powered by Ollama and LangChain4j for state-of-the-art interaction.</li>
+    <li><span class="font-bold text-slate-300">Retrieval-Augmented Generation (RAG):</span> Ingest and query your documents to provide context-aware, accurate responses.</li>
+    <li><span class="font-bold text-slate-300">Streaming Responses:</span> Real-time message streaming using Server-Sent Events (SSE).</li>
+    <li><span class="font-bold text-slate-300">Persistent History:</span> Stores all messages and conversations in a PostgreSQL database.</li>
+    <li><span class="font-bold text-slate-300">RESTful API:</span> A clean API for easy integration with any frontend or service.</li>
+  </ul>
+
+  <h3 class="text-2xl font-bold text-slate-200 pt-4 !mt-10 border-t border-slate-800">
+    Architecture
+  </h3>
+  <p>
+    The application is built on a modern Java stack, designed for scalability and maintainability.
+  </p>
+  <pre class="bg-slate-900 border border-slate-800 rounded-md p-4 text-sm text-slate-300 font-mono overflow-x-auto">
+<code class="language-ascii">
++-------------------+     +-------------------+     +-------------------+
+|   Frontend/App    | &lt;-> |   LlamaTalks API  | &lt;-> |   Ollama Server   |
++-------------------+     +-------------------+     +-------------------+
+                                    |
+                                    v
+                          +-------------------+
+                          |    Vector Store   |
+                          +-------------------+
+</code>
+</pre>
+</div>
