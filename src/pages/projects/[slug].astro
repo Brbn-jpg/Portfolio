@@ -1,7 +1,7 @@
 ---
 import { allProjects } from '../../data/projects';
 import Layout from '../../layouts/layout.astro';
-import { Github, ArrowLeft } from 'lucide-react';
+import { Github, ArrowRight, ArrowLeft } from 'lucide-react';
 
 export async function getStaticPaths() {
   return allProjects.map(project => ({
@@ -11,11 +11,10 @@ export async function getStaticPaths() {
 }
 
 const { project } = Astro.props;
-const projectComponents = await Astro.glob('../../components/project-details/*.astro');
-const projectModule = projectComponents.find(comp => 
-  comp.file.endsWith(`${project.name}.astro`)
-);
-const ProjectComponent = projectModule?.default;
+const projectComponents = import.meta.glob('../../components/project-details/*.astro', { eager: true });
+const componentPath = `../../components/project-details/${project.name}.astro`;
+const projectModule: any = projectComponents[componentPath];
+const ProjectComponent = projectModule ? projectModule.default : undefined;
 
 ---
 <Layout title={`${project.name} | Project Details`}>
@@ -33,11 +32,18 @@ const ProjectComponent = projectModule?.default;
         <div class="text-sm font-mono text-slate-500">
           Language(s): <span class="text-slate-300">{project.lang}</span>
         </div>
-        <a href={project.link} target="_blank" rel="noreferrer" 
-           class="flex items-center gap-2 bg-slate-800 text-slate-300 px-4 py-2 font-bold hover:bg-green-500/20 hover:text-green-300 transition-colors rounded-sm text-sm">
-          <Github size={16} />
-          View on GitHub
-        </a>
+        <div class="flex items-center gap-4">
+          {project.links.demo && (
+            <a href={project.links.demo} target="_blank" rel="noreferrer" class="flex items-center gap-2 border border-slate-700 text-slate-300 px-4 py-2 font-bold hover:border-green-500 hover:text-green-400 transition-colors rounded-sm text-sm">
+              <ArrowRight size={16} /> Live Demo
+            </a>
+          )}
+          <a href={project.links.github} target="_blank" rel="noreferrer" 
+             class="flex items-center gap-2 bg-slate-800 text-slate-300 px-4 py-2 font-bold hover:bg-green-500/20 hover:text-green-300 transition-colors rounded-sm text-sm">
+            <Github size={16} />
+            View on GitHub
+          </a>
+        </div>
       </div>
     </header>
 
