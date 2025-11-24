@@ -6,7 +6,7 @@ import ContactForm from '../components/ContactForm.jsx';
 import StatCard from '../components/statCard.astro';
 import ProjectCard from '../components/projectCard.astro';
 import { allProjects } from '../data/projects';
-import { Cpu, Bike, Dumbbell, Github, Code, Activity, Wifi, Server, Layers, Brain } from 'lucide-react';
+import { Cpu, Bike, Dumbbell, Github, Code, Activity, Wifi, Server, Layers, Brain, ArrowRight } from 'lucide-react';
 
 const languages = [
   { name: "Java", level: 90 },
@@ -38,6 +38,12 @@ const technologies = [
         I specialize in <span class="text-green-400 font-bold">Java, Python</span> and <span class="text-green-400 font-bold">RAG / LLM</span> system architecture. 
         I enjoy building scalable applications and exploring hardware innovations.
       </p>
+
+      <div class="mb-8 text-center">
+        <a href="/about" class="inline-flex items-center gap-2 text-green-400 font-mono text-sm hover:text-green-300 transition-colors group">
+          More about me <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
+        </a>
+      </div>
       
       <div class="flex justify-center gap-4 mb-12">
         <a href="https://github.com/Brbn-jpg" target="_blank" rel="noreferrer" 
@@ -146,7 +152,8 @@ const technologies = [
       <div class="mb-4 md:mb-0">
         &copy; {new Date().getFullYear()} Brbn-jpg.
       </div>
-      <div class="flex gap-6">
+      <div class="flex gap-6 items-center">
+        <a href="/about" class="hover:text-slate-300 transition-colors">About Me</a>
         <span class="flex items-center gap-2">
           <div class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
           RAG Systems Operational
