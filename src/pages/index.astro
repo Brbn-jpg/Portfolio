@@ -20,101 +20,6 @@ const technologies = [
   "Docker", "Git", "Angular", "Vue", "Astro", "RAG Systems", "LLM Integration"
 ];
 
-// --- GitHub Activity ---
-interface GitHubCommit {
-  repo: string;
-  message: string;
-  sha: string;
-  url: string;
-  date: string;
-}
-
-interface Repo {
-  name: string;
-  full_name: string;
-}
-
-interface CommitFromApi {
-  sha: string;
-  commit: { message: string; committer: { date: string } };
-  html_url: string;
-}
-
-let recentCommits: GitHubCommit[] = [];
-
-function timeAgo(dateString: string): string {
-  const date = new Date(dateString);
-  const now = new Date();
-  const seconds = Math.round((now.getTime() - date.getTime()) / 1000);
-  const minutes = Math.round(seconds / 60);
-  const hours = Math.round(minutes / 60);
-  const days = Math.round(hours / 24);
-
-  if (seconds < 60) return `${seconds}s ago`;
-  if (minutes < 60) return `${minutes}m ago`;
-  if (hours < 24) return `${hours}h ago`;
-  return `${days}d ago`;
-}
-
-async function getRecentCommits(): Promise<GitHubCommit[]> {
-  const CACHE_DURATION_SECONDS = import.meta.env.DEV ? 60 * 5 : 60 * 60; 
-  const cachePath = './.cache/github-commits.json';
-  const cacheDir = './.cache';
-
-  try {
-    const fs = await import('node:fs/promises');
-    const stats = await fs.stat(cachePath).catch(() => null);
-
-    if (stats && (new Date().getTime() - stats.mtime.getTime()) / 1000 < CACHE_DURATION_SECONDS) {
-      console.log('--- [CACHE] Loading commits from local cache file ---');
-      const data = await fs.readFile(cachePath, 'utf-8');
-      return JSON.parse(data);
-    }
-  } catch (e) {
-  }
-
-  try {
-    const reposResponse = await fetch('https://api.github.com/users/Brbn-jpg/repos?sort=pushed&direction=desc&per_page=5', {
-      headers: { 'User-Agent': 'Astro-Portfolio' }
-    });
-
-    if (!reposResponse.ok) {
-      console.error('GitHub API request for repos failed:', reposResponse.status);
-      return []; 
-    }
-
-    const repos: Repo[] = await reposResponse.json();
-    const allCommits: GitHubCommit[] = [];
-
-    for (const repo of repos) {
-      const commitsResponse = await fetch(`https://api.github.com/repos/${repo.full_name}/commits?per_page=5`, {
-        headers: { 'User-Agent': 'Astro-Portfolio' }
-      });
-      if (commitsResponse.ok) {
-        const commits: CommitFromApi[] = await commitsResponse.json();
-        allCommits.push(...commits.map(c => ({
-          repo: repo.name,
-          message: c.commit.message,
-          sha: c.sha.slice(0, 7),
-          url: c.html_url,
-          date: c.commit.committer.date
-        })));
-      }
-    }
-    const sortedCommits = allCommits.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()).slice(0, 3);
-
-    const fs = await import('node:fs/promises');
-    await fs.mkdir(cacheDir, { recursive: true });
-    await fs.writeFile(cachePath, JSON.stringify(sortedCommits));
-
-    return sortedCommits;
-  } catch (error) {
-    console.error('Error fetching GitHub activity:', error);
-    return []; 
-  }
-}
-
-recentCommits = await getRecentCommits();
 ---
 
 <Layout title="Brbn-jpg | Backend & AI Dev">
@@ -212,20 +117,9 @@ recentCommits = await getRecentCommits();
             <Activity size={18} className="text-green-400" />
             Recent Activity
           </h3>
-          {recentCommits.length > 0 ? (
-            <ul class="space-y-4 text-sm text-slate-400 font-mono">
-              {recentCommits.map(commit => (
-                <li class="flex gap-3">
-                  <span class="text-slate-600 flex-shrink-0 w-16 text-right">{timeAgo(commit.date)}</span>
-                  <a href={commit.url} target="_blank" rel="noopener noreferrer" class="truncate hover:text-green-400 transition-colors" title={commit.message}>
-                    {commit.message}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          ) : (
-            <p class="text-sm text-slate-500 font-mono">Could not fetch recent activity.</p>
-          )}
+          <div id="commits-container" class="space-y-4 text-sm text-slate-400 font-mono">
+            <p class="text-slate-500">Fetching latest activity...</p>
+          </div>
         </div>
       </div>
 
@@ -266,3 +160,103 @@ recentCommits = await getRecentCommits();
 
   </main>
 </Layout>
+
+<script>
+  function initializeGitHubActivity(container: HTMLElement) {
+    const timeAgo = (dateString: string): string => {
+      const date = new Date(dateString);
+      const now = new Date();
+      const seconds = Math.round((now.getTime() - date.getTime()) / 1000);
+      const minutes = Math.round(seconds / 60);
+      const hours = Math.round(minutes / 60);
+      const days = Math.round(hours / 24);
+
+      if (seconds < 60) return `${seconds}s ago`;
+      if (minutes < 60) return `${minutes}m ago`;
+      if (hours < 24) return `${hours}h ago`;
+      return `${days}d ago`;
+    };
+
+    const renderCommits = (commits: any[]) => {
+      if (!commits || commits.length === 0) {
+        container.innerHTML = '<p class="text-slate-500">Could not fetch recent activity.</p>';
+        return;
+      }
+
+      const list = document.createElement('ul');
+      list.className = 'space-y-4';
+      
+      commits.forEach(commit => {
+        const listItem = document.createElement('li');
+        listItem.className = 'flex gap-3';
+        listItem.innerHTML = `
+          <span class="text-slate-600 flex-shrink-0 w-16 text-right">${timeAgo(commit.date)}</span>
+          <a href="${commit.url}" target="_blank" rel="noopener noreferrer" class="truncate hover:text-green-400 transition-colors" title="${commit.message}">
+            ${commit.message}
+          </a>
+        `;
+        list.appendChild(listItem);
+      });
+
+      container.innerHTML = '';
+      container.appendChild(list);
+    };
+
+    const getRecentCommits = async () => {
+      const CACHE_KEY = 'github_commits_cache';
+      const CACHE_DURATION_MINUTES = 5;
+
+      const cachedData = sessionStorage.getItem(CACHE_KEY);
+      if (cachedData) {
+        const { timestamp, commits } = JSON.parse(cachedData);
+        if ((new Date().getTime() - timestamp) / (1000 * 60) < CACHE_DURATION_MINUTES) {
+          console.log('--- [CACHE] Loading commits from session storage ---');
+          return renderCommits(commits);
+        }
+      }
+
+      try {
+        const reposResponse = await fetch('https://api.github.com/users/Brbn-jpg/repos?sort=pushed&direction=desc&per_page=5', {
+          headers: { 'User-Agent': 'Astro-Portfolio' }
+        });
+
+        if (!reposResponse.ok) throw new Error('Failed to fetch repos');
+        
+        const repos = await reposResponse.json();
+        const allCommits = [];
+
+        for (const repo of repos) {
+          const commitsResponse = await fetch(`https://api.github.com/repos/${repo.full_name}/commits?per_page=5`, {
+            headers: { 'User-Agent': 'Astro-Portfolio' }
+          });
+          if (commitsResponse.ok) {
+            const commits = await commitsResponse.json();
+            allCommits.push(...commits.map((c: any) => ({
+              repo: repo.name,
+              message: c.commit.message,
+              sha: c.sha.slice(0, 7),
+              url: c.html_url,
+              date: c.commit.committer.date
+            })));
+          }
+        }
+        const sortedCommits = allCommits.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()).slice(0, 3);
+        
+        sessionStorage.setItem(CACHE_KEY, JSON.stringify({ timestamp: new Date().getTime(), commits: sortedCommits }));
+        renderCommits(sortedCommits);
+      } catch (error) {
+        console.error('Error fetching GitHub activity:', error);
+        renderCommits([]);
+      }
+    };
+
+    getRecentCommits();
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const commitsContainer = document.getElementById('commits-container');
+    if (commitsContainer) {
+      initializeGitHubActivity(commitsContainer);
+    }
+  });
+</script>
