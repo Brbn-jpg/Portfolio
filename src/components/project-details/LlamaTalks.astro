@@ -1,38 +1,49 @@
 <div class="space-y-6 text-slate-400 leading-relaxed">
   <p>
-    LlamaTalks is a Spring Boot-based chat application that leverages the power of LangChain4j and Ollama to provide an advanced conversational AI experience. The core of the project is its Retrieval-Augmented Generation (RAG) capability, which allows the AI to answer questions based on ingested documents, making the responses context-aware and significantly reducing "hallucinations".
+    LlamaTalks is a sophisticated Spring Boot-based chatbot application that democratizes access to advanced AI by leveraging local LLMs through Ollama. It integrates <span class="text-slate-200 font-bold">LangChain4j</span> to orchestrate complex conversational flows and implements a robust <span class="text-slate-200 font-bold">Retrieval-Augmented Generation (RAG)</span> pipeline. This allows users to chat with their own data, ensuring responses are grounded in provided context rather than just the model's training data.
   </p>
   <p>
-    The application supports real-time streaming of responses, persistent conversation history, and a modular architecture that makes it easy to integrate with various frontends or other services.
+    Designed for performance and scalability, the application supports fully reactive, real-time response streaming using Reactor/Flux and Server-Sent Events (SSE). It creates a seamless "typing" effect similar to commercial LLM interfaces.
   </p>
+
+  <h3 class="text-2xl font-bold text-slate-200 pt-4 !mt-10 border-t border-slate-800">
+    Technical Architecture
+  </h3>
+  <p>
+    The system follows a modular microservices-ready architecture:
+  </p>
+  <ul class="list-disc list-inside space-y-2 pl-2 mt-4">
+    <li>
+      <span class="font-bold text-slate-300">Core Backend:</span> Built with Spring Boot 3, utilizing JPA/Hibernate for structured data persistence (conversations, messages).
+    </li>
+    <li>
+      <span class="font-bold text-slate-300">AI Orchestration:</span> LangChain4j manages the interaction with LLMs, memory management, and the RAG pipeline.
+    </li>
+    <li>
+      <span class="font-bold text-slate-300">Data Ingestion:</span> <span class="text-green-400 font-mono">Apache Tika</span> is used to parse and extract text from various document formats for the vector store.
+    </li>
+    <li>
+      <span class="font-bold text-slate-300">Vector Store:</span> Embeddings are generated locally and stored in a vector database to enable semantic search capabilities.
+    </li>
+  </ul>
+  
+  <div class="mt-6 mb-6">
+    <pre class="bg-slate-900 border border-slate-800 rounded-md p-4 text-sm text-slate-300 font-mono overflow-x-auto leading-tight">
+      <code class="language-ascii">
+[ User Request ] --&gt; [ Spring Boot API ] --&gt; [ LangChain4j Orchestrator ]
+                            ↓                        ↓
+                     [ Vector Store ]  &lt;--   [ Ollama (Local LLM) ]
+      </code>
+    </pre>
+  </div>
 
   <h3 class="text-2xl font-bold text-slate-200 pt-4 !mt-10 border-t border-slate-800">
     Key Features
   </h3>
   <ul class="list-disc list-inside space-y-2 pl-2">
-    <li><span class="font-bold text-slate-300">Conversational AI:</span> Powered by Ollama and LangChain4j for state-of-the-art interaction.</li>
-    <li><span class="font-bold text-slate-300">Retrieval-Augmented Generation (RAG):</span> Ingest and query your documents to provide context-aware, accurate responses.</li>
-    <li><span class="font-bold text-slate-300">Streaming Responses:</span> Real-time message streaming using Server-Sent Events (SSE).</li>
-    <li><span class="font-bold text-slate-300">Persistent History:</span> Stores all messages and conversations in a PostgreSQL database.</li>
-    <li><span class="font-bold text-slate-300">RESTful API:</span> A clean API for easy integration with any frontend or service.</li>
+    <li><span class="font-bold text-slate-300">Context-Aware RAG:</span> Dynamically retrieves relevant information from uploaded documents to answer user queries accurately.</li>
+    <li><span class="font-bold text-slate-300">Streaming API:</span> Utilizing Spring WebFlux principles for non-blocking, real-time token streaming.</li>
+    <li><span class="font-bold text-slate-300">Flexible Model Support:</span> Easily switch between different open-source models (Llama 3, Mistral, Gemma) hosted via Ollama.</li>
+    <li><span class="font-bold text-slate-300">Persistent Chat History:</span> Full conversation history is stored in PostgreSQL, allowing context retention across sessions.</li>
   </ul>
-
-  <h3 class="text-2xl font-bold text-slate-200 pt-4 !mt-10 border-t border-slate-800">
-    Architecture
-  </h3>
-  <p>
-    The application is built on a modern Java stack, designed for scalability and maintainability.
-  </p>
-  <pre class="bg-slate-900 border border-slate-800 rounded-md p-4 text-sm text-slate-300 font-mono overflow-x-auto">
-<code class="language-ascii">
-+-------------------+     +-------------------+     +-------------------+
-|   Frontend/App    | &lt;-> |   LlamaTalks API  | &lt;-> |   Ollama Server   |
-+-------------------+     +-------------------+     +-------------------+
-                                    |
-                                    v
-                          +-------------------+
-                          |    Vector Store   |
-                          +-------------------+
-</code>
-</pre>
 </div>

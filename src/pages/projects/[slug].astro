@@ -49,15 +49,22 @@ const ProjectComponent = projectModule ? projectModule.default : undefined;
 
     <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
       <div class="md:col-span-2">
+        {project.links.demo && (
+          <div class="mb-8 p-4 border border-amber-500/30 bg-amber-500/10 rounded-sm text-amber-300 text-sm font-mono leading-relaxed">
+            <span class="font-bold">[ATTENTION]</span> The backend for this project is hosted on a free-tier service. It may take a moment to wake up after the first request.
+          </div>
+        )}
+        
+        {project.name === 'Gamelog' && (
+           <div class="mb-8 p-4 border border-blue-500/30 bg-blue-500/10 rounded-sm text-blue-300 text-sm font-mono leading-relaxed">
+            <span class="font-bold">[INFO]</span> Live demo deployment is currently in progress. Check back soon!
+          </div>
+        )}
+
         {ProjectComponent ? (
           <ProjectComponent />
         ) : (
           <p class="text-slate-400 leading-relaxed">{project.longDescription}</p>
-        )}
-        {project.links.demo && (
-          <div class="mt-16 p-4 border border-amber-500/30 bg-amber-500/10 rounded-sm text-amber-300 text-sm font-mono leading-relaxed">
-            <span class="font-bold">[ATTENTION]</span> The backend for this project is hosted on a free-tier service. It may take a moment to wake up after the first request.
-          </div>
         )}
       </div>
       <div class="md:col-span-1">

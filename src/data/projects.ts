@@ -34,16 +34,16 @@ export const allProjects = [
       "Cibaria is a full-stack solution for recipe enthusiasts. It allows users to create, store, and search for recipes. The backend, built with Spring Boot, exposes a secure and efficient REST API for all data operations. The frontend, developed using Angular, offers a modern and responsive user interface for a seamless experience across devices.",
   },
   {
-    slug: "notepad-php",
-    name: "Notepad-php",
+    slug: "gamelog",
+    name: "Gamelog",
     description:
-      "A server-side rendered notepad application developed with pure PHP. This project demonstrates foundational web development principles, including state management and server-side logic.",
-    lang: "PHP",
+      "A full-stack game backlog management system. Organize your video game library using a Kanban-style dashboard, track playtime, rate games, and connect with other users.",
+    lang: "Java, React",
     links: {
-      github: "https://github.com/Brbn-jpg/Notepad-php",
+      github: "https://github.com/Brbn-jpg/GameBacklogTracker",
     },
-    technologies: ["PHP", "HTML", "CSS", "Vue"],
+    technologies: ["Java", "Spring Boot", "React", "PostgreSQL", "Docker", "Redis"],
     longDescription:
-      "This project is a back-to-basics implementation of a simple web-based notepad. It demonstrates foundational web development principles, including state management and server-side logic, using only pure PHP without any frameworks. A touch of Vue.js was added for minor client-side reactivity.",
+      "Gamelog is a full-stack web application that helps users organize their video game libraries. It features a Kanban-style dashboard for managing progress, advanced search capabilities, social features like friend requests, and secure user accounts.",
   },
 ];
