@@ -41,6 +41,7 @@ export const allProjects = [
     lang: "Java, React",
     links: {
       github: "https://github.com/Brbn-jpg/GameBacklogTracker",
+      demo: "https://game-backlog-tracker-omega.vercel.app/",
     },
     technologies: ["Java", "Spring Boot", "React", "PostgreSQL", "Docker", "Redis"],
     longDescription:
