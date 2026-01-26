@@ -33,4 +33,17 @@
     <li><span class="font-bold text-slate-300">Secure Authentication:</span> JWT-based stateless authentication with email verification flow powered by Redis caching.</li>
     <li><span class="font-bold text-slate-300">Advanced Discovery:</span> A rich game database with filtering by platform, genre, developer, and more, allowing users to easily expand their backlog.</li>
   </ul>
+
+  <h3 class="text-2xl font-bold text-slate-200 pt-4 !mt-10 border-t border-slate-800">
+    Deployment & Infrastructure
+  </h3>
+  <p>
+    The application is deployed across a high-availability cloud infrastructure:
+  </p>
+  <ul class="list-disc list-inside space-y-2 pl-2">
+    <li><span class="font-bold text-slate-300">Frontend:</span> Deployed on <span class="text-slate-200 font-bold">Vercel</span> for optimized React performance and global CDN distribution.</li>
+    <li><span class="font-bold text-slate-300">Backend:</span> The Spring Boot application is containerized and hosted on <span class="text-slate-200 font-bold">AWS EC2</span>.</li>
+    <li><span class="font-bold text-slate-300">Database:</span> PostgreSQL data is managed by <span class="text-slate-200 font-bold">AWS RDS</span>, providing automated backups and scalability.</li>
+    <li><span class="font-bold text-slate-300">SSL & Networking:</span> Secure communication is handled by <span class="text-slate-200 font-bold">Caddy</span>, which automatically manages SSL certificates using <span class="text-slate-200 font-bold">nip.io</span> for dynamic DNS mapping to the server's IP.</li>
+  </ul>
 </div>
