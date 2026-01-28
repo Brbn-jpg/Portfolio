@@ -39,6 +39,48 @@ const ContactForm = ({ formspreeId }) => {
     }
   };
 
+  const renderCvButton = (isMobileColumn = false) => {
+    if (!showCvOptions) {
+      return (
+        <button
+          onClick={() => setShowCvOptions(true)}
+          className={`flex items-center justify-center gap-2 border border-green-500/50 text-green-400 font-bold hover:border-green-500 hover:bg-green-500/10 transition-colors rounded-sm font-mono whitespace-nowrap ${isMobileColumn ? 'p-[13px] shadow-sm' : 'px-6 py-3'}`}
+          title="Download CV"
+        >
+          <Download size={20} />
+          {!isMobileColumn && "DOWNLOAD_CV"}
+        </button>
+      );
+    }
+
+    return (
+      <div className={`flex items-center gap-2 animate-in fade-in slide-in-from-left-4 duration-300 ${isMobileColumn ? 'flex-col' : ''}`}>
+        {!isMobileColumn && <span className="text-slate-500 font-mono text-xs hidden sm:inline mr-1">LANG:</span>}
+        <a
+          href="/cv/cv_eng.pdf" 
+          download="Jakub_Kuznicki_CV_ENG.pdf"
+          className="flex items-center justify-center border border-green-500/30 text-green-400 px-4 py-3 font-bold hover:border-green-500 hover:bg-green-500/10 transition-colors rounded-sm font-mono whitespace-nowrap text-sm"
+        >
+          [ ENG ]
+        </a>
+        <a
+          href="/cv/cv_pl.pdf" 
+          download="Jakub_Kuznicki_CV_PL.pdf"
+          className="flex items-center justify-center border border-green-500/30 text-green-400 px-4 py-3 font-bold hover:border-green-500 hover:bg-green-500/10 transition-colors rounded-sm font-mono whitespace-nowrap text-sm"
+        >
+          [ PL ]
+        </a>
+        <button
+          onClick={() => setShowCvOptions(false)}
+          className="flex items-center justify-center text-slate-500 hover:text-slate-300 p-3 transition-colors"
+          aria-label="Cancel"
+        >
+          <X size={20} />
+        </button>
+      </div>
+    );
+  };
+
   return (
     <div className={`flex ${isFormVisible ? "flex-col lg:flex-row items-center lg:items-start" : "flex-row flex-wrap items-center"} justify-center gap-4`}>
       <div className={`flex ${isFormVisible ? "flex-col w-full lg:w-auto" : "flex-row"} gap-4`}>
@@ -54,6 +96,7 @@ const ContactForm = ({ formspreeId }) => {
           <Linkedin size={20} />
           <span className="sr-only">LinkedIn Profile</span>
         </a>
+        {isFormVisible && renderCvButton(true)}
       </div>
 
       {!isFormVisible ? (
@@ -65,41 +108,7 @@ const ContactForm = ({ formspreeId }) => {
             <Terminal size={20} />
             CONTACT_ME.sh
           </button>
-          
-          {!showCvOptions ? (
-            <button
-              onClick={() => setShowCvOptions(true)}
-              className="flex items-center gap-2 border border-green-500/50 text-green-400 px-6 py-3 font-bold hover:border-green-500 hover:bg-green-500/10 transition-colors rounded-sm font-mono whitespace-nowrap"
-            >
-              <Download size={20} />
-              DOWNLOAD_CV
-            </button>
-          ) : (
-            <div className="flex items-center gap-2 animate-in fade-in slide-in-from-left-4 duration-300">
-              <span className="text-slate-500 font-mono text-xs hidden sm:inline mr-1">LANG:</span>
-              <a
-                href="/cv/cv_eng.pdf" 
-                download="Jakub_Kuznicki_CV_ENG.pdf"
-                className="flex items-center justify-center border border-green-500/30 text-green-400 px-4 py-3 font-bold hover:border-green-500 hover:bg-green-500/10 transition-colors rounded-sm font-mono whitespace-nowrap text-sm"
-              >
-                [ ENG ]
-              </a>
-              <a
-                href="/cv/cv_pl.pdf" 
-                download="Jakub_Kuznicki_CV_PL.pdf"
-                className="flex items-center justify-center border border-green-500/30 text-green-400 px-4 py-3 font-bold hover:border-green-500 hover:bg-green-500/10 transition-colors rounded-sm font-mono whitespace-nowrap text-sm"
-              >
-                [ PL ]
-              </a>
-              <button
-                onClick={() => setShowCvOptions(false)}
-                className="flex items-center justify-center text-slate-500 hover:text-slate-300 p-3 transition-colors"
-                aria-label="Cancel"
-              >
-                <X size={20} />
-              </button>
-            </div>
-          )}
+          {renderCvButton(false)}
         </div>
       ) : (
         <form
