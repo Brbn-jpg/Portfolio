@@ -65,62 +65,67 @@ const experience = [
 
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
       
-      {/* LEFT COLUMN */}
-      <div class="lg:col-span-1 space-y-12">
+      {/* SIDEBAR WRAPPER: Becomes transparent on mobile to allow ordering of children */}
+      <div class="contents lg:flex lg:flex-col lg:gap-12 lg:col-span-1">
         
-        {/* Languages */} 
-        <div>
-          <div class="flex items-center gap-3 mb-4 border-b border-slate-800 pb-2">
-            <Code className="text-green-500" size={24} />
-            <h2 class="text-2xl font-bold text-slate-100 font-mono tracking-tight">
-              CORE_LANGS
-            </h2>
+        {/* Languages & Tech (First on both) */}
+        <div class="space-y-12 order-1">
+          {/* Languages */} 
+          <div>
+            <div class="flex items-center gap-3 mb-4 border-b border-slate-800 pb-2">
+              <Code className="text-green-500" size={24} />
+              <h2 class="text-2xl font-bold text-slate-100 font-mono tracking-tight">
+                CORE_LANGS
+              </h2>
+            </div>
+            <div class="text-slate-400 font-mono text-sm space-y-2 mb-8">
+              {languages.map(lang => (
+                <div class="flex justify-between items-center group">
+                  <span class="group-hover:text-slate-200 transition-colors">{lang.name}</span>
+                  <span class={
+                    lang.level === "FOCUS" ? "text-green-400 font-bold" : 
+                    lang.level === "REGULAR" ? "text-cyan-400" : 
+                    "text-slate-500"
+                  }>
+                    [ {lang.level} ]
+                  </span>
+                </div>
+              ))}
+            </div>
           </div>
-          <div class="text-slate-400 font-mono text-sm space-y-2 mb-8">
-            {languages.map(lang => (
-              <div class="flex justify-between items-center group">
-                <span class="group-hover:text-slate-200 transition-colors">{lang.name}</span>
-                <span class={
-                  lang.level === "FOCUS" ? "text-green-400 font-bold" : 
-                  lang.level === "REGULAR" ? "text-cyan-400" : 
-                  "text-slate-500"
-                }>
-                  [ {lang.level} ]
+
+          {/* Technologies */}
+          <div>
+            <h3 class="text-slate-100 font-bold mb-4 flex items-center gap-2 font-mono">
+              <Layers size={18} className="text-green-400" />
+              TECH_ARSENAL
+            </h3>
+            <div class="flex flex-wrap gap-2">
+              {technologies.map(tech => (
+                <span class="bg-slate-900 border border-slate-700 px-3 py-1 text-xs text-slate-300 font-mono rounded hover:border-green-500 hover:text-green-400 transition-colors cursor-default">
+                  {tech}
                 </span>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
 
-        {/* Technologies */}
-        <div>
-          <h3 class="text-slate-100 font-bold mb-4 flex items-center gap-2 font-mono">
-            <Layers size={18} className="text-green-400" />
-            TECH_ARSENAL
-          </h3>
-          <div class="flex flex-wrap gap-2">
-            {technologies.map(tech => (
-              <span class="bg-slate-900 border border-slate-700 px-3 py-1 text-xs text-slate-300 font-mono rounded hover:border-green-500 hover:text-green-400 transition-colors cursor-default">
-                {tech}
-              </span>
-            ))}
-          </div>
-        </div>
-
-        {/* Activity */}
-        <div class="bg-slate-900/50 border border-slate-800 p-6 rounded-lg">
-          <h3 class="text-slate-100 font-bold mb-4 flex items-center gap-2">
-            <Activity size={18} className="text-green-400" />
-            Recent Activity
-          </h3>
-          <div id="commits-container" class="space-y-4 text-sm text-slate-400 font-mono">
-            <p class="text-slate-500">Fetching latest activity...</p>
+        {/* Recent Activity (Last on mobile, follows Tech on desktop) */}
+        <div class="order-3">
+          <div class="bg-slate-900/50 border border-slate-800 p-6 rounded-lg">
+            <h3 class="text-slate-100 font-bold mb-4 flex items-center gap-2">
+              <Activity size={18} className="text-green-400" />
+              Recent Activity
+            </h3>
+            <div id="commits-container" class="space-y-4 text-sm text-slate-400 font-mono">
+              <p class="text-slate-500">Fetching latest activity...</p>
+            </div>
           </div>
         </div>
       </div>
 
-      {/* RIGHT COLUMN: PROJECTS */}
-      <div class="lg:col-span-2">
+      {/* MAIN CONTENT: EXPERIENCE & PROJECTS (Second on mobile) */}
+      <div class="lg:col-span-2 order-2">
         
         {/* Experience Section */}
         <div class="mb-12">

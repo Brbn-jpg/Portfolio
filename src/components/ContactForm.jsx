@@ -100,7 +100,7 @@ const ContactForm = ({ formspreeId }) => {
       </div>
 
       {!isFormVisible ? (
-        <div className="flex flex-row flex-wrap gap-4">
+        <div className="flex flex-row flex-wrap gap-4 justify-center">
           <button
             onClick={() => setIsFormVisible(true)}
             className="flex items-center gap-2 border border-slate-700 text-slate-300 px-6 py-3 font-bold hover:border-green-500 hover:text-green-400 transition-colors rounded-sm font-mono whitespace-nowrap"
