@@ -1,0 +1,51 @@
+<div class="space-y-6 text-slate-400 leading-relaxed">
+  <p>
+    MapGenerator is a full-stack procedural world generator that transforms a single seed into a fully-realized fantasy map. A <span class="text-slate-200 font-bold">Spring Boot</span> backend produces deterministic terrain using <span class="text-slate-200 font-bold">FastNoiseLite</span> and streams it to a <span class="text-slate-200 font-bold">Vue 3 + TypeScript</span> client that renders the entire world on an HTML5 Canvas.
+  </p>
+  <p>
+    The goal of the project is to combine the reproducibility of seed-based generation with the visual richness of hand-crafted maps — stylized water, soft topology shadows, and procedurally-placed cities — while keeping rendering smooth on the client.
+  </p>
+
+  <h3 class="text-2xl font-bold text-slate-200 pt-4 !mt-10 border-t border-slate-800">
+    Core Features
+  </h3>
+  <ul class="list-disc list-inside space-y-3 pl-2">
+    <li><span class="font-bold text-slate-300">Interactive Viewport:</span> Google Maps-style pan and zoom inside a fixed 800x600 viewport, backed by a virtual canvas so only what's visible is drawn each frame.</li>
+    <li><span class="font-bold text-slate-300">Stylized Water Animation:</span> Procedural wave patterns inspired by games like <em>Don't Starve</em>, with dynamic transparency and subtle shoreline ripples.</li>
+    <li><span class="font-bold text-slate-300">Procedural Terrain Textures:</span> Grain, tufts, ridges and ripples are generated client-side in real time so terrain stays crisp at every zoom level.</li>
+    <li><span class="font-bold text-slate-300">Topology &amp; Shadows:</span> Height-gradient shading provides a 3D feel without leaving the 2D rendering pipeline.</li>
+    <li><span class="font-bold text-slate-300">Procedural Cities:</span> Each settlement is rendered with uniquely generated houses and skyscrapers, so no two cities look the same.</li>
+  </ul>
+
+  <h3 class="text-2xl font-bold text-slate-200 pt-4 !mt-10 border-t border-slate-800">
+    Architecture
+  </h3>
+  <p>
+    The system is split into a deterministic generation backend and a presentation-focused frontend, connected by a streaming API.
+  </p>
+
+  <div class="mt-6 mb-6">
+    <pre class="bg-slate-900 border border-slate-800 rounded-md p-4 text-sm text-slate-300 font-mono overflow-x-auto leading-tight">
+      <code class="language-ascii">
+[ Seed ] --&gt; [ Spring Boot + FastNoiseLite ] --&gt; [ Streaming API ]
+                                                       ↓
+                                           [ Vue 3 / TS / Canvas ]
+                                                       ↓
+                                          [ Virtual Canvas Renderer ]
+      </code>
+    </pre>
+  </div>
+
+  <ul class="list-disc list-inside space-y-2 pl-2">
+    <li><span class="font-bold text-slate-300">Backend:</span> Spring Boot, Spring Data JPA, Hibernate, PostgreSQL and FastNoiseLite for noise-based terrain generation.</li>
+    <li><span class="font-bold text-slate-300">Frontend:</span> Vue 3 Composition API, TypeScript, Vite and Axios, rendering directly to HTML5 Canvas.</li>
+    <li><span class="font-bold text-slate-300">Infrastructure:</span> Docker and Docker Compose for one-command local setup of the full stack.</li>
+  </ul>
+
+  <h3 class="text-2xl font-bold text-slate-200 pt-4 !mt-10 border-t border-slate-800">
+    Performance
+  </h3>
+  <p>
+    The renderer uses a virtual canvas hybrid approach: static terrain is pre-rendered into offscreen layers and only animated elements (water, shadows, building details) are redrawn each frame. This keeps the experience smooth even on large worlds while preserving the procedural look at every zoom level.
+  </p>
+</div>

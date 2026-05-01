@@ -35,7 +35,7 @@ const ProjectComponent = projectModule ? projectModule.default : undefined;
         <div class="flex items-center gap-4">
           {project.links.demo && (
             <a href={project.links.demo} target="_blank" rel="noreferrer" class="flex items-center gap-2 border border-slate-700 text-slate-300 px-4 py-2 font-bold hover:border-green-500 hover:text-green-400 transition-colors rounded-sm text-sm">
-              <ArrowRight size={16} /> Live Demo
+              <ArrowRight size={16} /> {project.links.demoLabel ?? "Live Demo"}
             </a>
           )}
           <a href={project.links.github} target="_blank" rel="noreferrer" 
@@ -49,7 +49,7 @@ const ProjectComponent = projectModule ? projectModule.default : undefined;
 
     <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
       <div class="md:col-span-2">
-        {project.links.demo && (
+        {project.links.demo && !project.links.noFreeHostingWarning && (
           <div class="mb-8 p-4 border border-amber-500/30 bg-amber-500/10 rounded-sm text-amber-300 text-sm font-mono leading-relaxed">
             <span class="font-bold">[ATTENTION]</span> The backend for this project is hosted on a free-tier service. It may take a moment to wake up after the first request.
           </div>

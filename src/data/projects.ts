@@ -42,6 +42,29 @@ export const allProjects = [
       "Gamelog is a full-stack web application that helps users organize their video game libraries. It features a Kanban-style dashboard for managing progress, advanced search capabilities, social features like friend requests, and secure user accounts.",
   },
   {
+    slug: "map-generator",
+    name: "MapGenerator",
+    description:
+      "A full-stack procedural world generator that turns a single seed into a fully-realized fantasy map. Combines a Spring Boot backend with a Vue 3 + TypeScript frontend rendering on HTML5 Canvas, with real-time streaming, stylized water animation, and dynamic terrain shading.",
+    lang: "Java, Vue, TypeScript",
+    links: {
+      github: "https://github.com/Brbn-jpg/mapGenerator",
+    },
+    technologies: [
+      "Java",
+      "Spring Boot",
+      "PostgreSQL",
+      "FastNoiseLite",
+      "Vue 3",
+      "TypeScript",
+      "Vite",
+      "HTML5 Canvas",
+      "Docker",
+    ],
+    longDescription:
+      "MapGenerator is a procedural world-building tool that produces interactive fantasy maps from a single seed. The backend, built on Spring Boot with FastNoiseLite, generates terrain data and streams it to the client. The Vue 3 + TypeScript frontend renders the world on an HTML5 Canvas with a Google Maps-style pan/zoom viewport, stylized procedural water animation, dynamic height-gradient shading for 3D depth, and procedurally-generated cities and buildings. A virtual canvas hybrid approach with pre-rendered static terrain keeps rendering performant.",
+  },
+  {
     slug: "cibaria",
     name: "Cibaria",
     description:
@@ -54,5 +77,21 @@ export const allProjects = [
     technologies: ["Java", "Spring Boot", "Angular", "PostgreSQL", "REST API"],
     longDescription:
       "Cibaria is a full-stack solution for recipe enthusiasts. It allows users to create, store, and search for recipes. The backend, built with Spring Boot, exposes a secure and efficient REST API for all data operations. The frontend, developed using Angular, offers a modern and responsive user interface for a seamless experience across devices.",
+  },
+  {
+    slug: "sosniak-portfolio",
+    name: "SosniakPortfolio",
+    description:
+      "A personal portfolio website built for Sebastian Sośniak with Astro, TypeScript and Tailwind CSS. Focused on fast, content-first delivery with a clean, modern presentation of projects and experience.",
+    lang: "Astro, TypeScript",
+    links: {
+      github: "https://github.com/Brbn-jpg/sosniak-portfolio",
+      demo: "https://metricmind.pl",
+      demoLabel: "Live",
+      noFreeHostingWarning: true,
+    },
+    technologies: ["Astro", "TypeScript", "Tailwind CSS", "Vercel"],
+    longDescription:
+      "A bespoke portfolio site designed and built for Sebastian Sośniak. The project uses Astro's island architecture for an extremely fast, mostly-static site, with TypeScript for type-safe components and Tailwind CSS for styling. It is deployed on Vercel with continuous delivery from GitHub, and emphasizes a content-first layout that highlights projects, skills, and contact information.",
   },
 ];
