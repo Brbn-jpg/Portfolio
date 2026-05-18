@@ -94,4 +94,19 @@ export const allProjects = [
     longDescription:
       "A bespoke portfolio site designed and built for Sebastian Sośniak. The project uses Astro's island architecture for an extremely fast, mostly-static site, with TypeScript for type-safe components and Tailwind CSS for styling. It is deployed on Vercel with continuous delivery from GitHub, and emphasizes a content-first layout that highlights projects, skills, and contact information.",
   },
+  {
+    slug: "strefa-sa",
+    name: "StrefaSA",
+    description:
+      "A modern marketing website and in-game store for a Polish MTA:SA server. As a co-owner and co-creator, I developed a cinematic landing page with live statistics and a Stripe-integrated shop.",
+    lang: "Astro, TypeScript",
+    links: {
+      demo: "https://www.strefasa.pl",
+      demoLabel: "Live",
+      noFreeHostingWarning: true,
+    },
+    technologies: ["Astro", "TypeScript", "Vercel", "Stripe Checkout", "Vanilla CSS"],
+    longDescription:
+      "StrefaSA is a comprehensive web presence for an MTA:SA community where I serve as a co-owner and lead developer. It combines a high-performance marketing landing page built with Astro and a custom in-game store. The site emphasizes cinematic visuals and real-time data to build trust with players, while the shop integration provides a seamless path for purchasing in-game assets via Stripe.",
+  },
 ];
