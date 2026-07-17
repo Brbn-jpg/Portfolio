@@ -1,5 +1,32 @@
 export const allProjects = [
   {
+    slug: "todrawn",
+    name: "todrawn.com",
+    description:
+      "An interactive whiteboard SaaS built with Java 21 and Spring Boot on the backend, and Next.js, React, and TypeScript on the frontend. The stack also includes PostgreSQL, Redis, WebSockets, Stripe, Docker, and Google Cloud Run.",
+    lang: "Java, TypeScript",
+    links: {
+      demo: "https://todrawn.com",
+      demoLabel: "Live",
+      noFreeHostingWarning: true,
+    },
+    technologies: [
+      "Java 21",
+      "Spring Boot",
+      "Next.js",
+      "React",
+      "TypeScript",
+      "PostgreSQL",
+      "Redis",
+      "WebSockets",
+      "Stripe",
+      "Docker",
+      "Google Cloud Run",
+    ],
+    longDescription:
+      "todrawn.com is a full-stack interactive whiteboard SaaS. Its technology stack combines Java 21, Spring Boot, Spring Security, PostgreSQL, Redis, and WebSockets with a Next.js, React, TypeScript, Tailwind CSS, and Konva frontend. Stripe handles payments, while Docker, GitHub Actions, and Google Cloud Run support deployment.",
+  },
+  {
     slug: "llama-talks",
     name: "LlamaTalks",
     description:
