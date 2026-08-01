@@ -1,30 +1,259 @@
 ---
+import "@fontsource-variable/jetbrains-mono";
+
+import {
+	DEFAULT_OG_IMAGE,
+	DEFAULT_OG_IMAGE_ALT,
+	PERSON,
+	SITE_NAME,
+	SITE_URL,
+} from "../consts";
+import { locales, ogLocaleOf, type Locale } from "../i18n/config";
+import { absUrl, alternatesFor, pathFor, type Route } from "../i18n/routes";
+import SiteFooter from "../components/siteFooter.astro";
+import JsonLd from "../components/jsonLd.astro";
+import LangSwitcher from "../components/langSwitcher.astro";
+
 interface Props {
+	lang: Locale;
+	route: Route;
 	title: string;
+	/**
+	 * Required on purpose. Every page shipping the same description was possible
+	 * only because the layout supplied a fallback — so there is no fallback.
+	 */
+	description: string;
+	ogType?: "website" | "profile" | "article";
+	ogImage?: string;
+	ogImageAlt?: string;
+	/** 404 only: no canonical, no alternates, noindex. */
+	noindex?: boolean;
+	/**
+	 * The `@type` of this page's own node in the JSON-LD `@graph`. `ProfilePage`
+	 * (home) and `AboutPage` (about) get an implicit `mainEntity` -> Person;
+	 * plain `WebPage` doesn't, unless `mainEntityId` supplies one explicitly.
+	 */
+	pageType?: "WebPage" | "ProfilePage" | "AboutPage";
+	/** Explicit `mainEntity` @id for this page's node, e.g. a project node. */
+	mainEntityId?: string;
+	/** Extra @graph nodes (project, breadcrumb, FAQPage, ...) from the caller. */
+	jsonLd?: Record<string, unknown>[];
 }
 
-const { title } = Astro.props;
+const {
+	lang,
+	route,
+	title,
+	description,
+	ogType = "website",
+	ogImage = DEFAULT_OG_IMAGE,
+	ogImageAlt = DEFAULT_OG_IMAGE_ALT,
+	noindex = false,
+	pageType = "WebPage",
+	mainEntityId,
+	jsonLd: extraNodes = [],
+} = Astro.props;
+
+const canonical = absUrl(pathFor(route, lang));
+const alternates = noindex ? [] : alternatesFor(route);
+const ogImageUrl = new URL(ogImage, SITE_URL).href;
+
+/**
+ * `/pl/404` is a real 200-status file, not a page a user should land on via
+ * the switcher — so on the noindex 404 route the switcher points at `home`
+ * instead of `notFound`, while every other page passes its own `route`
+ * through unchanged (keeping it provably in sync with the hreflang tags above).
+ */
+const switcherRoute: Route = noindex ? { page: "home" } : route;
+
+/**
+ * One `@graph` per page: cross-referencing `@id`s only resolves reliably
+ * within a single graph, and this guarantees `Person` is emitted exactly once
+ * per page. Stable, entity-scoped `@id`s — never suffixed by language — so
+ * `/pl/o-mnie` and `/about` both point at the same `#person`/`#website`
+ * instead of splitting one human into two entities.
+ */
+const PERSON_ID = `${SITE_URL}/#person`;
+const WEBSITE_ID = `${SITE_URL}/#website`;
+const OGIMAGE_ID = `${SITE_URL}/#ogimage`;
+const WEBPAGE_ID = `${canonical}#webpage`;
+
+const personDescription: Record<Locale, string> = {
+	en: "Jakub Kuźnicki is a Java backend developer based in Warsaw, Poland, specialising in Spring Boot, RAG pipelines, and LLM integration.",
+	pl: "Jakub Kuźnicki jest programistą Java (backend) z Warszawy, specjalizującym się w Spring Boot, potokach RAG i integracji z LLM.",
+};
+
+const websiteDescription: Record<Locale, string> = {
+	en: "Personal portfolio of Jakub Kuźnicki (brbn-jpg), Java backend and RAG/LLM developer in Warsaw, Poland.",
+	pl: "Portfolio Jakuba Kuźnickiego (brbn-jpg), programisty Java (backend) i RAG/LLM z Warszawy.",
+};
+
+/**
+ * `Person`, emitted on every indexable page. Deliberately excludes `email`
+ * and `telephone` (a scraping magnet — there's a contact form for that), and
+ * `alumniOf` (`PERSON.alumniOf` is `null`; a missing claim beats a wrong one).
+ * `jobTitle`/`description` vary by `lang`, but the `@id` never does.
+ */
+const personNode = {
+	"@type": "Person",
+	"@id": PERSON_ID,
+	name: PERSON.name,
+	alternateName: PERSON.alternateName,
+	url: SITE_URL,
+	image: { "@id": OGIMAGE_ID },
+	jobTitle: PERSON.jobTitle[lang],
+	description: personDescription[lang],
+	nationality: { "@type": "Country", name: lang === "pl" ? "Polska" : "Poland" },
+	address: {
+		"@type": "PostalAddress",
+		addressLocality: PERSON.city[lang],
+		addressRegion: PERSON.region,
+		addressCountry: PERSON.country,
+	},
+	worksFor: {
+		"@type": "Organization",
+		name: PERSON.employer.name,
+		url: PERSON.employer.url,
+	},
+	hasOccupation: {
+		"@type": "Occupation",
+		name: PERSON.jobTitle[lang],
+		occupationLocation: { "@type": "City", name: PERSON.city[lang] },
+		skills: PERSON.knowsAbout.join(", "),
+	},
+	knowsLanguage: [
+		{ "@type": "Language", name: "Polish" },
+		{ "@type": "Language", name: "English" },
+	],
+	knowsAbout: [...PERSON.knowsAbout],
+	sameAs: [PERSON.github, PERSON.linkedin],
+};
+
+/** `WebSite`, emitted on every indexable page. One node, `inLanguage` covers both locales. */
+const websiteNode = {
+	"@type": "WebSite",
+	"@id": WEBSITE_ID,
+	url: SITE_URL,
+	name: SITE_NAME,
+	alternateName: PERSON.handle,
+	description: websiteDescription[lang],
+	inLanguage: [...locales],
+	publisher: { "@id": PERSON_ID },
+	author: { "@id": PERSON_ID },
+	mainEntity: { "@id": PERSON_ID },
+	copyrightHolder: { "@id": PERSON_ID },
+};
+
+/** `ImageObject`, the shared OG image. Another agent generates the file itself into `public/`. */
+const ogImageNode = {
+	"@type": "ImageObject",
+	"@id": OGIMAGE_ID,
+	url: absUrl(DEFAULT_OG_IMAGE),
+	contentUrl: absUrl(DEFAULT_OG_IMAGE),
+	width: 1200,
+	height: 630,
+	caption: DEFAULT_OG_IMAGE_ALT,
+};
+
+const resolvedMainEntityId =
+	mainEntityId ??
+	(pageType === "ProfilePage" || pageType === "AboutPage" ? PERSON_ID : undefined);
+
+/**
+ * This page's own node. No `dateModified`: deriving it from `new Date()` at
+ * build time would claim every page changed on every deploy, and a wrong date
+ * is worse than a missing one.
+ */
+const pageNode = {
+	"@type": pageType,
+	"@id": WEBPAGE_ID,
+	url: canonical,
+	name: title,
+	description,
+	inLanguage: lang,
+	isPartOf: { "@id": WEBSITE_ID },
+	...(resolvedMainEntityId ? { mainEntity: { "@id": resolvedMainEntityId } } : {}),
+};
+
+/** No graph at all when noindex (404): nothing here is meant to be indexed or cited. */
+const jsonLdGraph = noindex
+	? null
+	: {
+			"@context": "https://schema.org",
+			"@graph": [personNode, websiteNode, ogImageNode, pageNode, ...extraNodes],
+		};
 ---
 
 <!doctype html>
-<html lang="en" class="bg-[#0a0f1a] text-slate-300 selection:bg-green-500/30 selection:text-green-200">
+<html lang={lang} class="bg-[#0a0f1a] text-slate-300 selection:bg-green-500/30 selection:text-green-200">
 	<head>
 		<meta charset="UTF-8" />
-		<meta name="description" content="Jakub Kuźnicki - Java Backend Developer" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/jpeg" href="/images/favicon.jpg" />
-		<meta name="generator" content={Astro.generator} />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<title>{title}</title>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+		<meta name="description" content={description} />
+
+		{noindex
+			? <meta name="robots" content="noindex, follow" />
+			: <meta name="robots" content="index, follow, max-image-preview:large" />}
+		{!noindex && <link rel="canonical" href={canonical} />}
+		{alternates.map((a) => <link rel="alternate" hreflang={a.hreflang} href={a.href} />)}
+
+		<meta property="og:type" content={ogType} />
+		<meta property="og:site_name" content={SITE_NAME} />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:url" content={canonical} />
+		<meta property="og:image" content={ogImageUrl} />
+		<meta property="og:image:width" content="1200" />
+		<meta property="og:image:height" content="630" />
+		<meta property="og:image:alt" content={ogImageAlt} />
+		<meta property="og:locale" content={ogLocaleOf[lang]} />
+		{locales.filter((l) => l !== lang).map((l) => (
+			<meta property="og:locale:alternate" content={ogLocaleOf[l]} />
+		))}
+
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content={title} />
+		<meta name="twitter:description" content={description} />
+		<meta name="twitter:image" content={ogImageUrl} />
+		<meta name="twitter:image:alt" content={ogImageAlt} />
+
+		<meta name="author" content={PERSON.name} />
+		<meta name="theme-color" content="#0a0f1a" />
+		<link rel="me" href={PERSON.github} />
+		<link rel="me" href={PERSON.linkedin} />
+
+		<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+		<link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
+		<link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" />
+		<meta name="generator" content={Astro.generator} />
+
+		{jsonLdGraph && <JsonLd data={jsonLdGraph} />}
 	</head>
 	<body class="font-sans relative min-h-screen">
-    <div class="fixed inset-0 z-0 pointer-events-none opacity-10" 
+    <div class="fixed inset-0 z-0 pointer-events-none opacity-10"
           style="background-image: radial-gradient(#22c55e 1px, transparent 1px); background-size: 40px 40px;">
     </div>
+		<LangSwitcher route={switcherRoute} lang={lang} />
 		<slot />
+		<SiteFooter lang={lang} />
 	</body>
 </html>
 
 <style is:global>
-  .font-mono { font-family: 'JetBrains Mono', monospace; }
+	/*
+	 * PRODUCT.md requires reduced-motion-friendly behaviour; the codebase uses
+	 * animate-pulse freely with no guard. CSS cannot stop a setTimeout loop, so
+	 * JS-driven animations check matchMedia separately.
+	 */
+	@media (prefers-reduced-motion: reduce) {
+		*,
+		*::before,
+		*::after {
+			animation-duration: 0.01ms !important;
+			animation-iteration-count: 1 !important;
+			transition-duration: 0.01ms !important;
+			scroll-behavior: auto !important;
+		}
+	}
 </style>

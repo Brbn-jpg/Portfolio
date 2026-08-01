@@ -1,0 +1,68 @@
+---
+/**
+ * FAQ section for /about.
+ *
+ * Q&A pairs live in the `about` dictionary (`t.about.faq.items`), keyed by a
+ * declared `FaqId` union rather than a plain array, so a translator dropping
+ * an entry is a compile error, not a missing card in production.
+ *
+ * `getFaqItems(lang)` is exported so `about.astro` can build the FAQPage
+ * JSON-LD `acceptedAnswer.text` from the exact same dictionary values this
+ * component renders — one source, so the visible copy and the JSON-LD can
+ * never drift apart (a mismatch there is a spam signal).
+ *
+ * Every answer's first sentence is written to be true and complete with zero
+ * surrounding context (it names Jakub Kuźnicki), so it survives being lifted
+ * out of the page by a retrieval system.
+ */
+import { useTranslations } from '../i18n/utils';
+import type { Locale } from '../i18n/config';
+import type { FaqEntry, FaqId } from '../i18n/en/about';
+
+export function getFaqItems(lang: Locale): FaqEntry[] {
+  /**
+   * Rendering order — a presentation concern, not translation content.
+   *
+   * Declared INSIDE this function on purpose: Astro hoists exported frontmatter
+   * functions into module scope while plain `const`s stay inside the component's
+   * render function, so a module-scope reference from here would throw
+   * "FAQ_ORDER is not defined" at render time — and `astro check` does not catch it.
+   */
+  const order: FaqId[] = [
+    'whoIsBrbn',
+    'techStack',
+    'ragExperience',
+    'location',
+    'openToWork',
+    'largestProject',
+    'whyBrbnJpg',
+  ];
+  const items = useTranslations(lang).about.faq.items;
+  return order.map((id) => items[id]);
+}
+
+export interface Props {
+  lang: Locale;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const items = getFaqItems(lang);
+---
+
+<section id="faq" class="mb-16">
+  <h2 class="text-3xl font-bold text-slate-100 font-mono tracking-tight mb-2 flex items-center gap-3">
+    <span class="text-green-500">#</span> {t.about.faq.heading}
+  </h2>
+  <p class="text-slate-400 mb-8">{t.about.faq.subtitle}</p>
+  <div class="space-y-6">
+    {items.map((item) => (
+      <div class="bg-slate-900/50 border border-slate-800 rounded-lg p-6">
+        <h3 class="text-lg font-bold text-slate-200 mb-2 font-mono">
+          <span class="text-green-500" aria-hidden="true">$</span> {item.question}
+        </h3>
+        <p class="text-slate-400 text-sm leading-relaxed">{item.answer}</p>
+      </div>
+    ))}
+  </div>
+</section>

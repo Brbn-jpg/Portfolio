@@ -1,0 +1,41 @@
+---
+/**
+ * Rendered by layout.astro on every page, so the privacy policy is reachable
+ * from everywhere. Previously only index.astro had a footer, which would have
+ * orphaned /privacy from 8 of 10 pages.
+ */
+import { Wifi } from "lucide-react";
+import type { Locale } from "../i18n/config";
+import { pathFor } from "../i18n/routes";
+import { useTranslations } from "../i18n/utils";
+
+interface Props {
+	lang: Locale;
+}
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+const year = new Date().getFullYear();
+---
+
+<footer
+	class="relative z-10 max-w-5xl mx-auto px-6 mt-24 pt-8 pb-12 border-t border-slate-800 text-center text-slate-500 text-sm font-mono flex flex-col md:flex-row justify-between items-center gap-4"
+>
+	<div>&copy; {year} Brbn-jpg.</div>
+	<div class="flex flex-wrap gap-6 items-center justify-center">
+		<a href={pathFor({ page: "about" }, lang)} class="hover:text-slate-300 transition-colors">
+			{t.common.footer.aboutLabel}
+		</a>
+		<a href={pathFor({ page: "privacy" }, lang)} class="hover:text-slate-300 transition-colors">
+			{t.common.footer.privacyLabel}
+		</a>
+		<span class="flex items-center gap-2">
+			<span class="w-2 h-2 rounded-full bg-blue-500"></span>
+			{t.common.footer.employedStatus}
+		</span>
+		<span class="flex items-center gap-1">
+			<Wifi size={14} />
+			Warsaw, PL
+		</span>
+	</div>
+</footer>

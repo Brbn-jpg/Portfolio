@@ -1,0 +1,48 @@
+---
+import DetailHeading from '../detailHeading.astro';
+---
+<div class="space-y-6 text-slate-400 leading-relaxed">
+  <p>
+    todrawn.com is a full-stack interactive whiteboard SaaS, built end-to-end with a <span class="text-slate-200 font-bold">Java 21</span> and <span class="text-slate-200 font-bold">Spring Boot</span> backend and a <span class="text-slate-200 font-bold">Next.js</span>, <span class="text-slate-200 font-bold">React</span>, and <span class="text-slate-200 font-bold">TypeScript</span> frontend. It is currently deployed and running in production at <a class="text-green-400 hover:underline" href="https://todrawn.com" target="_blank" rel="noreferrer">todrawn.com</a>.
+  </p>
+  <p>
+    The canvas itself is rendered with <span class="text-slate-200 font-bold">Konva</span>, while <span class="text-slate-200 font-bold">WebSockets</span> carry real-time board updates between connected clients. <span class="text-slate-200 font-bold">PostgreSQL</span> persists boards and account data, and <span class="text-slate-200 font-bold">Redis</span> backs the parts of the system that need fast, short-lived state.
+  </p>
+
+  <DetailHeading>Technical Architecture</DetailHeading>
+  <ul class="list-disc list-inside space-y-2 pl-2 mt-4">
+    <li>
+      <span class="font-bold text-slate-300">Backend (Spring Boot):</span> Built on Java 21, with <span class="text-green-400 font-mono">Spring Security</span> handling authentication and authorization for the API.
+    </li>
+    <li>
+      <span class="font-bold text-slate-300">Frontend (Next.js / React):</span> A TypeScript codebase styled with <span class="text-slate-200 font-bold">Tailwind CSS</span>, with the whiteboard canvas itself implemented on top of Konva.
+    </li>
+    <li>
+      <span class="font-bold text-slate-300">Real-Time Layer:</span> WebSockets propagate drawing and board state between clients, with Redis used alongside PostgreSQL for state that doesn't belong in the primary data store.
+    </li>
+    <li>
+      <span class="font-bold text-slate-300">Data & Persistence:</span> PostgreSQL is the system of record for boards, accounts, and related data.
+    </li>
+  </ul>
+
+  <div class="mt-6 mb-6">
+    <pre class="bg-slate-900 border border-slate-800 rounded-md p-4 text-sm text-slate-300 font-mono overflow-x-auto leading-tight">
+      <code class="language-ascii">
+[ Next.js / React / Konva ] &lt;--WebSocket--&gt; [ Spring Boot API ]
+                                                    ↓
+                                    [ PostgreSQL ]     [ Redis ]
+      </code>
+    </pre>
+  </div>
+
+  <DetailHeading>Payments &amp; Deployment</DetailHeading>
+  <p>
+    Billing runs through <span class="text-slate-200 font-bold">Stripe</span>, integrated directly into the Spring Boot backend. Shipping and hosting are containerized and automated:
+  </p>
+  <ul class="list-disc list-inside space-y-2 pl-2">
+    <li><span class="font-bold text-slate-300">Payments:</span> Stripe handles subscription and payment processing for the SaaS.</li>
+    <li><span class="font-bold text-slate-300">Containerization:</span> The application is packaged with <span class="text-slate-200 font-bold">Docker</span> for consistent builds across environments.</li>
+    <li><span class="font-bold text-slate-300">CI/CD:</span> <span class="text-slate-200 font-bold">GitHub Actions</span> automates the build and deployment pipeline.</li>
+    <li><span class="font-bold text-slate-300">Hosting:</span> The backend runs on <span class="text-slate-200 font-bold">Google Cloud Run</span>.</li>
+  </ul>
+</div>

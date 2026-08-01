@@ -1,0 +1,77 @@
+---
+import { Github, ArrowRight, ArrowLeft } from 'lucide-react';
+import { projectDetails, type ProjectId } from '../project-details/registry';
+import { localize, type Project } from '../../data/projects';
+import { useTranslations } from '../../i18n/utils';
+import { pathFor } from '../../i18n/routes';
+import type { Locale } from '../../i18n/config';
+
+interface Props {
+  lang: Locale;
+  project: Project;
+}
+
+const { lang, project } = Astro.props;
+const t = useTranslations(lang);
+const p = localize(project, lang);
+const ProjectComponent = projectDetails[lang][project.slug as ProjectId];
+const demoLabel = t.projects.demoLabels[project.links.demoLabel ?? 'demo'];
+const backHref = `${pathFor({ page: 'home' }, lang)}#repositories`;
+---
+<main class="relative z-10 max-w-4xl mx-auto px-6 py-12 md:py-20">
+  <div class="mb-8">
+    <a href={backHref} class="flex items-center gap-2 text-slate-400 hover:text-green-400 transition-colors font-mono text-sm">
+      <ArrowLeft size={16} />
+      {t.projects.backToProjects}
+    </a>
+  </div>
+
+  <header class="mb-12 border-b border-slate-800 pb-8">
+    <h1 class="text-5xl md:text-6xl font-black text-slate-100 mb-4 tracking-tight">{p.name}</h1>
+    <div class="flex items-center justify-between">
+      <div class="text-sm font-mono text-slate-500">
+        {t.projects.languagesLabel} <span class="text-slate-300">{p.lang}</span>
+      </div>
+      <div class="flex items-center gap-4">
+        {p.links.demo && (
+          <a href={p.links.demo} target="_blank" rel="noreferrer" class="flex items-center gap-2 border border-slate-700 text-slate-300 px-4 py-2 font-bold hover:border-green-500 hover:text-green-400 transition-colors rounded-sm text-sm">
+            <ArrowRight size={16} /> {demoLabel}
+          </a>
+        )}
+        {p.links.github && (
+          <a href={p.links.github} target="_blank" rel="noreferrer"
+             class="flex items-center gap-2 bg-slate-800 text-slate-300 px-4 py-2 font-bold hover:bg-green-500/20 hover:text-green-300 transition-colors rounded-sm text-sm">
+            <Github size={16} />
+            {t.projects.viewOnGithub}
+          </a>
+        )}
+      </div>
+    </div>
+  </header>
+
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+    <div class="md:col-span-2">
+      {p.links.demo && !p.links.noFreeHostingWarning && (
+        <div class="mb-8 p-4 border border-amber-500/30 bg-amber-500/10 rounded-sm text-amber-300 text-sm font-mono leading-relaxed">
+          <span class="font-bold">{t.projects.freeHostingWarning.marker}</span> {t.projects.freeHostingWarning.text}
+        </div>
+      )}
+
+      {ProjectComponent ? (
+        <ProjectComponent />
+      ) : (
+        <p class="text-slate-400 leading-relaxed">{p.longDescription}</p>
+      )}
+    </div>
+    <div class="md:col-span-1">
+      <h3 class="text-slate-100 font-bold mb-4 flex items-center gap-2 font-mono text-lg tracking-tight">
+        {t.projects.technologiesUsed}
+      </h3>
+      <div class="flex flex-wrap gap-2">
+        {p.technologies.map(tech => (
+          <span class="bg-slate-900 border border-slate-700 px-3 py-1 text-xs text-slate-300 font-mono rounded">{tech}</span>
+        ))}
+      </div>
+    </div>
+  </div>
+</main>

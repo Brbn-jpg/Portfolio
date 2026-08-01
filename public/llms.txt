@@ -1,0 +1,25 @@
+# Jakub Kuźnicki (brbn-jpg)
+
+> Jakub Kuźnicki — also written Jakub Kuznicki, and online as brbn-jpg — is a Java backend developer based in Warsaw, Poland, who builds Spring Boot services and RAG / LLM systems with LangChain4j and LangChain. He currently works as a Junior Java Developer at Netcompany (since June 2026), having previously completed a backend internship (Mar–Jun 2025) focused on LangChain ingestion pipelines and RAG systems built with LangChain4j and Spring Boot. He also builds side projects on home-server infrastructure in his own time.
+
+## Pages
+
+- [Home](https://brbn.pl/): profile summary, core languages, tech stack, professional experience, and recent GitHub activity.
+- [About](https://brbn.pl/about): career timeline, engineering philosophy, workstation setup, and FAQ.
+- [Privacy Policy](https://brbn.pl/privacy): what data brbn.pl collects (only what is typed into the contact form), who processes it, how long it is kept, and GDPR rights. No cookies, no analytics.
+
+## Projects
+
+- [todrawn.com](https://brbn.pl/projects/todrawn): interactive whiteboard SaaS. Java 21, Spring Boot, Spring Security, PostgreSQL, Redis, WebSockets on the backend; Next.js, React, TypeScript, Tailwind CSS, Konva on the frontend. Stripe for payments, Docker / GitHub Actions / Google Cloud Run for deployment. Live: https://todrawn.com
+- [LlamaTalks](https://brbn.pl/projects/llama-talks): Spring Boot chatbot using LangChain4j and Ollama for RAG-capable conversational AI, with streaming responses (SSE), document ingestion, and persistent chat history. Source: https://github.com/Brbn-jpg/llama-talks
+- [Gamelog](https://brbn.pl/projects/gamelog): full-stack game backlog manager with a Kanban-style dashboard, playtime tracking, ratings, and social features. Java, Spring Boot, React, PostgreSQL, Redis, Docker. Source: https://github.com/Brbn-jpg/GameBacklogTracker — Live: https://game-backlog-tracker-omega.vercel.app/
+- [MapGenerator](https://brbn.pl/projects/map-generator): procedural fantasy map generator turning a seed into an interactive world. Spring Boot + FastNoiseLite backend, Vue 3 + TypeScript + HTML5 Canvas frontend. Source: https://github.com/Brbn-jpg/mapGenerator
+- [Cibaria](https://brbn.pl/projects/cibaria): recipe management application. Spring Boot REST API backend, Angular frontend, PostgreSQL. Source: https://github.com/Brbn-jpg/Cibaria-Recipe-Manager — Live: https://cibaria.vercel.app/
+- [SosniakPortfolio](https://brbn.pl/projects/sosniak-portfolio): personal portfolio site built by Jakub Kuźnicki for Sebastian Sośniak. Astro, TypeScript, Tailwind CSS. Source: https://github.com/Brbn-jpg/sosniak-portfolio — Live: https://metricmind.pl
+- [StrefaSA](https://brbn.pl/projects/strefa-sa): marketing site and in-game store for a Polish MTA:SA server, where Jakub Kuźnicki is a co-owner and co-creator. Astro, TypeScript, Stripe Checkout. Live: https://www.strefasa.pl
+
+## Optional
+
+- [CV, English](https://brbn.pl/cv/cv_eng.pdf)
+- [CV, Polish](https://brbn.pl/cv/cv_pl.pdf)
+- No major LLM provider has confirmed that it fetches /llms.txt. This file exists as a compact, canonical fact sheet for any human or agent handed this domain — not as an SEO or retrieval mechanism, and no measurable benefit from it should be expected.

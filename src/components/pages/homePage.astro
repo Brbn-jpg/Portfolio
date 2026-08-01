@@ -1,0 +1,225 @@
+---
+/**
+ * Body of `/`, extracted so `src/pages/index.astro` can shrink to a thin
+ * `<Layout>` delegate (matching `aboutPage.astro`/`projectPage.astro`). The
+ * build-time GitHub fetch stays in `index.astro` (page-level data, not view
+ * concern) and reaches this component as the `recentCommits` prop.
+ *
+ * `languages` and `technologies` are proper-noun data (language/tool names) —
+ * never translated, so they come straight from `data/experience.ts` with no
+ * localization step, same treatment as `Project.technologies`.
+ */
+import GlitchText from '../glitchText.astro';
+import IdentityBlock from '../identityBlock.astro';
+import ContactForm from '../ContactForm.jsx';
+import ProjectCard from '../projectCard.astro';
+import { allProjects, localize } from '../../data/projects';
+import { languages, technologies, localizeExperience } from '../../data/experience';
+import { useTranslations } from '../../i18n/utils';
+import type { Locale } from '../../i18n/config';
+import { Github, Code, Activity, Server, Layers, ArrowRight, Briefcase } from 'lucide-react';
+
+interface Commit {
+  repo: string;
+  message: string;
+  sha: string;
+  url: string;
+  date: string;
+}
+
+interface Props {
+  lang: Locale;
+  recentCommits: Commit[];
+}
+
+const { lang, recentCommits } = Astro.props;
+const t = useTranslations(lang);
+const home = t.home;
+const experience = localizeExperience(lang);
+
+/** Splits a commit date into a value + unit letter; `home.agoSuffix` supplies the localized word ("ago" / "temu"). */
+function formatAgo(dateString: string): { value: number; unit: 's' | 'm' | 'h' | 'd' } {
+  const date = new Date(dateString);
+  const now = new Date();
+  const seconds = Math.round((now.getTime() - date.getTime()) / 1000);
+  const minutes = Math.round(seconds / 60);
+  const hours = Math.round(minutes / 60);
+  const days = Math.round(hours / 24);
+
+  if (seconds < 60) return { value: seconds, unit: 's' };
+  if (minutes < 60) return { value: minutes, unit: 'm' };
+  if (hours < 24) return { value: hours, unit: 'h' };
+  return { value: days, unit: 'd' };
+}
+---
+
+<main class="relative z-10 max-w-5xl mx-auto px-6 py-12 md:py-20">
+
+  {/* HEADER */}
+  <header class="min-h-[100dvh] flex flex-col justify-center items-center text-center mb-20 py-12">
+    <div class="relative pt-12">
+      <div class="absolute top-0 left-1/2 -translate-x-1/2 px-3 py-1 rounded-full border border-green-500/30 bg-green-500/10 text-green-400 text-xs font-mono animate-pulse whitespace-nowrap">
+        {home.statusPill}
+      </div>
+      <p class="font-mono text-sm text-green-400 mt-2" aria-hidden="true">{home.whoamiPrompt}</p>
+      <h1 class="text-5xl md:text-7xl font-black text-slate-100 tracking-tight">
+        JAKUB <GlitchText text="KUŹNICKI" />
+      </h1>
+      <p class="font-mono text-sm text-slate-400 mt-4 mb-6">
+        {home.tagline.prefix} <span class="text-green-400">brbn-jpg</span> · {home.tagline.role} · {home.tagline.location}
+      </p>
+    </div>
+    <p class="text-xl text-slate-400 max-w-3xl mx-auto mb-8 leading-relaxed">
+      {home.heroParagraph.map((part) =>
+        part.highlight ? <span class="text-green-400 font-bold">{part.text}</span> : part.text
+      )}
+    </p>
+
+    <div class="mb-8 text-center">
+      <a href="/about" class="inline-flex items-center gap-2 text-green-400 font-mono text-sm hover:text-green-300 transition-colors group">
+        {home.moreAboutMe} <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
+      </a>
+    </div>
+
+    <div class="mb-12">
+      <ContactForm client:idle formspreeId="xgvddwnz" locale={lang} t={t.contact} />
+    </div>
+
+    <IdentityBlock lang={lang} />
+  </header>
+
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+
+    {/* SIDEBAR WRAPPER: Becomes transparent on mobile to allow ordering of children */}
+    <div class="contents lg:flex lg:flex-col lg:gap-12 lg:col-span-1">
+
+      {/* Languages & Tech (First on both) */}
+      <div class="space-y-12 order-1">
+        {/* Languages */}
+        <div>
+          <div class="flex items-center gap-3 mb-4 border-b border-slate-800 pb-2">
+            <Code className="text-green-500" size={24} />
+            <h2 class="text-2xl font-bold text-slate-100 font-mono tracking-tight">
+              {home.sections.coreLangs.heading}
+            </h2>
+          </div>
+          <p class="text-slate-400 text-sm mb-4 leading-relaxed">
+            {home.sections.coreLangs.lead}
+          </p>
+          <div class="text-slate-400 font-mono text-sm space-y-2 mb-8">
+            {languages.map(language => (
+              <div class="flex justify-between items-center group">
+                <span class="group-hover:text-slate-200 transition-colors">{language.name}</span>
+                <span class={
+                  language.level === "FOCUS" ? "text-green-400 font-bold" :
+                  language.level === "REGULAR" ? "text-cyan-400" :
+                  "text-slate-500"
+                }>
+                  [ {home.levelLabels[language.level]} ]
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Technologies */}
+        <div>
+          <h2 class="text-slate-100 font-bold mb-4 flex items-center gap-2 font-mono">
+            <Layers size={18} className="text-green-400" />
+            {home.sections.techArsenal.heading}
+          </h2>
+          <p class="text-slate-400 text-sm mb-4 leading-relaxed">
+            {home.sections.techArsenal.lead}
+          </p>
+          <div class="flex flex-wrap gap-2">
+            {technologies.map(tech => (
+              <span class="bg-slate-900 border border-slate-700 px-3 py-1 text-xs text-slate-300 font-mono rounded hover:border-green-500 hover:text-green-400 transition-colors cursor-default">
+                {tech}
+              </span>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Recent Activity (Last on mobile, follows Tech on desktop) */}
+      <div class="order-3">
+        <div class="bg-slate-900/50 border border-slate-800 p-6 rounded-lg">
+          <h2 class="text-slate-100 font-bold mb-4 flex items-center gap-2">
+            <Activity size={18} className="text-green-400" />
+            {home.recentActivity}
+          </h2>
+          <div class="space-y-4 text-sm text-slate-400 font-mono">
+            {recentCommits.length === 0 ? (
+              <p class="text-slate-500">{home.couldNotFetchActivity}</p>
+            ) : (
+              <ul class="space-y-4">
+                {recentCommits.map((commit) => {
+                  const ago = formatAgo(commit.date);
+                  return (
+                    <li class="flex gap-3">
+                      <span class="text-slate-600 flex-shrink-0 w-16 text-right">{ago.value}{ago.unit} {home.agoSuffix}</span>
+                      <a
+                        href={commit.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="truncate hover:text-green-400 transition-colors"
+                        title={commit.message}
+                      >
+                        {commit.message}
+                      </a>
+                    </li>
+                  );
+                })}
+              </ul>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {/* MAIN CONTENT: EXPERIENCE & PROJECTS (Second on mobile) */}
+    <div class="lg:col-span-2 order-2">
+
+      {/* Experience Section */}
+      <div class="mb-12">
+        <div class="flex items-center gap-3 mb-8 border-b border-slate-800 pb-2">
+          <Briefcase className="text-green-500" size={24} />
+          <h2 class="text-2xl font-bold text-slate-100 font-mono tracking-tight">{home.sections.professionalExp.heading}</h2>
+        </div>
+        <p class="text-slate-400 text-sm mb-4 leading-relaxed">
+          {home.sections.professionalExp.lead}
+        </p>
+        <div class="space-y-6">
+          {experience.map(exp => (
+            <div class="bg-slate-900/50 border border-slate-800 p-6 rounded-lg hover:border-green-500/50 transition-colors group">
+              <div class="flex flex-col md:flex-row md:justify-between md:items-start mb-2 gap-1">
+                <h3 class="text-lg font-bold text-slate-200 group-hover:text-green-400 transition-colors">{exp.role}</h3>
+                <span class="text-xs font-mono text-slate-500 bg-slate-900 px-2 py-1 rounded border border-slate-800">{exp.period}</span>
+              </div>
+              <div class="text-sm font-mono text-green-500 mb-3">{exp.company}</div>
+              <p class="text-slate-400 text-sm leading-relaxed">{exp.description}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div id="repositories" class="flex items-center gap-3 mb-8 border-b border-slate-800 pb-2 scroll-mt-20">
+        <Server className="text-green-500" size={24} />
+        <h2 class="text-2xl font-bold text-slate-100 font-mono tracking-tight">{home.sections.repositories.heading}</h2>
+      </div>
+      <p class="text-slate-400 text-sm mb-4 leading-relaxed">
+        {home.sections.repositories.lead}
+      </p>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {allProjects.map((project) => <ProjectCard project={localize(project, lang)} lang={lang} />)}
+
+        {/* Placeholder More */}
+        <a href="https://github.com/Brbn-jpg" target="_blank" rel="noreferrer" class="border border-dashed border-slate-800 p-5 flex flex-col items-center justify-center text-slate-500 hover:text-slate-300 hover:border-slate-600 transition-all cursor-pointer group rounded-sm">
+          <Github size={32} className="mb-2 opacity-50 group-hover:scale-110 transition-transform" />
+          <span class="font-mono text-sm">{home.checkGithubForMore}</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+</main>

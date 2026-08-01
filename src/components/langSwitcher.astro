@@ -1,0 +1,47 @@
+---
+/**
+ * Rendered by `layout.astro` on every page. Takes the exact same `Route` value
+ * the layout uses to build hreflang alternates — never re-derives a path from
+ * `Astro.url` or re-implements slug logic — so the switcher and the hreflang
+ * tags in `<head>` cannot physically point at different URLs for the same page.
+ *
+ * Visual idiom deliberately echoes the existing `LANG:` / `[ ENG ] [ PL ]`
+ * treatment in `ContactForm.jsx`: bracketed, mono, uppercase. No flags, no
+ * dropdown, no globe icon.
+ */
+import { locales, labelOf, hreflangOf, type Locale } from '../i18n/config';
+import { pathFor, type Route } from '../i18n/routes';
+import { useTranslations } from '../i18n/utils';
+
+interface Props {
+  route: Route;
+  lang: Locale;
+}
+
+const { route, lang } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<nav
+  aria-label="Language"
+  class="fixed top-3 right-3 md:top-4 md:right-4 z-30 flex items-center gap-1.5 rounded-sm border border-slate-800 bg-[#0a0f1a]/85 backdrop-blur-sm px-2 py-1 font-mono text-[11px] md:text-xs uppercase tracking-wider text-slate-400"
+>
+  <span aria-hidden="true">{t.common.langSwitcherLabel}</span>
+  {locales.map((l, i) => (
+    <>
+      {i > 0 && <span aria-hidden="true" class="text-slate-700">|</span>}
+      {l === lang ? (
+        <span aria-current="true" class="text-green-400 font-bold">[ {labelOf[l]} ]</span>
+      ) : (
+        <a
+          href={pathFor(route, l)}
+          hreflang={hreflangOf[l]}
+          lang={l}
+          class="rounded-sm text-slate-400 hover:text-green-400 transition-colors focus-visible:outline focus-visible:outline-1 focus-visible:outline-green-500"
+        >
+          [ {labelOf[l]} ]
+        </a>
+      )}
+    </>
+  ))}
+</nav>

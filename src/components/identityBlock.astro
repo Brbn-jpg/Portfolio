@@ -1,0 +1,89 @@
+---
+/**
+ * Replaces terminalBlock.astro.
+ *
+ * terminalBlock rendered four decorative lines with zero informational value,
+ * and — critically — shipped an EMPTY container that client JS then typed
+ * into: a crawler that doesn't execute JS saw nothing there at all.
+ *
+ * This block is driven entirely by IDENTITY (src/consts.ts) and rendered as a
+ * semantic <dl> server-side, so it can never drift from the JSON-LD Person
+ * node a later phase adds, and it is present in the HTML from the first byte.
+ *
+ * A <pre> of raw JSON would make screen readers announce every brace, quote
+ * and comma. Instead the JSON punctuation is decorative: it lives in
+ * aria-hidden spans, while <dt>/<dd> carry the real, readable content.
+ *
+ * Chosen variant: STATIC, no typing animation. The plan allowed either, on
+ * the condition that if a typing effect is kept, the <dl> must already be in
+ * the server-rendered HTML and only ever be revealed, never typed into the
+ * DOM. Going static sidesteps that trap entirely — there is no window in
+ * which the container is empty, no reduced-motion branch to maintain, and no
+ * risk of the animation script failing silently and leaving the block
+ * looking broken. The `$ cat identity.json` line is static for the same
+ * reason: consistency with the rest of the block.
+ */
+import { identityFor } from "../consts";
+import type { Locale } from "../i18n/config";
+
+interface Props {
+  lang: Locale;
+}
+const { lang } = Astro.props;
+const identity = identityFor(lang);
+
+const isList = (value: string | readonly string[]): value is readonly string[] =>
+  Array.isArray(value);
+---
+
+<div class="bg-slate-900 rounded-lg border border-slate-700 p-4 font-mono text-sm shadow-2xl mb-12 w-full max-w-2xl mx-auto text-left">
+  <div class="flex gap-2 mb-4 border-b border-slate-800 pb-2 flex-shrink-0">
+    <div class="w-3 h-3 rounded-full bg-red-500"></div>
+    <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+    <div class="w-3 h-3 rounded-full bg-green-500"></div>
+  </div>
+
+  <p class="text-slate-300 mb-2">
+    <span class="text-green-400" aria-hidden="true">$</span> cat identity.json
+  </p>
+
+  <div class="max-h-72 overflow-y-auto pr-1">
+    <p class="text-slate-500" aria-hidden="true">{"{"}</p>
+    <dl class="pl-4 space-y-1.5">
+      {identity.map((row, i) => {
+        const list = isList(row.value) ? row.value : null;
+        return (
+          <div class="flex flex-wrap items-baseline gap-x-1">
+            <dt class="text-cyan-400">
+              <span aria-hidden="true">"</span>{row.key}<span aria-hidden="true">"</span
+              ><span class="text-slate-500" aria-hidden="true">:</span>
+            </dt>
+            <dd class="text-slate-200">
+              {list ? (
+                <>
+                  <span class="text-slate-500" aria-hidden="true">[</span>
+                  {list.map((item, idx) => (
+                    <>
+                      <span aria-hidden="true">"</span>{item}<span aria-hidden="true">"</span>{
+                        idx < list.length - 1 && (
+                          <><span class="text-slate-500" aria-hidden="true">,</span> </>
+                        )
+                      }
+                    </>
+                  ))}
+                  <span class="text-slate-500" aria-hidden="true">]</span>
+                </>
+              ) : (
+                <>
+                  <span aria-hidden="true">"</span>{row.value}<span aria-hidden="true">"</span>
+                </>
+              )}
+              {i < identity.length - 1 && <span class="text-slate-500" aria-hidden="true">,</span>}
+            </dd>
+          </div>
+        );
+      })}
+    </dl>
+    <p class="text-slate-500" aria-hidden="true">{"}"}</p>
+  </div>
+</div>

@@ -1,0 +1,24 @@
+---
+/**
+ * Converted from glitchText.jsx. The entire effect is CSS
+ * (`group-hover:opacity-70`, `group-hover:translate-x-[2px]`) — no state, no
+ * effects, no handlers — so `client:visible` was shipping react + react-dom
+ * to power a CSS `:hover`. This is a plain Astro component: identical markup
+ * and classes, zero client JS.
+ */
+interface Props {
+  text: string;
+}
+
+const { text } = Astro.props;
+---
+
+<span class="relative inline-block group">
+  <span class="relative z-10">{text}</span>
+  <span class="absolute top-0 left-0 -z-10 w-full h-full text-green-500 opacity-0 group-hover:opacity-70 group-hover:translate-x-[2px] transition-all duration-100 select-none">
+    {text}
+  </span>
+  <span class="absolute top-0 left-0 -z-10 w-full h-full text-red-500 opacity-0 group-hover:opacity-70 group-hover:-translate-x-[2px] transition-all duration-100 select-none">
+    {text}
+  </span>
+</span>

@@ -1,0 +1,84 @@
+---
+/**
+ * Body of `/404`. Unlike every other `pages/*` component, this one is NOT
+ * parameterized by a single `lang` prop — it renders BOTH language blocks
+ * server-side and picks one client-side.
+ *
+ * Why: Vercel serves only the root static error document for any unmatched
+ * path, so `/pl/some-typo` gets served the exact same `404.html` as
+ * `/some-typo` — there is no per-locale 404 document. Rendering only the
+ * English block would show English copy to a Polish visitor who mistyped a
+ * `/pl/...` URL. Both blocks ship in the same HTML; a tiny inline script
+ * picks the right one based on `location.pathname`.
+ *
+ * Head placement note: `layout.astro` owns the entire `<head>` with no slot
+ * for page-supplied head content, and it's out of scope to edit here. A
+ * literal `<head>` placement of the locale-detection script therefore isn't
+ * reachable from this component (or from `404.astro`, which only ever
+ * renders into `<Layout>`'s body `<slot />`). The closest available
+ * equivalent — and what's implemented below — is running the script as the
+ * very first thing in `<body>`, before either language block exists in the
+ * DOM, so it still completes before anything is painted and there is no
+ * flash of the wrong language.
+ */
+import { ArrowLeft } from 'lucide-react';
+import { useTranslations } from '../../i18n/utils';
+import { pathFor } from '../../i18n/routes';
+import { locales, type Locale } from '../../i18n/config';
+
+const blocks = locales.map((lang: Locale) => ({
+  lang,
+  t: useTranslations(lang),
+  homeHref: pathFor({ page: 'home' }, lang),
+}));
+---
+
+<script is:inline>
+  if (location.pathname.startsWith('/pl/')) {
+    document.documentElement.classList.add('is-pl');
+  }
+</script>
+
+<main class="relative z-10 max-w-4xl mx-auto px-6 min-h-screen flex flex-col justify-center items-center text-center">
+  {blocks.map(({ lang, t, homeHref }) => (
+    <div class={`i18n-404 i18n-404--${lang}`} lang={lang}>
+      <div class="font-mono text-green-500 text-xs tracking-widest uppercase mb-6 animate-pulse">
+        {t.notFound.exeLabel}
+      </div>
+
+      <h1 class="text-[8rem] md:text-[12rem] font-black text-slate-100 leading-none tracking-tighter select-none">
+        404
+      </h1>
+
+      <div class="mt-4 mb-10 w-full max-w-md bg-slate-900 border border-slate-800 rounded-sm p-4 text-left font-mono text-sm">
+        <span class="text-green-400">$</span>
+        <span class="text-slate-400"> {t.notFound.terminal.prefix}</span><span class="text-slate-200">{t.notFound.terminal.target}</span><span class="text-slate-400">{t.notFound.terminal.suffix}</span>
+        <br />
+        <span class="text-red-400 mt-1 block">{t.notFound.terminal.error}</span>
+      </div>
+
+      <p class="text-slate-500 font-mono text-sm mb-6">
+        {t.notFound.body}
+      </p>
+
+      <a
+        href={homeHref}
+        class="flex items-center gap-2 border border-slate-700 text-slate-300 px-6 py-3 font-bold font-mono hover:border-green-500 hover:text-green-400 transition-colors rounded-sm text-sm"
+      >
+        <ArrowLeft size={16} />
+        {t.common.backToHome}
+      </a>
+    </div>
+  ))}
+</main>
+
+<style is:global>
+  /* Default (no JS, or JS ran before path was known): show EN, hide PL. */
+  html:not(.is-pl) .i18n-404--pl {
+    display: none;
+  }
+  /* `.is-pl` is added by the inline script above for any `/pl/*` path. */
+  html.is-pl .i18n-404--en {
+    display: none;
+  }
+</style>

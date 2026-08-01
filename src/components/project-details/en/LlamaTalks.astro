@@ -1,3 +1,6 @@
+---
+import DetailHeading from '../detailHeading.astro';
+---
 <div class="space-y-6 text-slate-400 leading-relaxed">
   <p>
     LlamaTalks is a sophisticated Spring Boot-based chatbot application that democratizes access to advanced AI by leveraging local LLMs through Ollama. It integrates <span class="text-slate-200 font-bold">LangChain4j</span> to orchestrate complex conversational flows and implements a robust <span class="text-slate-200 font-bold">Retrieval-Augmented Generation (RAG)</span> pipeline. This allows users to chat with their own data, ensuring responses are grounded in provided context rather than just the model's training data.
@@ -6,9 +9,7 @@
     Designed for performance and scalability, the application supports fully reactive, real-time response streaming using Reactor/Flux and Server-Sent Events (SSE). It creates a seamless "typing" effect similar to commercial LLM interfaces.
   </p>
 
-  <h3 class="text-2xl font-bold text-slate-200 pt-4 !mt-10 border-t border-slate-800">
-    Technical Architecture
-  </h3>
+  <DetailHeading>Technical Architecture</DetailHeading>
   <p>
     The system follows a modular microservices-ready architecture:
   </p>
@@ -37,9 +38,7 @@
     </pre>
   </div>
 
-  <h3 class="text-2xl font-bold text-slate-200 pt-4 !mt-10 border-t border-slate-800">
-    Key Features
-  </h3>
+  <DetailHeading>Key Features</DetailHeading>
   <ul class="list-disc list-inside space-y-2 pl-2">
     <li><span class="font-bold text-slate-300">Context-Aware RAG:</span> Dynamically retrieves relevant information from uploaded documents to answer user queries accurately.</li>
     <li><span class="font-bold text-slate-300">Streaming API:</span> Utilizing Spring WebFlux principles for non-blocking, real-time token streaming.</li>

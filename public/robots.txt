@@ -1,0 +1,70 @@
+# https://brbn.pl/robots.txt
+#
+# Policy: this is a personal portfolio. Its whole purpose is to be read, indexed
+# and quoted — by search engines and by AI systems alike. Retrieval bots produce
+# the citations; training bots let a model answer "who is Jakub Kuznicki" without
+# retrieving anything at all. Both are wanted, so both are allowed.
+#
+# The one exception is /cv/, which contains personal contact details that do not
+# belong in a search index or a training corpus. The CVs stay downloadable from
+# the site itself — robots.txt does not affect direct navigation.
+#
+# NOTE: robots.txt groups are NOT additive. A crawler obeys exactly one group —
+# its most specific User-agent match — and ignores * entirely. That is why
+# `Disallow: /cv/` is repeated inside every named group below.
+
+User-agent: *
+Allow: /
+Disallow: /cv/
+
+# --- Search / retrieval crawlers (these produce the citations) ---------------
+
+User-agent: OAI-SearchBot
+Allow: /
+Disallow: /cv/
+
+User-agent: ChatGPT-User
+Allow: /
+Disallow: /cv/
+
+User-agent: Claude-SearchBot
+Allow: /
+Disallow: /cv/
+
+User-agent: Claude-User
+Allow: /
+Disallow: /cv/
+
+User-agent: PerplexityBot
+Allow: /
+Disallow: /cv/
+
+User-agent: Perplexity-User
+Allow: /
+Disallow: /cv/
+
+# --- Training crawlers: allowed on purpose -----------------------------------
+# Google-Extended is a robots.txt token, not a user agent: it controls Gemini
+# grounding/training and has no effect on Google Search ranking.
+
+User-agent: GPTBot
+Allow: /
+Disallow: /cv/
+
+User-agent: ClaudeBot
+Allow: /
+Disallow: /cv/
+
+User-agent: Google-Extended
+Allow: /
+Disallow: /cv/
+
+User-agent: Applebot-Extended
+Allow: /
+Disallow: /cv/
+
+User-agent: CCBot
+Allow: /
+Disallow: /cv/
+
+Sitemap: https://brbn.pl/sitemap.xml
