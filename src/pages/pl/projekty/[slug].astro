@@ -1,10 +1,10 @@
 ---
-import { allProjects, localize } from '../../data/projects';
-import Layout from '../../layouts/layout.astro';
-import ProjectPage from '../../components/pages/projectPage.astro';
-import { SITE_URL } from '../../consts';
-import { absUrl, pathFor } from '../../i18n/routes';
-import { useTranslations } from '../../i18n/utils';
+import { allProjects, localize } from '../../../data/projects';
+import Layout from '../../../layouts/layout.astro';
+import ProjectPage from '../../../components/pages/projectPage.astro';
+import { SITE_URL } from '../../../consts';
+import { absUrl, pathFor } from '../../../i18n/routes';
+import { useTranslations } from '../../../i18n/utils';
 
 export async function getStaticPaths() {
   return allProjects.map(project => ({
@@ -14,7 +14,7 @@ export async function getStaticPaths() {
 }
 
 const { project } = Astro.props;
-const lang = 'en' as const;
+const lang = 'pl' as const;
 const t = useTranslations(lang);
 const localized = localize(project, lang);
 
@@ -36,7 +36,7 @@ const webpageId = `${pageCanonical}#webpage`;
  * the `/#repositories` section of the homepage — Google resolves fragment
  * URLs fine, and the `name` carries the actual signal. The last item has no
  * `item`: it's the current page. Rung names come from `t.projects.breadcrumb`
- * so PL gets translated rung names for free once PL project pages exist.
+ * so PL gets translated rung names here.
  */
 const breadcrumbNode = {
   '@type': 'BreadcrumbList',
@@ -91,7 +91,7 @@ const projectNode =
       };
 ---
 <Layout
-  lang="en"
+  lang={lang}
   route={{ page: 'project', project }}
   title={localized.seo.title}
   description={localized.seo.description}

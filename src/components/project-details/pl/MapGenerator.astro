@@ -1,0 +1,48 @@
+---
+import DetailHeading from '../detailHeading.astro';
+---
+<div class="space-y-6 text-slate-400 leading-relaxed">
+  <p>
+    MapGenerator to pełnofunkcjonalny generator świata proceduralnego, który transformuje jedno ziarno w w pełni zrealizowaną mapę fantasy. <span class="text-slate-200 font-bold">Spring Boot</span> backend produkuje deterministyczny teren przy użyciu <span class="text-slate-200 font-bold">FastNoiseLite</span> i przesyła go do klienta <span class="text-slate-200 font-bold">Vue 3 + TypeScript</span>, który renderuje cały świat na kanwie HTML5 Canvas.
+  </p>
+  <p>
+    Celem projektu jest połączenie powtarzalności generacji opartej na ziarnie z bogatością wizualną ręcznie tworzonej mapy — stylizowana woda, miękkie cienie topografii i proceduralne rozmieszczone miasta — przy jednoczesnym utrzymaniu gładkiej renderyzacji na kliencie.
+  </p>
+
+  <DetailHeading>Kluczowe funkcje</DetailHeading>
+  <ul class="list-disc list-inside space-y-3 pl-2">
+    <li><span class="font-bold text-slate-300">Interaktywny widok:</span> Panning i zoom w stylu Google Maps wewnątrz stałego widoku 800x600, wspierany przez wirtualną kanwę, dzięki czemu każdą ramkę rysowana jest tylko widoczna część.</li>
+    <li><span class="font-bold text-slate-300">Animacja stylizowanej wody:</span> Proceduralne wzory fal zainspirowane grami takimi jak <em>Don't Starve</em>, z dynamiczną przezroczystością i subtelnym falowaniem linii brzegu.</li>
+    <li><span class="font-bold text-slate-300">Tekstury proceduralne terenu:</span> Ziarno, pęczki, grzbiery i falowania są generowane po stronie klienta w czasie rzeczywistym, dzięki czemu teren pozostaje ostry na każdym poziomie powiększenia.</li>
+    <li><span class="font-bold text-slate-300">Topografia i cienie:</span> Cieniowanie gradientu wysokości zapewnia wrażenie 3D bez opuszczania potoku renderowania 2D.</li>
+    <li><span class="font-bold text-slate-300">Miasta proceduralne:</span> Każda osada jest renderowana z unikalnie wygenerowanymi domami i wieżowcami, dzięki czemu żadne dwa miasta nie wyglądają tak samo.</li>
+  </ul>
+
+  <DetailHeading>Architektura</DetailHeading>
+  <p>
+    System jest podzielony na deterministyczny backend generacji i frontend skoncentrowany na prezentacji, połączony poprzez streaming API.
+  </p>
+
+  <div class="mt-6 mb-6">
+    <pre class="bg-slate-900 border border-slate-800 rounded-md p-4 text-sm text-slate-300 font-mono overflow-x-auto leading-tight">
+      <code class="language-ascii">
+[ Seed ] --&gt; [ Spring Boot + FastNoiseLite ] --&gt; [ Streaming API ]
+                                                       ↓
+                                           [ Vue 3 / TS / Canvas ]
+                                                       ↓
+                                          [ Virtual Canvas Renderer ]
+      </code>
+    </pre>
+  </div>
+
+  <ul class="list-disc list-inside space-y-2 pl-2">
+    <li><span class="font-bold text-slate-300">Backend:</span> Spring Boot, Spring Data JPA, Hibernate, PostgreSQL i FastNoiseLite do generacji terenu opartej na szumie.</li>
+    <li><span class="font-bold text-slate-300">Frontend:</span> Vue 3 Composition API, TypeScript, Vite i Axios, renderowanie bezpośrednio do HTML5 Canvas.</li>
+    <li><span class="font-bold text-slate-300">Infrastruktura:</span> Docker i Docker Compose do lokalnej konfiguracji całego stosu za jedno polecenie.</li>
+  </ul>
+
+  <DetailHeading>Wydajność</DetailHeading>
+  <p>
+    Renderer używa hybrydowego podejścia wirtualnej kanwy: statyczny teren jest wstępnie renderowany w warstwy poza ekranem, a tylko elementy animowane (woda, cienie, szczegóły budynków) są przerysowywane każdą ramkę. To utrzymuje gładkość doświadczenia nawet na dużych światach, przy jednoczesnym zachowaniu wyglądu proceduralnego na każdym poziomie powiększenia.
+  </p>
+</div>

@@ -1,0 +1,282 @@
+---
+/**
+ * Body of /about, extracted so `src/pages/about.astro` can shrink to a thin
+ * `<Layout>` delegate. Hardware model names, project names and other
+ * untranslatable proper nouns are hardcoded here as data rather than pulled
+ * from the dictionary — a dictionary entry is an invitation to translate.
+ */
+import { Image, getImage } from 'astro:assets';
+import { ArrowLeft, X, Cpu, Brain, Bike, Dumbbell, Code, Zap, BookOpen } from 'lucide-react';
+import Faq from '../faq.astro';
+import { useTranslations } from '../../i18n/utils';
+import { pathFor } from '../../i18n/routes';
+import type { Locale } from '../../i18n/config';
+import bike from '../../assets/about/bike.png';
+import fullSetup from '../../assets/about/fullSetup.jpg';
+import pc from '../../assets/about/pc.png';
+import mnk from '../../assets/about/mnk.png';
+
+interface Props {
+  lang: Locale;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const about = t.about;
+
+const fullSetupFull = (await getImage({ src: fullSetup, width: 1600, format: 'webp', quality: 78 })).src;
+const pcFull = (await getImage({ src: pc, width: 1600, format: 'webp', quality: 78 })).src;
+const mnkFull = (await getImage({ src: mnk, width: 1600, format: 'webp', quality: 78 })).src;
+
+const homeHref = pathFor({ page: 'home' }, lang);
+---
+<main class="relative z-10 max-w-5xl mx-auto px-6 py-12 md:py-20">
+  <div class="mb-8">
+    <a href={homeHref} class="flex items-center gap-2 text-slate-400 hover:text-green-400 transition-colors font-mono text-sm">
+      <ArrowLeft size={16} />
+      {about.backToHome}
+    </a>
+  </div>
+
+  <header class="mb-12 border-b border-slate-800 pb-8">
+    <h1 class="text-5xl md:text-6xl font-black text-slate-100 mb-4 tracking-tight">{about.header.title}</h1>
+    <p class="text-xl text-slate-400">{about.header.subtitle}</p>
+  </header>
+
+  <section id="about-me-intro" class="mb-16">
+    <div class="bg-slate-900/30 border border-slate-800 p-8 rounded-lg">
+      <h2 class="text-3xl font-bold text-slate-100 font-mono tracking-tight mb-4">{about.whoIAm.heading}</h2>
+      <p class="text-slate-300 leading-relaxed">
+        {about.whoIAm.paragraphs[0]}
+      </p>
+      <p class="text-slate-300 leading-relaxed mt-2">
+        {about.whoIAm.paragraphs[1]}
+      </p>
+      <p class="text-slate-300 leading-relaxed mt-2">
+        {about.whoIAm.paragraphs[2]}
+      </p>
+    </div>
+  </section>
+
+  <Faq lang={lang} />
+
+  <section id="interests" class="mb-16">
+    <h2 class="text-3xl font-bold text-slate-100 font-mono tracking-tight mb-8 flex items-center gap-3">
+      <span class="text-green-500">#</span> {about.interests.heading}
+    </h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div class="bg-slate-900/50 border border-slate-800 p-6 rounded-lg">
+        <div class="flex items-center gap-3 mb-3">
+          <Cpu size={24} className="text-blue-400" />
+          <h3 class="text-xl font-bold text-slate-200">{about.interests.cards.techHardware.title}</h3>
+        </div>
+        <p class="text-slate-400 text-sm">{about.interests.cards.techHardware.body}</p>
+      </div>
+      <div class="bg-slate-900/50 border border-slate-800 p-6 rounded-lg">
+        <div class="flex items-center gap-3 mb-3">
+          <Brain size={24} className="text-purple-400" />
+          <h3 class="text-xl font-bold text-slate-200">{about.interests.cards.ragLlm.title}</h3>
+        </div>
+        <p class="text-slate-400 text-sm">{about.interests.cards.ragLlm.body}</p>
+      </div>
+      <div class="bg-slate-900/50 border border-slate-800 p-6 rounded-lg flex flex-col">
+        <div class="flex items-center gap-3 mb-3">
+          <Bike size={24} className="text-orange-400" />
+          <h3 class="text-xl font-bold text-slate-200">{about.interests.cards.cycling.title}</h3>
+        </div>
+        <p class="text-slate-400 text-sm mb-4">{about.interests.cards.cycling.body}</p>
+        <Image src={bike} alt={about.interests.bikeAlt} width={200} height={96} class="mt-auto mx-auto h-24 object-contain" loading="lazy" />
+      </div>
+      <div class="bg-slate-900/50 border border-slate-800 p-6 rounded-lg">
+        <div class="flex items-center gap-3 mb-3">
+          <Dumbbell size={24} className="text-red-400" />
+          <h3 class="text-xl font-bold text-slate-200">{about.interests.cards.gym.title}</h3>
+        </div>
+        <p class="text-slate-400 text-sm">{about.interests.cards.gym.body}</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="timeline" class="mb-16">
+    <h2 class="text-3xl font-bold text-slate-100 font-mono tracking-tight mb-12 flex items-center gap-3">
+      <span class="text-green-500">#</span> {about.timeline.heading}
+    </h2>
+    <div class="relative border-l-2 border-slate-800 ml-4">
+      <div class="space-y-12">
+
+        <div class="relative pl-12">
+          <div class="absolute -left-[11px] top-1 w-5 h-5 bg-green-500 rounded-full border-4 border-slate-900"></div>
+          <h3 class="text-xl font-bold text-slate-200 mb-1 font-mono">{about.timeline.entries.yearOne.title}</h3>
+          <p class="text-slate-400 text-sm">{about.timeline.entries.yearOne.body}</p>
+        </div>
+
+        <div class="relative pl-12">
+          <div class="absolute -left-[11px] top-1 w-5 h-5 bg-green-500 rounded-full border-4 border-slate-900"></div>
+          <h3 class="text-xl font-bold text-slate-200 mb-1 font-mono">{about.timeline.entries.yearTwo.title}</h3>
+          <p class="text-slate-400 text-sm">{about.timeline.entries.yearTwo.body}</p>
+        </div>
+
+        <div class="relative pl-12">
+          <div class="absolute -left-[11px] top-1 w-5 h-5 bg-green-500 rounded-full border-4 border-slate-900"></div>
+          <h3 class="text-xl font-bold text-slate-200 mb-1 font-mono">{about.timeline.entries.yearThree.title}</h3>
+          <p class="text-slate-400 text-sm">{about.timeline.entries.yearThree.body}</p>
+        </div>
+
+        <div class="relative pl-12">
+          <div class="absolute -left-[11px] top-1 w-5 h-5 bg-green-500 rounded-full border-4 border-slate-900"></div>
+          <h3 class="text-xl font-bold text-slate-200 mb-1 font-mono">{about.timeline.entries.yearFour.title}</h3>
+          <p class="text-slate-400 text-sm">{about.timeline.entries.yearFour.body}</p>
+        </div>
+
+        <div class="relative pl-12">
+          <div class="absolute -left-[11px] top-1 w-5 h-5 bg-green-500 rounded-full border-4 border-slate-900"></div>
+          <h3 class="text-xl font-bold text-slate-200 mb-1 font-mono">{about.timeline.entries.present.title}</h3>
+          <p class="text-slate-400 text-sm">{about.timeline.entries.present.body}</p>
+        </div>
+
+        <div class="relative pl-12">
+          <div class="absolute -left-[11px] top-1 w-5 h-5 bg-slate-700 rounded-full border-4 border-slate-900"></div>
+          <h3 class="text-xl font-bold text-slate-200 mb-1 font-mono">{about.timeline.entries.future.title}</h3>
+          <p class="text-slate-400 text-sm">{about.timeline.entries.future.body}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="philosophy" class="mb-16">
+    <h2 class="text-3xl font-bold text-slate-100 font-mono tracking-tight mb-8 flex items-center gap-3">
+      <span class="text-green-500">#</span> {about.philosophy.heading}
+    </h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="bg-slate-900/50 border border-slate-800 p-6 rounded-lg">
+        <div class="flex items-center gap-3 mb-3">
+          <Code size={24} className="text-green-400" />
+          <h3 class="text-xl font-bold text-slate-200">{about.philosophy.cards.cleanCode.title}</h3>
+        </div>
+        <p class="text-slate-400 text-sm">{about.philosophy.cards.cleanCode.body}</p>
+      </div>
+      <div class="bg-slate-900/50 border border-slate-800 p-6 rounded-lg">
+        <div class="flex items-center gap-3 mb-3">
+          <BookOpen size={24} className="text-yellow-400" />
+          <h3 class="text-xl font-bold text-slate-200">{about.philosophy.cards.continuousLearning.title}</h3>
+        </div>
+        <p class="text-slate-400 text-sm">{about.philosophy.cards.continuousLearning.body}</p>
+      </div>
+      <div class="bg-slate-900/50 border border-slate-800 p-6 rounded-lg">
+        <div class="flex items-center gap-3 mb-3">
+          <Zap size={24} className="text-cyan-400" />
+          <h3 class="text-xl font-bold text-slate-200">{about.philosophy.cards.problemSolving.title}</h3>
+        </div>
+        <p class="text-slate-400 text-sm">{about.philosophy.cards.problemSolving.body}</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="my-setup" class="mb-16">
+    <h2 class="text-3xl font-bold text-slate-100 font-mono tracking-tight mb-8 flex items-center gap-3">
+      <span class="text-green-500">#</span> {about.mySetup.heading}
+    </h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <Image src={fullSetup} alt={about.mySetup.imageAlts.fullSetup} widths={[400, 800, 1200]} sizes="(min-width: 768px) 33vw, 100vw" format="webp" quality={72} data-full={fullSetupFull} class="gallery-img rounded-lg border border-slate-800 object-cover hover:border-green-500 transition-colors h-64 w-full cursor-pointer" loading="lazy" decoding="async" />
+      <Image src={pc} alt={about.mySetup.imageAlts.pc} widths={[400, 800, 1200]} sizes="(min-width: 768px) 33vw, 100vw" format="webp" quality={72} data-full={pcFull} class="gallery-img rounded-lg border border-slate-800 object-cover hover:border-green-500 transition-colors h-64 w-full cursor-pointer" loading="lazy" decoding="async" />
+      <Image src={mnk} alt={about.mySetup.imageAlts.mnk} widths={[400, 800, 1200]} sizes="(min-width: 768px) 33vw, 100vw" format="webp" quality={72} data-full={mnkFull} class="gallery-img rounded-lg border border-slate-800 object-cover hover:border-green-500 transition-colors h-64 w-full cursor-pointer" loading="lazy" decoding="async" />
+    </div>
+  </section>
+
+  <section id="gear-list" class="mt-16">
+    <h2 class="text-3xl font-bold text-slate-100 font-mono tracking-tight mb-8 flex items-center gap-3">
+      <span class="text-green-500">#</span> {about.gearList.heading}
+    </h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-8 font-mono text-slate-400 text-sm">
+
+      <div>
+        <h3 class="text-lg font-bold text-slate-200 mb-3 border-b border-slate-700 pb-2">{about.gearList.pcHeading}</h3>
+        <ul class="space-y-1 list-disc list-inside">
+          <li><span class="font-bold text-slate-300">{about.gearList.labels.cpu}:</span> Ryzen 7 5800X3D</li>
+          <li><span class="font-bold text-slate-300">{about.gearList.labels.ram}:</span> 32GB Trident Z 3200Mhz</li>
+          <li><span class="font-bold text-slate-300">{about.gearList.labels.mobo}:</span> B450 Gigabyte Aorus Elite</li>
+          <li><span class="font-bold text-slate-300">{about.gearList.labels.gpu}:</span> RTX 4070 Super Aorus Master</li>
+          <li><span class="font-bold text-slate-300">{about.gearList.labels.ssd1}:</span> Patriot P400 Lite 1TB</li>
+          <li><span class="font-bold text-slate-300">{about.gearList.labels.ssd2}:</span> Lexar NM620 2TB</li>
+          <li><span class="font-bold text-slate-300">{about.gearList.labels.case}:</span> NZXT H7 Flow</li>
+          <li><span class="font-bold text-slate-300">{about.gearList.labels.cooler}:</span> Arctic Liquid Freezer III 360mm</li>
+        </ul>
+      </div>
+
+      <div>
+        <h3 class="text-lg font-bold text-slate-200 mb-3 border-b border-slate-700 pb-2">{about.gearList.peripheralsHeading}</h3>
+        <ul class="space-y-1 list-disc list-inside">
+          <li><span class="font-bold text-slate-300">{about.gearList.labels.keyboard}:</span> Custom (Case 5075 VIA, Akko Botany switches, BoW Keycaps)</li>
+          <li><span class="font-bold text-slate-300">{about.gearList.labels.mouse}:</span> Dark project Nexus</li>
+          <li>
+            <span class="font-bold text-slate-300">{about.gearList.labels.monitors}:</span>
+            <del class="text-slate-500">iiyama GB3461WQSU</del>
+            <span aria-hidden="true">→</span>
+            <ins class="text-slate-300 no-underline">Alienware AW3425DW</ins>
+            & PL2470HS
+          </li>
+          <li><span class="font-bold text-slate-300">{about.gearList.labels.microphone}:</span> Novox NC1</li>
+          <li><span class="font-bold text-slate-300">{about.gearList.labels.headphones}:</span> Arctis 7 & Airpods 2 Pro</li>
+        </ul>
+      </div>
+
+      <div class="md:col-span-2">
+        <h3 class="text-lg font-bold text-slate-200 mb-3 border-b border-slate-700 pb-2">{about.gearList.laptopHeading}</h3>
+        <ul class="space-y-1 list-disc list-inside">
+          <li>Macbook Pro 14" (M1 Pro, 10c CPU, 16c GPU, 16GB RAM, 1TB SSD)</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- Lightbox Modal -->
+<div id="lightbox" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden grid place-items-center p-4 opacity-0 transition-opacity duration-300">
+  <button id="lightbox-close" class="absolute top-6 right-6 text-slate-400 hover:text-white transition-colors z-50">
+    <X size={32} />
+  </button>
+  <img id="lightbox-img" alt="" class="max-h-[85vh] max-w-[90vw] object-contain rounded-lg shadow-2xl" />
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+    const lightboxClose = document.getElementById('lightbox-close');
+    const galleryImages = document.querySelectorAll('.gallery-img');
+
+    if (!lightbox || !lightboxImg || !lightboxClose) return;
+
+    const openLightbox = (src: string, alt: string) => {
+      lightboxImg.setAttribute('src', src);
+      lightboxImg.setAttribute('alt', alt);
+      lightbox.classList.remove('hidden');
+      setTimeout(() => lightbox.classList.remove('opacity-0'), 10);
+    };
+
+    const closeLightbox = () => {
+      lightbox.classList.add('opacity-0');
+      setTimeout(() => {
+        lightbox.classList.add('hidden');
+        lightboxImg.removeAttribute('src');
+        lightboxImg.setAttribute('alt', '');
+      }, 300);
+    };
+
+    galleryImages.forEach(img => {
+      img.addEventListener('click', () => {
+        const full = (img as HTMLElement).dataset.full;
+        const alt = img.getAttribute('alt') ?? '';
+        if (full) {
+          openLightbox(full, alt);
+        }
+      });
+    });
+
+    lightboxClose.addEventListener('click', closeLightbox);
+    lightbox.addEventListener('click', (e) => {
+      if (e.target === lightbox) closeLightbox();
+    });
+  });
+</script>

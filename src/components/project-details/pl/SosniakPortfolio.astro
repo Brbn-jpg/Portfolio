@@ -1,0 +1,27 @@
+---
+import DetailHeading from '../detailHeading.astro';
+---
+<div class="space-y-6 text-slate-400 leading-relaxed">
+  <p>
+    Osobista strona portfolio zbudowana dla <span class="text-slate-200 font-bold">Sebastiana Sośniaka</span>, zaprojektowana, aby zaprezentować jego projekty, umiejętności i doświadczenie w czystym, zorientowanym na treść układzie. Strona jest zbudowana za pomocą <span class="text-slate-200 font-bold">Astro</span>, <span class="text-slate-200 font-bold">TypeScript</span> i <span class="text-slate-200 font-bold">Tailwind CSS</span> i wdrożona na Vercel.
+  </p>
+  <p>
+    Wymagania były proste: szybkie ładowanie, nowoczesny wygląd i łatwość utrzymania. Architektura wysp Astro umożliwiła dostarczenie prawie całkowicie statycznego HTML, jednocześnie pozwalając na małe komponenty interaktywne tam, gdzie dodają wartość.
+  </p>
+
+  <DetailHeading>Najważniejsze cechy</DetailHeading>
+  <ul class="list-disc list-inside space-y-3 pl-2">
+    <li><span class="font-bold text-slate-300">Wydajność oparta na statyce:</span> Strony są renderowane do statycznego HTML w czasie kompilacji, dzięki czemu pierwsze malowanie jest prawie natychmiastowe na każdym połączeniu.</li>
+    <li><span class="font-bold text-slate-300">Komponenty bezpieczne pod względem typów:</span> TypeScript w całej bazie kodu zapewnia bezpieczną refaktoryzację w miarę wzrostu witryny.</li>
+    <li><span class="font-bold text-slate-300">Projekt napędzany Tailwind:</span> Stylizowanie oparte na utylitach umożliwia spójny język wizualny bez rozrostu niestandardowego CSS.</li>
+    <li><span class="font-bold text-slate-300">Ciągłe wdrażanie:</span> Hostowana na Vercel z automatycznym tworzeniem kompilacji podglądu przy każdym push, więc witryna zawsze odzwierciedla najnowszy commit na gałęzi main.</li>
+  </ul>
+
+  <DetailHeading>Stos technologiczny</DetailHeading>
+  <ul class="list-disc list-inside space-y-2 pl-2">
+    <li><span class="font-bold text-slate-300">Framework:</span> Astro do renderowania statycznego i kompozycji komponentów.</li>
+    <li><span class="font-bold text-slate-300">Język:</span> TypeScript dla bezpieczeństwa typów w komponentach i narzędziach.</li>
+    <li><span class="font-bold text-slate-300">Stylizacja:</span> Tailwind CSS dla szybkiego, spójnego systemu projektowania.</li>
+    <li><span class="font-bold text-slate-300">Hosting:</span> Vercel, z witryną dostępną na <a class="text-green-400 hover:underline" href="https://metricmind.pl" target="_blank" rel="noreferrer">metricmind.pl</a>.</li>
+  </ul>
+</div>

@@ -1,17 +1,25 @@
 ---
+import type { LocalizedProject } from '../data/projects';
+import type { Locale } from '../i18n/config';
+import { pathFor } from '../i18n/routes';
+
+/**
+ * Takes an already-localized project, not the raw `Project` — the raw shape
+ * has `description: {en, pl}`, and Astro `interface Props` is compile-time
+ * only, so accepting it here would silently render `[object Object]` instead
+ * of failing the build. Requiring `LocalizedProject` makes skipping
+ * `localize()` a type error at the call site instead.
+ */
 interface Props {
-  project: {
-    slug: string;
-    name: string;
-    description: string;
-    technologies: string[];
-  };
+  project: LocalizedProject;
+  lang: Locale;
 }
 
-const { project } = Astro.props;
+const { project, lang } = Astro.props;
+const href = pathFor({ page: 'project', project }, lang);
 ---
 
-<a href={`/projects/${project.slug}`} class="bg-slate-900/50 border border-slate-800 p-5 rounded-sm flex flex-col group hover:border-green-500 transition-colors">
+<a href={href} class="bg-slate-900/50 border border-slate-800 p-5 rounded-sm flex flex-col group hover:border-green-500 transition-colors">
   <h3 class="text-lg font-bold text-slate-100 mb-2 group-hover:text-green-400 transition-colors">
     {project.name}
   </h3>

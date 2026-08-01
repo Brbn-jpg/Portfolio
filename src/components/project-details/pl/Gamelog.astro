@@ -1,0 +1,46 @@
+---
+import DetailHeading from '../detailHeading.astro';
+---
+<div class="space-y-6 text-slate-400 leading-relaxed">
+  <p>
+    Gamelog to kompleksowa pełnofunkcjonalna aplikacja zaprojektowana, aby pomóc graczom w zarządzaniu rosnącym zalogiem. Zapewnia scentralizowane centrum do śledzenia postępu gry, oceny tytułów i udostępniania bibliotek przyjaciołom.
+  </p>
+  <p>
+    Zbudowana nowoczesnym stosem technologicznym ze <span class="text-slate-200 font-bold">Spring Boot 3</span> na backendzie i <span class="text-slate-200 font-bold">React 19</span> na frontendem, zapewnia responsywne i solidne doświadczenie użytkownika. System jest zaprojektowany jako aplikacja rozproszona, wykorzystująca Docker do orkiestracji.
+  </p>
+
+  <DetailHeading>Architektura techniczna</DetailHeading>
+  <p>
+    Projekt przyjmuje warstwową architekturę w celu rozdzielenia problemów i zapewnienia łatwości utrzymania.
+  </p>
+  <ul class="list-disc list-inside space-y-2 pl-2 mt-4">
+    <li>
+      <span class="font-bold text-slate-300">Backend (Spring Boot 3):</span> Wykorzystuje Java 21 i Spring Security dla solidnej ochrony API. Wykorzystuje <span class="text-green-400 font-mono">Redis</span> do buforowania danych tymczasowych, takich jak kody weryfikacyjne e-mail i linki resetowania hasła, optymalizując wydajność i bezpieczeństwo dla krótkotrwałych tokenów.
+    </li>
+    <li>
+      <span class="font-bold text-slate-300">Frontend (React 19):</span> Aplikacja jednostronicowa (SPA) stylizowana za pomocą Tailwind CSS. Wykorzystuje React Context API do globalnego zarządzania stanem i React DnD dla interaktywnej tablicy Kanban.
+    </li>
+    <li>
+      <span class="font-bold text-slate-300">Baza danych i infrastruktura:</span> Dane są przechowywane w PostgreSQL, podczas gdy cały stos jest skonteneryzowany za pomocą Docker i Docker Compose dla spójnych środowisk wdrażania.
+    </li>
+  </ul>
+
+  <DetailHeading>Kluczowe funkcje</DetailHeading>
+  <ul class="list-disc list-inside space-y-2 pl-2">
+    <li><span class="font-bold text-slate-300">Tablica Kanban:</span> Intuicyjny interfejs przeciągnij i upuść do zarządzania statusami gry (np. „Granie", „Ukończono", „Porzucone").</li>
+    <li><span class="font-bold text-slate-300">System społeczny:</span> Użytkownicy mogą wysyłać zaproszenia do przyjaciół, przeglądać biblioteki przyjaciół i porównywać statystyki gier, wspierając doświadczenie wspólnoty.</li>
+    <li><span class="font-bold text-slate-300">Bezpieczne uwierzytelnianie:</span> Bezstanowe uwierzytelnianie oparte na JWT z przepływem weryfikacji e-mail wspieranym przez buforowanie Redis.</li>
+    <li><span class="font-bold text-slate-300">Zaawansowane odkrywanie:</span> Bogata baza gier z filtrowaniem według platformy, gatunku, dewelopera i nie tylko, umożliwiająca użytkownikom łatwe rozszerzenie swojego zaloga.</li>
+  </ul>
+
+  <DetailHeading>Wdrażanie i infrastruktura</DetailHeading>
+  <p>
+    Aplikacja jest wdrożona w infrastrukturze chmury o wysokiej dostępności:
+  </p>
+  <ul class="list-disc list-inside space-y-2 pl-2">
+    <li><span class="font-bold text-slate-300">Frontend:</span> Wdrożony na <span class="text-slate-200 font-bold">Vercel</span> dla zoptymalizowanej wydajności React i globalnego rozmieszczenia CDN.</li>
+    <li><span class="font-bold text-slate-300">Backend:</span> Aplikacja Spring Boot jest skonteneryzowana i hostowana na <span class="text-slate-200 font-bold">AWS EC2</span>.</li>
+    <li><span class="font-bold text-slate-300">Baza danych:</span> Dane <span class="text-slate-200 font-bold">PostgreSQL</span> są zarządzane przez <span class="text-slate-200 font-bold">AWS RDS</span>, zapewniające automatyczne kopie zapasowe i skalowalność.</li>
+    <li><span class="font-bold text-slate-300">SSL i sieć:</span> Bezpieczna komunikacja jest obsługiwana przez <span class="text-slate-200 font-bold">Caddy</span>, który automatycznie zarządza certyfikatami SSL przy użyciu <span class="text-slate-200 font-bold">nip.io</span> dla dynamicznego mapowania DNS na adres IP serwera.</li>
+  </ul>
+</div>

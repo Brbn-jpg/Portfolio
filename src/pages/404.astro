@@ -1,35 +1,24 @@
 ---
 import Layout from '../layouts/layout.astro';
-import { ArrowLeft } from 'lucide-react';
+import NotFoundPage from '../components/pages/notFoundPage.astro';
+import { useTranslations } from '../i18n/utils';
+
+/**
+ * `lang="en"` here only sets the document's declared `<html lang>` and the
+ * English `<title>`/description — Vercel serves this exact static file for
+ * every unmatched path regardless of locale. `NotFoundPage` renders both
+ * language blocks itself and swaps the visible one client-side; see that
+ * component for why.
+ */
+const t = useTranslations('en');
 ---
 
-<Layout title="404 | Not Found">
-  <main class="relative z-10 max-w-4xl mx-auto px-6 min-h-screen flex flex-col justify-center items-center text-center">
-    <div class="font-mono text-green-500 text-xs tracking-widest uppercase mb-6 animate-pulse">
-      error_404.exe
-    </div>
-
-    <h1 class="text-[8rem] md:text-[12rem] font-black text-slate-100 leading-none tracking-tighter select-none">
-      404
-    </h1>
-
-    <div class="mt-4 mb-10 w-full max-w-md bg-slate-900 border border-slate-800 rounded-sm p-4 text-left font-mono text-sm">
-      <span class="text-green-400">$</span>
-      <span class="text-slate-400"> find / -name "</span><span class="text-slate-200">this-page</span><span class="text-slate-400">"</span>
-      <br />
-      <span class="text-red-400 mt-1 block">find: no such file or directory</span>
-    </div>
-
-    <p class="text-slate-500 font-mono text-sm mb-6">
-      The page you're looking for doesn't exist or was moved.
-    </p>
-
-    <a
-      href="/"
-      class="flex items-center gap-2 border border-slate-700 text-slate-300 px-6 py-3 font-bold font-mono hover:border-green-500 hover:text-green-400 transition-colors rounded-sm text-sm"
-    >
-      <ArrowLeft size={16} />
-      Back to home
-    </a>
-  </main>
+<Layout
+  lang="en"
+  route={{ page: 'notFound' }}
+  title={t.meta.notFound.title}
+  description={t.meta.notFound.description}
+  noindex
+>
+  <NotFoundPage />
 </Layout>

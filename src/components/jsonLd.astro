@@ -1,0 +1,16 @@
+---
+/**
+ * Renders one `<script type="application/ld+json">` block from an arbitrary
+ * JSON-LD graph. Kept as its own component (rather than inline `set:html` in
+ * the layout) so the `</script>`-breakout escape and the `is:inline` flag live
+ * in exactly one place. Without `is:inline`, Astro tries to push the script
+ * through Vite, which is not what a static JSON payload needs.
+ */
+interface Props {
+	data: unknown;
+}
+const { data } = Astro.props;
+const json = JSON.stringify(data).replace(/</g, "\\u003c");
+---
+
+<script type="application/ld+json" is:inline set:html={json} />

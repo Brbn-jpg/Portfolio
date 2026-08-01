@@ -1,3 +1,6 @@
+---
+import DetailHeading from '../detailHeading.astro';
+---
 <div class="space-y-6 text-slate-400 leading-relaxed">
   <p>
     Gamelog is a comprehensive full-stack application designed to help gamers manage their growing backlog. It provides a centralized hub to track game progress, rate titles, and share libraries with friends.
@@ -6,9 +9,7 @@
     Built with a modern tech stack featuring <span class="text-slate-200 font-bold">Spring Boot 3</span> on the backend and <span class="text-slate-200 font-bold">React 19</span> on the frontend, it ensures a responsive and robust user experience. The system is designed as a distributed application using Docker for orchestration.
   </p>
 
-  <h3 class="text-2xl font-bold text-slate-200 pt-4 !mt-10 border-t border-slate-800">
-    Technical Architecture
-  </h3>
+  <DetailHeading>Technical Architecture</DetailHeading>
   <p>
     The project adopts a layered architecture to separate concerns and ensure maintainability. 
   </p>
@@ -24,9 +25,7 @@
     </li>
   </ul>
 
-  <h3 class="text-2xl font-bold text-slate-200 pt-4 !mt-10 border-t border-slate-800">
-    Key Features
-  </h3>
+  <DetailHeading>Key Features</DetailHeading>
   <ul class="list-disc list-inside space-y-2 pl-2">
     <li><span class="font-bold text-slate-300">Kanban Dashboard:</span> An intuitive drag-and-drop interface to manage game statuses (e.g., "Playing", "Completed", "Ditched").</li>
     <li><span class="font-bold text-slate-300">Social System:</span> Users can send friend requests, view friends' libraries, and compare gaming statistics, fostering a community experience.</li>
@@ -34,9 +33,7 @@
     <li><span class="font-bold text-slate-300">Advanced Discovery:</span> A rich game database with filtering by platform, genre, developer, and more, allowing users to easily expand their backlog.</li>
   </ul>
 
-  <h3 class="text-2xl font-bold text-slate-200 pt-4 !mt-10 border-t border-slate-800">
-    Deployment & Infrastructure
-  </h3>
+  <DetailHeading>Deployment &amp; Infrastructure</DetailHeading>
   <p>
     The application is deployed across a high-availability cloud infrastructure:
   </p>

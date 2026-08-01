@@ -1,0 +1,48 @@
+---
+import DetailHeading from '../detailHeading.astro';
+---
+<div class="space-y-6 text-slate-400 leading-relaxed">
+  <p>
+    todrawn.com to pełnofunkcjonalna interaktywna tablica SaaS, zbudowana end-to-end z backendem w <span class="text-slate-200 font-bold">Java 21</span> i <span class="text-slate-200 font-bold">Spring Boot</span> oraz frontendem w <span class="text-slate-200 font-bold">Next.js</span>, <span class="text-slate-200 font-bold">React</span> i <span class="text-slate-200 font-bold">TypeScript</span>. Jest aktualnie wdrożona i uruchomiona w środowisku produkcyjnym na <a class="text-green-400 hover:underline" href="https://todrawn.com" target="_blank" rel="noreferrer">todrawn.com</a>.
+  </p>
+  <p>
+    Sama kanwa jest renderowana za pomocą <span class="text-slate-200 font-bold">Konva</span>, podczas gdy <span class="text-slate-200 font-bold">WebSockets</span> przenoszą aktualizacje tablicy w czasie rzeczywistym między podłączonymi klientami. <span class="text-slate-200 font-bold">PostgreSQL</span> przechowuje dane tablic i kont, a <span class="text-slate-200 font-bold">Redis</span> wspiera części systemu wymagające szybkiego, krótkotrwałego stanu.
+  </p>
+
+  <DetailHeading>Architektura techniczna</DetailHeading>
+  <ul class="list-disc list-inside space-y-2 pl-2 mt-4">
+    <li>
+      <span class="font-bold text-slate-300">Backend (Spring Boot):</span> Zbudowany w Java 21, z <span class="text-green-400 font-mono">Spring Security</span> obsługującym uwierzytelnianie i autoryzację API.
+    </li>
+    <li>
+      <span class="font-bold text-slate-300">Frontend (Next.js / React):</span> Baza kodu TypeScript stylizowana za pomocą <span class="text-slate-200 font-bold">Tailwind CSS</span>, z kanwą tablicy zaimplementowaną na podstawie Konva.
+    </li>
+    <li>
+      <span class="font-bold text-slate-300">Warstwa czasu rzeczywistego:</span> WebSockets rozpowszechniają rysowanie i stan tablicy między klientami, a Redis jest używany obok PostgreSQL dla stanu, który nie powinien być w głównym magazynie danych.
+    </li>
+    <li>
+      <span class="font-bold text-slate-300">Dane i trwałość:</span> PostgreSQL jest systemem głównym dla tablic, kont i powiązanych danych.
+    </li>
+  </ul>
+
+  <div class="mt-6 mb-6">
+    <pre class="bg-slate-900 border border-slate-800 rounded-md p-4 text-sm text-slate-300 font-mono overflow-x-auto leading-tight">
+      <code class="language-ascii">
+[ Next.js / React / Konva ] &lt;--WebSocket--&gt; [ Spring Boot API ]
+                                                    ↓
+                                    [ PostgreSQL ]     [ Redis ]
+      </code>
+    </pre>
+  </div>
+
+  <DetailHeading>Płatności i wdrażanie</DetailHeading>
+  <p>
+    Rozliczenia przebiegają przez <span class="text-slate-200 font-bold">Stripe</span>, zintegrowane bezpośrednio z backendem Spring Boot. Dostarczanie i hosting są skonteneryzowane i zautomatyzowane:
+  </p>
+  <ul class="list-disc list-inside space-y-2 pl-2">
+    <li><span class="font-bold text-slate-300">Płatności:</span> Stripe obsługuje przetwarzanie subskrypcji i płatności dla SaaS.</li>
+    <li><span class="font-bold text-slate-300">Konteneryzacja:</span> Aplikacja jest pakowana za pomocą <span class="text-slate-200 font-bold">Docker</span> dla spójnych kompilacji w różnych środowiskach.</li>
+    <li><span class="font-bold text-slate-300">CI/CD:</span> <span class="text-slate-200 font-bold">GitHub Actions</span> automatyzuje potok kompilacji i wdrażania.</li>
+    <li><span class="font-bold text-slate-300">Hosting:</span> Backend działa na <span class="text-slate-200 font-bold">Google Cloud Run</span>.</li>
+  </ul>
+</div>

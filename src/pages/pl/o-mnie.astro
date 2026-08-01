@@ -1,0 +1,44 @@
+---
+import Layout from '../../layouts/layout.astro';
+import AboutPage from '../../components/pages/aboutPage.astro';
+import { SITE_URL } from '../../consts';
+import { absUrl, pathFor } from '../../i18n/routes';
+import { useTranslations } from '../../i18n/utils';
+import { getFaqItems } from '../../components/faq.astro';
+
+const lang = 'pl' as const;
+const t = useTranslations(lang);
+
+/**
+ * FAQPage for GEO — mirrors `about.astro` exactly, with `lang = 'pl'` so
+ * `acceptedAnswer.text` carries the Polish answers. The `@id` stays the fixed
+ * EN canonical (`/about#faq`), not `{pl-canonical}#faq`: one set of real-world
+ * questions about one person, referenced identically from both locale
+ * documents rather than each minting its own node.
+ */
+const aboutCanonical = absUrl(pathFor({ page: 'about' }, lang));
+const faqPageNode = {
+  "@type": "FAQPage",
+  "@id": `${SITE_URL}/about#faq`,
+  isPartOf: { "@id": `${aboutCanonical}#webpage` },
+  about: { "@id": `${SITE_URL}/#person` },
+  mainEntity: getFaqItems(lang).map((item) => ({
+    "@type": "Question",
+    name: item.question,
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: item.answer,
+    },
+  })),
+};
+---
+
+<Layout
+  lang={lang}
+  route={{ page: 'about' }}
+  title={t.meta.about.title}
+  description={t.meta.about.description}
+  pageType="AboutPage"
+  jsonLd={[faqPageNode]}>
+  <AboutPage lang={lang} />
+</Layout>

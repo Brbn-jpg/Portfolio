@@ -1,0 +1,49 @@
+---
+import DetailHeading from '../detailHeading.astro';
+---
+<div class="space-y-6 text-slate-400 leading-relaxed">
+  <p>
+    StrefaSA to nowoczesna, wysoko wydajnościowa platforma marketingowa i zintegrowany sklep zbudowany dla jednej z polskich społeczności MTA:SA (Multi Theft Auto: San Andreas). Jako <span class="text-slate-200 font-bold">współwłaściciel i współtwórca</span> serwera, zaprojektowałem i opracowałem ten ekosystem internetowy, aby zniwelować przepaść między atmosferą gry a profesjonalną obecnością internetową, wykorzystując <span class="text-slate-200 font-bold">Astro</span> do niezwykle szybkich czasów ładowania i kinematycznego doświadczenia użytkownika.
+  </p>
+
+  <DetailHeading>Strategia produktu</DetailHeading>
+  <p>
+    Głównym celem witryny jest konwersja odwiedzających na aktywnych graczy w ciągu 60 sekund. Osiąga się to poprzez:
+  </p>
+  <ul class="list-disc list-inside space-y-3 pl-2">
+    <li><span class="font-bold text-slate-300">Kinematyczne zanurzenie:</span> Sekcja główna zaprojektowana, aby wyglądała jak ekran tytułowy gry, priorytetyzując atmosferę nad surowymi informacjami na pierwszy rzut oka.</li>
+    <li><span class="font-bold text-slate-300">Zaufanie poprzez dane:</span> Liczby graczy w czasie rzeczywistym, status serwera i metryki aktywności potwierdzają zdrowie i niezawodność serwera.</li>
+    <li><span class="font-bold text-slate-300">Wejście bez tarcia:</span> Widoczna akcja „Kopiuj IP" zapewnia, że ścieżka od odwiedzenia witryny do przyłączenia się do serwera jest tak krótka, jak to możliwe.</li>
+  </ul>
+
+  <DetailHeading>Integracja e-commerce</DetailHeading>
+  <p>
+    Moduł <span class="font-mono text-green-400">/sklep</span> to dostosowany sklep, który integruje się z backendem serwera MTA.
+  </p>
+  <ul class="list-disc list-inside space-y-2 pl-2">
+    <li><span class="font-bold text-slate-300">Stripe Checkout:</span> Bezpieczna obsługa płatności, w tym obsługa metod specyficznych dla Polski, takich jak BLIK.</li>
+    <li><span class="font-bold text-slate-300">Zautomatyzowane dostarczanie:</span> Udane płatności wyzwalają webhooks, które natychmiast dostarczają zasoby w grze lub walutę graczom.</li>
+    <li><span class="font-bold text-slate-300">Katalog produktów:</span> Dynamicznie zarządzane listingi pojazdów i przedmiotów ze szczegółowymi specyfikacjami.</li>
+  </ul>
+
+  <DetailHeading>Stos technologiczny</DetailHeading>
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <div class="bg-slate-900 border border-slate-800 rounded-md p-4">
+      <h4 class="font-mono text-slate-200 mb-2 border-b border-slate-800 pb-2">Frontend</h4>
+      <ul class="text-xs space-y-1 font-mono text-slate-400">
+        <li>- Astro 5.0 (Islands Architecture)</li>
+        <li>- TypeScript</li>
+        <li>- Vanilla CSS</li>
+        <li>- Vercel Analytics & Speed Insights</li>
+      </ul>
+    </div>
+    <div class="bg-slate-900 border border-slate-800 rounded-md p-4">
+      <h4 class="font-mono text-slate-200 mb-2 border-b border-slate-800 pb-2">Integration</h4>
+      <ul class="text-xs space-y-1 font-mono text-slate-400">
+        <li>- Stripe API & Webhooks</li>
+        <li>- Custom Node.js/MTA Backend</li>
+        <li>- RESTful API Communication</li>
+      </ul>
+    </div>
+  </div>
+</div>

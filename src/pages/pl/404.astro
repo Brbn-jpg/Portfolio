@@ -1,0 +1,27 @@
+---
+import Layout from '../../layouts/layout.astro';
+import NotFoundPage from '../../components/pages/notFoundPage.astro';
+import { useTranslations } from '../../i18n/utils';
+
+/**
+ * A real, buildable file at `/pl/404` — but per `notFoundPage.astro`'s own
+ * comment, Vercel only ever serves the ROOT static error document for an
+ * unmatched path, so an actual `/pl/typo` 404 is served by `dist/404.html`,
+ * not this file. `NotFoundPage` renders both language blocks itself and
+ * swaps the visible one client-side based on `location.pathname`, so this
+ * page (and the root one) look correct regardless of which one a visitor
+ * happens to land on directly.
+ */
+const lang = 'pl' as const;
+const t = useTranslations(lang);
+---
+
+<Layout
+  lang={lang}
+  route={{ page: 'notFound' }}
+  title={t.meta.notFound.title}
+  description={t.meta.notFound.description}
+  noindex
+>
+  <NotFoundPage />
+</Layout>

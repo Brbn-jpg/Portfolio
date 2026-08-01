@@ -1,0 +1,66 @@
+---
+import DetailHeading from '../detailHeading.astro';
+---
+<div class="space-y-6 text-slate-400 leading-relaxed">
+  <p>
+    Cibaria to nowoczesna, pełnofunkcjonalna aplikacja zarządzania przepisami zaprojektowana, aby ożywić kulinarną kreatywność. Zbudowana z solidnym backendem Spring Boot i dynamicznym frontendem Angular, zapewnia bezproblemową platformę do odkrywania, udostępniania i zarządzania przepisami z przyjaciółmi i innymi pasjonatami gastronomii.
+  </p>
+
+  <DetailHeading>Kluczowe funkcje</DetailHeading>
+  <ul class="list-disc list-inside space-y-3 pl-2">
+    <li><span class="font-bold text-slate-300">Pełne zarządzanie przepisami:</span> Użytkownicy mogą tworzyć, edytować i udostępniać szczegółowe przepisy, w tym składniki, kroki, informacje odżywcze i obrazy z obsługą przeciągnij i upuść.</li>
+    <li><span class="font-bold text-slate-300">Bezpieczny system użytkownika:</span> Posiada uwierzytelnianie oparte na JWT, spersonalizowane profile użytkowników i kompleksowy panel administracyjny do zarządzania użytkownikami i przepisami.</li>
+    <li><span class="font-bold text-slate-300">Zaawansowane wyszukiwanie i filtrowanie:</span> Potężny silnik wyszukiwania umożliwia filtrowanie przepisów według kategorii, poziomu trudności, czasu przygotowania i składników.</li>
+    <li><span class="font-bold text-slate-300">Internacjonalizacja (i18n):</span> Pełna obsługa dwujęzyczna dla angielskiego i polskiego, w tym dynamiczne przełączanie języka i inteligentne tłumaczenie jednostek (np. „tsp" na „łyżeczka").</li>
+  </ul>
+
+  <DetailHeading>Architektura</DetailHeading>
+  <p>
+    Projekt podąża za klasyczną architekturą klient-serwer, zapewniającą wyraźne rozdzielenie problemów między frontendem i backendem.
+  </p>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <div>
+      <h4 class="font-mono text-slate-300 mb-2">Frontend (Angular)</h4>
+      <pre class="bg-slate-900 border border-slate-800 rounded-md p-4 text-xs text-slate-300 font-mono overflow-x-auto h-full">
+<code class="language-bash">
+frontend/
+├── src/app/
+│   ├── components/
+│   ├── services/
+│   └── Interface/
+├── public/
+│   ├── i18n/
+│   └── images/
+└── styles.css
+</code>
+</pre>
+    </div>
+    <div>
+      <h4 class="font-mono text-slate-300 mb-2">Backend (Spring Boot)</h4>
+      <pre class="bg-slate-900 border border-slate-800 rounded-md p-4 text-xs text-slate-300 font-mono overflow-x-auto h-full">
+<code class="language-bash">
+backend/
+├── src/main/java/
+│   ├── recipe/
+│   ├── user/
+│   ├── auth/
+│   ├── admin/
+│   └── config/
+└── resources/
+    └── application.yml
+</code>
+</pre>
+    </div>
+  </div>
+
+  <DetailHeading>Wdrażanie i infrastruktura</DetailHeading>
+  <p>
+    Aplikacja jest wdrażana przy użyciu rozproszonej infrastruktury chmury, aby zapewnić niezawodność i wydajność:
+  </p>
+  <ul class="list-disc list-inside space-y-2 pl-2">
+    <li><span class="font-bold text-slate-300">Frontend:</span> Hostowany na <span class="text-slate-200 font-bold">Vercel</span> dla szybkiego, globalnego dostarczania i bezproblemowego CI/CD.</li>
+    <li><span class="font-bold text-slate-300">Backend:</span> API Spring Boot jest wdrożone na <span class="text-slate-200 font-bold">Render</span>.</li>
+    <li><span class="font-bold text-slate-300">Baza danych:</span> Zarządzana instancja PostgreSQL hostowana na <span class="text-slate-200 font-bold">AWS RDS</span> zapewnia trwałość i bezpieczeństwo danych.</li>
+  </ul>
+</div>
