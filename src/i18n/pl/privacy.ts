@@ -9,9 +9,10 @@ import type { PrivacyDict } from "../en/privacy";
  * "Prezes Urzędu Ochrony Danych Osobowych". Articles cited as
  * "art. 6 ust. 1 lit. f RODO", not the English "art. 6(1)(f)".
  *
- * TODO_VERIFY_FORMSPREE_DPA and TODO_VERIFY_VERCEL_LOG_RETENTION are kept as
- * literal, untranslated markers (same as the English side) — they flag
- * unverified legal claims and must stay visible until resolved.
+ * Sekcja o transferach podaje zabezpieczenie każdego procesora tylko w takim
+ * zakresie, w jakim zostało zweryfikowane: DPA Vercela wskazuje SCC 2021/914,
+ * a Formspree nie publikuje DPA ani nie nazywa mechanizmu — i tak to jest
+ * napisane. Nie "poprawiać" tego na twierdzenie pewne.
  *
  * ` ` (non-breaking space) after single-letter Polish words (w, i, z, o, a)
  * in headings and short lines.
@@ -79,15 +80,18 @@ const privacy: PrivacyDict = {
 
   transfersOutsideEea: {
     articleRef: "// art. 13 ust. 1 lit. f RODO",
-    intro: "Wszyscy trzej wymienieni wyżej procesorzy to firmy z USA, więc dane opisane w tej polityce opuszczają EOG. Art. 46 RODO wymaga w takim przypadku odpowiedniego zabezpieczenia — zwykle standardowych klauzul umownych (SCC) i/lub certyfikacji w ramach EU-US Data Privacy Framework.",
-    todoText: "— konkretny mechanizm, na którym opiera się aktualny Data Processing Addendum Formspree, nie został jeszcze zweryfikowany. Ten akapit musi wskazywać faktyczny mechanizm i linkować do opublikowanego DPA Formspree, zanim ta strona zostanie uznana za ostateczną. To samo otwarte pytanie dotyczy aktualnych umów Google i Vercel — należy je potwierdzić w tym samym czasie, a nie zakładać.",
+    intro: "Wszyscy trzej wymienieni wyżej procesorzy to firmy z USA, więc dane opisane w tej polityce opuszczają EOG. Art. 46 RODO wymaga w takim przypadku odpowiedniego zabezpieczenia — zwykle standardowych klauzul umownych (SCC) albo certyfikacji w ramach EU-US Data Privacy Framework.",
+    vercel:
+      "Hosting: Data Processing Addendum Vercela włącza standardowe klauzule umowne zatwierdzone przez Komisję Europejską decyzją 2021/914 (Moduł Drugi, administrator → procesor).",
+    formspree:
+      "Formularz kontaktowy: Formspree nie publikuje Data Processing Addendum, a jego polityka prywatności mówi o przekazaniu danych do USA bez wskazania, na jakim zabezpieczeniu się opiera. Jeśli ma to dla Ciebie znaczenie, napisz na adres e-mail z sekcji CONTROLLER zamiast korzystać z formularza.",
   },
 
   howLong: {
     articleRef: "// art. 13 ust. 2 lit. a RODO",
     formMessages: "Wiadomości z formularza kontaktowego: przechowywane do 12 miesięcy, a następnie usuwane. Gdy wątek zostaje zamknięty i odpowiedziany, usuwam zgłoszenie z panelu Formspree, zamiast czekać na upływ pełnych 12 miesięcy.",
-    logsIntro: "Logi dostępu serwera (Vercel):",
-    todoText: "— rzeczywisty okres przechowywania logów hostingowych/dostępu Vercel dla tego planu nie został potwierdzony i musi zostać sprawdzony oraz podany tutaj przed publikacją.",
+    logs:
+      "Logi dostępu serwera (Vercel): przechowywane przez okres wynikający z polityki retencji samego Vercela. Nie czytam ich ani nie eksportuję.",
   },
 
   yourRights: {

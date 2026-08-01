@@ -66,9 +66,9 @@ const about = {
   whoIAm: {
     heading: "Who I Am",
     paragraphs: [
-      "Jakub Kuźnicki is a Computer Science graduate (Engineer's degree) specialising in backend development and system architecture. Since June 2026 I have worked as a Junior Java Developer at Netcompany, building enterprise systems in Java and Spring Boot.",
-      "Before that, between March and June 2025, I was a Backend Developer Intern at Paweł Weselak — Pragmatyczne Programowanie, where I built LangChain-based document ingestion pipelines and RAG systems with LangChain4j and Spring Boot, and handled containerisation and deployment of LLM-driven data processing.",
-      "I am currently extending into DevOps and infrastructure by running a bare-metal home server to work hands-on with networking and virtualisation.",
+      "I'm Jakub Kuźnicki — a Computer Science engineer working on backend development and system architecture. Since June 2026 I've been a Junior Java Developer at Netcompany, building enterprise systems in Java and Spring Boot.",
+      "Before that, from March to June 2025, I interned as a Backend Developer at Paweł Weselak — Pragmatyczne Programowanie. I built LangChain document ingestion pipelines and RAG systems on LangChain4j and Spring Boot, and handled containerisation and deployment of LLM-driven processing.",
+      "Right now I'm moving toward DevOps and infrastructure. I run a bare-metal server at home and use it to get hands-on with networking and virtualisation.",
     ] as readonly [string, string, string],
   },
 
