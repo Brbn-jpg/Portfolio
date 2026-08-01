@@ -20,9 +20,9 @@ const about: AboutDict = {
   whoIAm: {
     heading: "Kim jestem",
     paragraphs: [
-      "Jakub Kuźnicki jest absolwentem informatyki (inżynier) specjalizującym się w rozwoju backendu i architekturze systemów. Od czerwca 2026 pracuję jako Junior Java Developer w Netcompany, budując systemy klasy enterprise w Javie i Spring Boot.",
-      "Wcześniej, między marcem a czerwcem 2025, byłem stażystą na stanowisku Backend Developer w firmie Paweł Weselak — Pragmatyczne Programowanie, gdzie budowałem oparte na LangChain potoki wczytywania dokumentów oraz systemy RAG z LangChain4j i Spring Boot, a także zajmowałem się konteneryzacją i wdrażaniem przetwarzania danych sterowanego przez LLM.",
-      "Obecnie rozwijam się w kierunku DevOps i infrastruktury, prowadząc domowy serwer bare-metal, na którym pracuję praktycznie z sieciami i wirtualizacją.",
+      "Nazywam się Jakub Kuźnicki, jestem inżynierem informatyki i zajmuję się backendem oraz architekturą systemów. Od czerwca 2026 pracuję jako Junior Java Developer w Netcompany, gdzie buduję systemy klasy enterprise w Javie i Spring Boot.",
+      "Wcześniej, od marca do czerwca 2025, odbyłem staż jako Backend Developer w Paweł Weselak — Pragmatyczne Programowanie. Budowałem tam pipeline'y do ingestii dokumentów na LangChain i systemy RAG w LangChain4j i Spring Boot, zajmowałem się też konteneryzacją i wdrożeniami rozwiązań opartych na LLM.",
+      "Teraz rozwijam się w stronę DevOpsu i infrastruktury. Postawiłem w domu serwer bare-metal i uczę się na nim sieci oraz wirtualizacji w praktyce.",
     ] as readonly [string, string, string],
   },
 
