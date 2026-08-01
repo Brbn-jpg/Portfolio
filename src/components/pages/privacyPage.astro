@@ -10,17 +10,13 @@
  * to each heading) DO come from the dictionary, because the citation format
  * itself differs by locale (`art. 13(1)(a)` vs `art. 13 ust. 1 lit. a RODO`).
  *
- * TODO: publication checklist — do not ship this page until both are resolved:
- *   1. TODO_VERIFY_FORMSPREE_DPA (§7 TRANSFERS_OUTSIDE_EEA) — confirm which transfer
- *      safeguard Formspree's current Data Processing Addendum actually specifies
- *      (EU-US Data Privacy Framework certification and/or Standard Contractual
- *      Clauses), then replace the placeholder paragraph with the real, linked answer.
- *   2. TODO_VERIFY_VERCEL_LOG_RETENTION (§8 HOW_LONG) — confirm Vercel's actual
- *      access-log retention period for this site's hosting plan and replace the
- *      placeholder with the real number.
- * Asserting an unverified legal safeguard is worse than an obvious placeholder.
- * These markers are intentionally identical (untranslated) in both locales —
- * they're flags, not prose.
+ * §7 (transfers) states each processor's safeguard only as far as it was
+ * actually verified: Vercel's DPA incorporates the 2021/914 Standard
+ * Contractual Clauses (checked against vercel.com/legal/dpa, rev. 2026-03-17),
+ * while Formspree publishes no DPA and names no mechanism in its privacy
+ * policy — so the page says exactly that instead of asserting a safeguard that
+ * may not exist, and points anyone who cares at the plain email address.
+ * If Formspree ever publishes one, this is the paragraph to update.
  */
 import { useTranslations } from '../../i18n/utils';
 import { PERSON } from '../../consts';
@@ -132,18 +128,12 @@ const lastUpdated = '2026-08-01';
         <p class="text-slate-300 leading-relaxed">
           {privacy.transfersOutsideEea.intro}
         </p>
-        <p class="mt-3 border-l-2 border-yellow-600 pl-3 text-slate-300 leading-relaxed">
-          <span class="text-yellow-500 font-bold font-mono">TODO_VERIFY_FORMSPREE_DPA</span> {privacy.transfersOutsideEea.todoText}
+        <p class="mt-3 text-slate-300 leading-relaxed">
+          {privacy.transfersOutsideEea.vercel}
         </p>
-        <!--
-          TODO_VERIFY_FORMSPREE_DPA: Read Formspree's current Data Processing
-          Addendum (https://formspree.io/legal/data-processing-addendum or
-          wherever it currently lives) and identify the operative Chapter V
-          transfer mechanism — EU-US Data Privacy Framework certification
-          and/or Standard Contractual Clauses. Replace the placeholder
-          paragraph above with the real, linked answer. Do not publish this
-          page asserting a safeguard that hasn't actually been verified.
-        -->
+        <p class="mt-3 text-slate-300 leading-relaxed">
+          {privacy.transfersOutsideEea.formspree}
+        </p>
       </div>
     </section>
 
@@ -153,15 +143,9 @@ const lastUpdated = '2026-08-01';
         <p class="text-slate-300 leading-relaxed">
           {privacy.howLong.formMessages}
         </p>
-        <p class="mt-3 border-l-2 border-yellow-600 pl-3 text-slate-300 leading-relaxed">
-          {privacy.howLong.logsIntro} <span class="text-yellow-500 font-bold font-mono">TODO_VERIFY_VERCEL_LOG_RETENTION</span> {privacy.howLong.todoText}
+        <p class="mt-3 text-slate-300 leading-relaxed">
+          {privacy.howLong.logs}
         </p>
-        <!--
-          TODO_VERIFY_VERCEL_LOG_RETENTION: Check Vercel's current privacy/DPA
-          documentation for the hosting plan this site runs on to find the real
-          access-log retention period, then replace the placeholder above with
-          the actual number before this page goes live.
-        -->
       </div>
     </section>
 

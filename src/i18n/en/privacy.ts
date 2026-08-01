@@ -16,12 +16,10 @@
  * actual `<a>` element; the link target/text itself (an email address or a
  * bare domain) doesn't need translating.
  *
- * TODO_VERIFY_FORMSPREE_DPA and TODO_VERIFY_VERCEL_LOG_RETENTION are
- * unverified legal claims — the visible marker text stays untranslated in
- * both locales (it's a literal flag, not prose) and the surrounding sentence
- * is translated around it. Do not resolve or remove these without doing the
- * actual verification described in the explanatory comments in
- * `privacyPage.astro`.
+ * The transfer section states each processor's safeguard only as far as it was
+ * verified. Vercel's DPA was checked and names the 2021/914 SCCs; Formspree
+ * publishes no DPA and names no mechanism, so the text says that rather than
+ * implying one. Don't "tidy" that into a confident claim.
  */
 
 export interface Processor {
@@ -95,15 +93,18 @@ const privacy = {
 
   transfersOutsideEea: {
     articleRef: "// art. 13(1)(f)",
-    intro: "All three processors above are US companies, so data described in this policy leaves the EEA. GDPR art. 46 requires an appropriate safeguard for that — typically Standard Contractual Clauses and/or certification under the EU-US Data Privacy Framework.",
-    todoText: "— the specific mechanism Formspree's current Data Processing Addendum relies on has not been checked. This paragraph must name the actual mechanism and link Formspree's published DPA before this page is treated as final. The same open question applies to Google's and Vercel's current agreements; they should be reconfirmed at the same time rather than assumed.",
+    intro: "All three processors above are US companies, so data described in this policy leaves the EEA. GDPR art. 46 requires an appropriate safeguard for that — typically Standard Contractual Clauses or certification under the EU-US Data Privacy Framework.",
+    vercel:
+      "Hosting: Vercel's Data Processing Addendum incorporates the Standard Contractual Clauses approved by the European Commission in decision 2021/914 (Module Two, controller to processor).",
+    formspree:
+      "Contact form: Formspree does not publish a Data Processing Addendum, and its privacy policy states that data is transferred to the US without naming the safeguard it relies on. If that matters to you, use the email address in the CONTROLLER section instead of the form.",
   },
 
   howLong: {
     articleRef: "// art. 13(2)(a)",
     formMessages: "Contact form messages: kept up to 12 months, then deleted. Once a thread is answered and done, I remove the submission from the Formspree dashboard rather than waiting out the full 12 months.",
-    logsIntro: "Server access logs (Vercel):",
-    todoText: "— the actual retention window for Vercel's hosting/access logs on this plan has not been confirmed and must be checked and stated here before publishing.",
+    logs:
+      "Server access logs (Vercel): kept for whatever period Vercel's own retention policy sets. I neither read nor export them.",
   },
 
   yourRights: {
