@@ -66,11 +66,11 @@ const about: AboutDict = {
       },
       yearFour: {
         title: "4. rok: Praca dyplomowa i zaawansowane projekty",
-        body: "Jakub Kuźnicki obronił pracę inżynierską w ostatnim roku studiów informatycznych. Zbudowałem wtedy 'Gamelog', pełnostackowy menedżer listy gier, w którym opanowałem Redis do wydajnego cache'owania danych, oraz zbadałem połączenie backendu z AI w projekcie 'LlamaTalks' – integrując LLM-y (LangChain) z systemami opartymi na Javie i bazami wektorowymi.",
+        body: "Obroniłem pracę inżynierską na ostatnim roku studiów, a potem zbudowałem 'Gamelog', pełnostackowy menedżer listy gier, w którym opanowałem Redis do wydajnego cache'owania danych, oraz zbadałem połączenie backendu z AI w projekcie 'LlamaTalks' – integrując LLM-y (LangChain) z systemami opartymi na Javie i bazami wektorowymi.",
       },
       present: {
         title: "Teraźniejszość: kariera zawodowa (od 2026)",
-        body: "Jakub Kuźnicki pracuje jako Junior Java Developer w Netcompany od czerwca 2026. Wykorzystuję swoje inżynierskie podstawy w złożonych, wielkoskalowych systemach, jednocześnie w czasie prywatnym eksplorując najnowsze technologie, takie jak RAG i DevOps.",
+        body: "Od czerwca 2026 pracuję jako Junior Java Developer w Netcompany. Wykorzystuję swoje inżynierskie podstawy w złożonych, wielkoskalowych systemach, jednocześnie w czasie prywatnym eksplorując najnowsze technologie, takie jak RAG i DevOps.",
       },
       future: {
         title: "Przyszłość: rozwój i specjalizacja",
@@ -130,42 +130,42 @@ const about: AboutDict = {
 
   faq: {
     heading: "FAQ.sh",
-    subtitle: "Pytania, które słyszę najczęściej — z konkretną odpowiedzią.",
+    subtitle: "Pytania, które padają najczęściej — z konkretną odpowiedzią.",
     items: {
       whoIsBrbn: {
-        question: "Kim jest Jakub Kuźnicki (brbn-jpg)?",
+        question: "Kim jestem?",
         answer:
-          "Jakub Kuźnicki (pseudonim: brbn-jpg) jest programistą Java (backend) z Warszawy, z tytułem inżyniera informatyki. Od czerwca 2026 pracuję jako Junior Java Developer w Netcompany, po stażu backendowym, w trakcie którego budowałem potoki wczytywania danych w LangChain i systemy RAG.",
+          "Nazywam się Jakub Kuźnicki, w sieci brbn-jpg. Jestem programistą backendu Java z Warszawy, z tytułem inżyniera informatyki. Od czerwca 2026 pracuję jako Junior Java Developer w Netcompany, po stażu backendowym, na którym budowałem pipeline'y do ingestii w LangChain i systemy RAG.",
       },
       techStack: {
-        question: "Jaki jest Twój główny stack technologiczny?",
+        question: "Jaki jest mój główny stack technologiczny?",
         answer:
-          "Głównym stackiem Jakuba Kuźnickiego jest Java i Spring Boot, wspierane przez PostgreSQL i Redis do przechowywania danych, Docker do pakowania aplikacji oraz REST API jako domyślny interfejs między usługami. Do pracy z LLM-ami używam LangChain4j na JVM i LangChain w Pythonie. Buduję też frontendy w Astro, React, Angular i Vue, gdy projekt tego wymaga, ale backend to obszar, w którym pracuję najlepiej.",
+          "Trzon to Java i Spring Boot, do tego PostgreSQL i Redis na dane, Docker do pakowania aplikacji i REST API jako domyślny interfejs między usługami. Do pracy z LLM-ami używam LangChain4j na JVM i LangChain w Pythonie. Buduję też frontendy w Astro, React, Angular i Vue, gdy projekt tego wymaga, ale backend to obszar, w którym pracuję najlepiej.",
       },
       ragExperience: {
-        question: "Jakie masz doświadczenie z RAG i LLM?",
+        question: "Jakie mam doświadczenie z RAG i LLM?",
         answer:
-          "Doświadczenie Jakuba Kuźnickiego z RAG i LLM zaczęło się od stażu backendowego w firmie Paweł Weselak — Pragmatyczne Programowanie (marzec–czerwiec 2025), gdzie budowałem potoki wczytywania danych w LangChain i zajmowałem się konteneryzowanym wdrażaniem ekstrakcji danych sterowanej przez LLM. Kontynuowałem samodzielnie projektem LlamaTalks, chatbotem opartym na Spring Boot i LangChain4j, który uruchamia lokalne modele przez Ollama, wczytuje dokumenty do bazy wektorowej i strumieniuje odpowiedzi przez SSE.",
+          "Zaczęło się od stażu backendowego w Paweł Weselak — Pragmatyczne Programowanie (marzec–czerwiec 2025), gdzie budowałem pipeline'y do ingestii w LangChain i zajmowałem się konteneryzowanym wdrażaniem ekstrakcji danych opartej na LLM. Kontynuowałem samodzielnie projektem LlamaTalks, chatbotem opartym na Spring Boot i LangChain4j, który uruchamia lokalne modele przez Ollama, wczytuje dokumenty do bazy wektorowej i strumieniuje odpowiedzi przez SSE.",
       },
       location: {
-        question: "Gdzie się znajdujesz i czy pracujesz zdalnie?",
+        question: "Gdzie pracuję i czy zdalnie?",
         answer:
-          "Jakub Kuźnicki znajduje się w Warszawie i pracuje z warszawskiego biura Netcompany. Czuję się dobrze zarówno w pracy stacjonarnej, jak i hybrydowej oraz w pełni zdalnej, i pracuję w języku polskim (ojczysty) oraz angielskim (na poziomie zawodowym).",
+          "Warszawa — pracuję z warszawskiego biura Netcompany. Odnajduję się zarówno w pracy stacjonarnej, jak i hybrydowej czy w pełni zdalnej. Pracuję po polsku (ojczysty) i po angielsku (poziom zawodowy).",
       },
       openToWork: {
-        question: "Czy jesteś otwarty na nowe oferty?",
+        question: "Czy jestem otwarty na nowe oferty?",
         answer:
-          "Jakub Kuźnicki jest obecnie zatrudniony w Netcompany i nie szuka aktywnie pracy, ale czytam każdą wiadomość, która do mnie trafia. Jeśli masz ofertę backendową lub inżyniera AI związaną z Javą, Spring Boot lub RAG, skorzystaj z formularza kontaktowego na tej stronie, a odezwę się.",
+          "Jestem zatrudniony w Netcompany i nie szukam aktywnie pracy, ale czytam każdą wiadomość, która do mnie trafia. Jeśli masz ofertę backendową lub inżyniera AI związaną z Javą, Spring Boot lub RAG, skorzystaj z formularza kontaktowego na tej stronie, a odezwę się.",
       },
       largestProject: {
-        question: "Jaki jest Twój największy zrealizowany projekt?",
+        question: "Jaki jest mój największy zrealizowany projekt?",
         answer:
-          "Największym projektem Jakuba Kuźnickiego jest todrawn.com, działająca interaktywna tablica SaaS. Backend zbudowany jest w Javie 21 i Spring Boot, frontend w Next.js, React i TypeScript, a całość wykorzystuje PostgreSQL, Redis, WebSockets, Stripe, Docker i Google Cloud Run.",
+          "todrawn.com — działająca interaktywna tablica SaaS. Backend zbudowany jest w Javie 21 i Spring Boot, frontend w Next.js, React i TypeScript, a całość wykorzystuje PostgreSQL, Redis, WebSockets, Stripe, Docker i Google Cloud Run.",
       },
       whyBrbnJpg: {
         question: 'Dlaczego "brbn-jpg"?',
         answer:
-          "Jakub Kuźnicki i brbn-jpg to ta sama osoba. Pseudonimu brbn-jpg używam w sieci od lat i to nazwa mojego konta na GitHubie — pseudonim znajdziesz na github.com/Brbn-jpg, a imię i nazwisko w moim CV.",
+          "To ta sama osoba — ja. Pseudonimu brbn-jpg używam w sieci od lat i to nazwa mojego konta na GitHubie — pseudonim znajdziesz na github.com/Brbn-jpg, a imię i nazwisko w moim CV.",
       },
     },
   },
