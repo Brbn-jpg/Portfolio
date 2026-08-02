@@ -28,7 +28,7 @@ const home = {
 
   heroParagraph: [
     {
-      text: "Jakub Kuźnicki — Software Engineer, Computer Science graduate (Engineer's degree), based in Warsaw, Poland. I build backend systems in ",
+      text: "I'm Jakub Kuźnicki, a software engineer based in Warsaw, Poland, with an Engineer's degree in Computer Science. I build backend systems in ",
     },
     { text: "Java", highlight: true },
     { text: " and " },
@@ -45,19 +45,19 @@ const home = {
   sections: {
     coreLangs: {
       heading: "CORE_LANGS",
-      lead: "Jakub Kuźnicki's primary programming language is Java, with regular use of TypeScript/JavaScript and Python, and basic working knowledge of C#.",
+      lead: "Java is my main language. I use TypeScript/JavaScript and Python regularly, and I know enough C# to find my way around.",
     },
     techArsenal: {
       heading: "TECH_ARSENAL",
-      lead: "Jakub Kuźnicki's toolset centers on Spring Boot, Docker, PostgreSQL, and Redis for backend systems, and LangChain / LangChain4j for RAG and LLM integration, alongside frontend experience with Angular, React, Vue, and Astro.",
+      lead: "Day to day I work with Spring Boot, Docker, PostgreSQL and Redis on the backend, and LangChain4j or LangChain when a project needs RAG or LLM integration. On the frontend I reach for Angular, React, Vue or Astro.",
     },
     professionalExp: {
       heading: "PROFESSIONAL_EXP",
-      lead: "Jakub Kuźnicki has worked as a Junior Java Developer at Netcompany since June 2026, following a backend internship in 2025 focused on LangChain ingestion pipelines and RAG systems.",
+      lead: "I have been a Junior Java Developer at Netcompany since June 2026, after a 2025 backend internship spent on LangChain ingestion pipelines and RAG systems.",
     },
     repositories: {
       heading: "REPOSITORIES",
-      lead: "Jakub Kuźnicki has published seven software projects on GitHub, spanning Java/Spring Boot backends, RAG and LLM systems, and full-stack web applications built with React, Vue, Angular, and Astro.",
+      lead: "Seven projects, mostly Java and Spring Boot backends: a collaborative whiteboard SaaS, a RAG chatbot, a game backlog tracker, a procedural map generator, a recipe manager, and two production Astro sites.",
     },
   },
 

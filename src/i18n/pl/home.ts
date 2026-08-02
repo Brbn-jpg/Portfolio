@@ -20,7 +20,7 @@ const home: HomeDict = {
 
   heroParagraph: [
     {
-      text: "Jakub Kuźnicki — inżynier oprogramowania, absolwent informatyki (inżynier), z Warszawy. Buduję systemy backendowe w ",
+      text: "Nazywam się Jakub Kuźnicki, jestem inżynierem oprogramowania z Warszawy. Buduję systemy backendowe w ",
     },
     { text: "Javie", highlight: true },
     { text: " i " },
@@ -37,19 +37,19 @@ const home: HomeDict = {
   sections: {
     coreLangs: {
       heading: "CORE_LANGS",
-      lead: "Głównym językiem programowania Jakuba Kuźnickiego jest Java, z regularnym wykorzystaniem TypeScript/JavaScript i Pythona oraz podstawową znajomością C#.",
+      lead: "Java to mój główny język. Regularnie używam TypeScriptu/JavaScriptu i Pythona, a w C# radzę sobie na tyle, żeby się odnaleźć.",
     },
     techArsenal: {
       heading: "TECH_ARSENAL",
-      lead: "Zestaw narzędzi Jakuba Kuźnickiego opiera się na Spring Boot, Docker, PostgreSQL i Redis dla systemów backendowych oraz LangChain / LangChain4j dla integracji RAG i LLM, a także doświadczeniu frontendowym w Angular, React, Vue i Astro.",
+      lead: "Na co dzień pracuję na Spring Boot, Dockerze, PostgreSQL i Redisie, a gdy projekt potrzebuje RAG-a albo integracji z LLM — na LangChain4j lub LangChain. Po stronie frontendu sięgam po Angulara, Reacta, Vue albo Astro.",
     },
     professionalExp: {
       heading: "PROFESSIONAL_EXP",
-      lead: "Jakub Kuźnicki pracuje jako Junior Programista Java w Netcompany od czerwca 2026, po stażu w backendzie w 2025 skupionym na potokach ingestii LangChain i systemach RAG.",
+      lead: "Od czerwca 2026 pracuję jako Junior Java Developer w Netcompany, po stażu backendowym w 2025 poświęconym pipeline'om ingestii na LangChain i systemom RAG.",
     },
     repositories: {
       heading: "REPOSITORIES",
-      lead: "Jakub Kuźnicki opublikował siedem projektów na GitHubie, obejmujących backendy Java/Spring Boot, systemy RAG i LLM oraz aplikacje full-stack zbudowane w React, Vue, Angular i Astro.",
+      lead: "Siedem projektów, w większości backendy w Javie i Spring Boot: współdzielona tablica SaaS, chatbot RAG, tracker backlogu gier, proceduralny generator map, menedżer przepisów i dwie produkcyjne strony w Astro.",
     },
   },
 
