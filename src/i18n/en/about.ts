@@ -179,7 +179,7 @@ const about = {
     subtitle: "Questions I get asked often, answered directly.",
     items: {
       whoIsBrbn: {
-        question: "Who is Jakub Kuźnicki (brbn-jpg)?",
+        question: "Who are you?",
         answer:
           "I'm Jakub Kuźnicki — brbn-jpg online — a Java backend developer in Warsaw, Poland, with an Engineer's degree in Computer Science. I've been a Junior Java Developer at Netcompany since June 2026, after a backend internship building LangChain ingestion pipelines and RAG systems.",
       },

@@ -133,7 +133,7 @@ const about: AboutDict = {
     subtitle: "Pytania, które słyszę najczęściej — z konkretną odpowiedzią.",
     items: {
       whoIsBrbn: {
-        question: "Kim jest Jakub Kuźnicki (brbn-jpg)?",
+        question: "Kim jesteś?",
         answer:
           "Nazywam się Jakub Kuźnicki, w sieci brbn-jpg. Jestem programistą backendu Java z Warszawy, z tytułem inżyniera informatyki. Od czerwca 2026 pracuję jako Junior Java Developer w Netcompany, po stażu backendowym, na którym budowałem pipeline'y do ingestii w LangChain i systemy RAG.",
       },
