@@ -176,35 +176,35 @@ const about = {
 
   faq: {
     heading: "FAQ.sh",
-    subtitle: "Questions I get asked often, answered directly.",
+    subtitle: "The questions that come up most, answered directly.",
     items: {
       whoIsBrbn: {
-        question: "Who are you?",
+        question: "Who am I?",
         answer:
           "I'm Jakub Kuźnicki — brbn-jpg online — a Java backend developer in Warsaw, Poland, with an Engineer's degree in Computer Science. I've been a Junior Java Developer at Netcompany since June 2026, after a backend internship building LangChain ingestion pipelines and RAG systems.",
       },
       techStack: {
-        question: "What is your main technology stack?",
+        question: "What is my main technology stack?",
         answer:
           "Java and Spring Boot are the core, with PostgreSQL and Redis for data, Docker for packaging, and REST APIs as the default interface between services. For LLM work I use LangChain4j on the JVM and LangChain in Python. I also build frontends in Astro, React, Angular, and Vue when a project needs one, but backend is where I do my best work.",
       },
       ragExperience: {
-        question: "What RAG and LLM experience do you have?",
+        question: "What RAG and LLM experience do I have?",
         answer:
           "It started with a backend internship at Paweł Weselak — Pragmatyczne Programowanie (March–June 2025), where I built LangChain ingestion pipelines and handled containerised deployment of LLM-driven extraction. I continued independently with LlamaTalks, a Spring Boot and LangChain4j chatbot that runs local models through Ollama, ingests documents into a vector store, and streams responses over SSE.",
       },
       location: {
-        question: "Where are you based, and do you work remotely?",
+        question: "Where am I based, and do I work remotely?",
         answer:
           "Warsaw, Poland — I work out of Netcompany's Warsaw office. I'm comfortable with on-site, hybrid, and fully remote setups, and I work in Polish (native) and English (professional).",
       },
       openToWork: {
-        question: "Are you open to new opportunities?",
+        question: "Am I open to new opportunities?",
         answer:
           "I'm employed at Netcompany and not actively job-hunting, but I read every message that comes in. If you have a backend or AI-engineering role involving Java, Spring Boot, or RAG, use the contact form on this site and I'll get back to you.",
       },
       largestProject: {
-        question: "What is the largest project you have built?",
+        question: "What is the largest project I have built?",
         answer:
           "todrawn.com, a live interactive whiteboard SaaS. It's built with Java 21 and Spring Boot on the backend, Next.js, React, and TypeScript on the frontend, and uses PostgreSQL, Redis, WebSockets, Stripe, Docker, and Google Cloud Run.",
       },

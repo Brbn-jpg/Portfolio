@@ -130,35 +130,35 @@ const about: AboutDict = {
 
   faq: {
     heading: "FAQ.sh",
-    subtitle: "Pytania, które słyszę najczęściej — z konkretną odpowiedzią.",
+    subtitle: "Pytania, które padają najczęściej — z konkretną odpowiedzią.",
     items: {
       whoIsBrbn: {
-        question: "Kim jesteś?",
+        question: "Kim jestem?",
         answer:
           "Nazywam się Jakub Kuźnicki, w sieci brbn-jpg. Jestem programistą backendu Java z Warszawy, z tytułem inżyniera informatyki. Od czerwca 2026 pracuję jako Junior Java Developer w Netcompany, po stażu backendowym, na którym budowałem pipeline'y do ingestii w LangChain i systemy RAG.",
       },
       techStack: {
-        question: "Jaki jest Twój główny stack technologiczny?",
+        question: "Jaki jest mój główny stack technologiczny?",
         answer:
           "Trzon to Java i Spring Boot, do tego PostgreSQL i Redis na dane, Docker do pakowania aplikacji i REST API jako domyślny interfejs między usługami. Do pracy z LLM-ami używam LangChain4j na JVM i LangChain w Pythonie. Buduję też frontendy w Astro, React, Angular i Vue, gdy projekt tego wymaga, ale backend to obszar, w którym pracuję najlepiej.",
       },
       ragExperience: {
-        question: "Jakie masz doświadczenie z RAG i LLM?",
+        question: "Jakie mam doświadczenie z RAG i LLM?",
         answer:
           "Zaczęło się od stażu backendowego w Paweł Weselak — Pragmatyczne Programowanie (marzec–czerwiec 2025), gdzie budowałem pipeline'y do ingestii w LangChain i zajmowałem się konteneryzowanym wdrażaniem ekstrakcji danych opartej na LLM. Kontynuowałem samodzielnie projektem LlamaTalks, chatbotem opartym na Spring Boot i LangChain4j, który uruchamia lokalne modele przez Ollama, wczytuje dokumenty do bazy wektorowej i strumieniuje odpowiedzi przez SSE.",
       },
       location: {
-        question: "Gdzie się znajdujesz i czy pracujesz zdalnie?",
+        question: "Gdzie pracuję i czy zdalnie?",
         answer:
           "Warszawa — pracuję z warszawskiego biura Netcompany. Odnajduję się zarówno w pracy stacjonarnej, jak i hybrydowej czy w pełni zdalnej. Pracuję po polsku (ojczysty) i po angielsku (poziom zawodowy).",
       },
       openToWork: {
-        question: "Czy jesteś otwarty na nowe oferty?",
+        question: "Czy jestem otwarty na nowe oferty?",
         answer:
           "Jestem zatrudniony w Netcompany i nie szukam aktywnie pracy, ale czytam każdą wiadomość, która do mnie trafia. Jeśli masz ofertę backendową lub inżyniera AI związaną z Javą, Spring Boot lub RAG, skorzystaj z formularza kontaktowego na tej stronie, a odezwę się.",
       },
       largestProject: {
-        question: "Jaki jest Twój największy zrealizowany projekt?",
+        question: "Jaki jest mój największy zrealizowany projekt?",
         answer:
           "todrawn.com — działająca interaktywna tablica SaaS. Backend zbudowany jest w Javie 21 i Spring Boot, frontend w Next.js, React i TypeScript, a całość wykorzystuje PostgreSQL, Redis, WebSockets, Stripe, Docker i Google Cloud Run.",
       },
