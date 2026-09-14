@@ -1,80 +1,90 @@
 /**
- * Dictionary for `/` (`src/components/pages/homePage.astro`).
- *
- * The four SNAKE_CASE section headings (`CORE_LANGS`, `TECH_ARSENAL`,
- * `PROFESSIONAL_EXP`, `REPOSITORIES`) and the `FOCUS` / `REGULAR` / `BASIC`
- * proficiency tokens stay identical in both locales on purpose — they render
- * as terminal-style labels (`[ FOCUS ]`) and are part of the site's visual
- * signature, not prose. Same reasoning for `$ whoami`: a real shell command
- * name has no Polish equivalent, exactly like `find` / `-name` on the 404
- * page — it's code, not a sentence.
- *
- * `heroParagraph` is an ordered list of segments rather than one string so the
- * inline green/bold emphasis (`Java`, `Python`, `RAG / LLM`, the job title)
- * survives translation even though Polish reorders the sentence around them.
+ * Homepage copy. Keep this page focused on evidence: a short proposition,
+ * selected proof, experience and project case-study teasers.
  */
-
 export type HeroSegment = { text: string; highlight?: true };
 
 const home = {
-  statusPill: "SYSTEM STATUS: WORKING & BUILDING HOBBY PROJECTS",
+  statusPill: "SYSTEM STATUS: BACKEND + RAG",
   whoamiPrompt: "$ whoami",
 
   tagline: {
-    prefix: "// aka",
+    prefix: "//",
     role: "Java Backend & RAG Developer",
     location: "Warsaw, PL",
   },
 
   heroParagraph: [
-    {
-      text: "I'm Jakub Kuźnicki, a software engineer based in Warsaw, Poland, with an Engineer's degree in Computer Science. I build backend systems in ",
-    },
-    { text: "Java", highlight: true },
+    { text: "I build " },
+    { text: "backend systems", highlight: true },
     { text: " and " },
-    { text: "Python", highlight: true },
-    { text: ", and design " },
-    { text: "RAG / LLM", highlight: true },
-    { text: " architectures with LangChain4j and LangChain. Currently " },
-    { text: "Junior Java Developer at Netcompany", highlight: true },
-    { text: ", and running side projects on home-server infrastructure in my own time." },
+    { text: "RAG products", highlight: true },
+    { text: ", shipping production work with Java and Spring Boot." },
   ] as readonly HeroSegment[],
 
-  moreAboutMe: "More about me",
+  heroCtas: {
+    projects: "View projects",
+    contact: "Get in touch",
+    about: "About me",
+  },
+
+  highlights: {
+    heading: "Selected proof",
+    lead: "Three concrete signals from products and work already in the repo.",
+    items: {
+      todrawn: {
+        label: "01 // LIVE PRODUCT",
+        title: "todrawn.com",
+        body: "todrawn.com combines Scribe for hand-drawn video creation with collaborative boards; the board mode runs on a Java 21 / Spring Boot backend and a Next.js frontend.",
+      },
+      rag: {
+        label: "02 // RAG PIPELINES",
+        title: "Document ingestion",
+        body: "Built LangChain ingestion pipelines and RAG systems during a 2025 backend internship, including containerisation and deployment of LLM-driven processing.",
+      },
+      llama: {
+        label: "03 // LOCAL LLM",
+        title: "LlamaTalks",
+        body: "A Spring Boot and LangChain4j chatbot using Ollama, document-based RAG, persistent chat history and SSE response streaming.",
+      },
+    },
+  },
+
+  chrome: {
+    evidence: "/ evidence",
+    openChannel: "/ open channel",
+    caseStudy: "case study",
+  },
 
   sections: {
-    coreLangs: {
-      heading: "CORE_LANGS",
-      lead: "Java is my main language. I use TypeScript/JavaScript and Python regularly, and I know enough C# to find my way around.",
-    },
-    techArsenal: {
-      heading: "TECH_ARSENAL",
-      lead: "Day to day I work with Spring Boot, Docker, PostgreSQL and Redis on the backend, and LangChain4j or LangChain when a project needs RAG or LLM integration. On the frontend I reach for Angular, React, Vue or Astro.",
-    },
     professionalExp: {
-      heading: "PROFESSIONAL_EXP",
-      lead: "I have been a Junior Java Developer at Netcompany since June 2026, after a 2025 backend internship spent on LangChain ingestion pipelines and RAG systems.",
+      heading: "EXPERIENCE",
+      lead: "Backend work across enterprise Java and LLM data pipelines.",
     },
     repositories: {
-      heading: "REPOSITORIES",
-      lead: "Seven projects, mostly Java and Spring Boot backends: a collaborative whiteboard SaaS, a RAG chatbot, a game backlog tracker, a procedural map generator, a recipe manager, and two production Astro sites.",
+      heading: "SELECTED PROJECTS",
+      lead: "Read the problem, the engineering choices and what each project delivers.",
     },
   },
 
-  recentActivity: "Recent Activity",
-  couldNotFetchActivity: "Could not fetch recent activity.",
-
-  /** Values kept English on purpose — rendered as `[ FOCUS ]` terminal tokens. */
-  levelLabels: {
-    FOCUS: "FOCUS",
-    REGULAR: "REGULAR",
-    BASIC: "BASIC",
+  caseStudy: {
+    problem: "Problem",
+    role: "Role",
+    decisions: "Decisions",
+    result: "Result",
+    readCaseStudy: "Read case study",
+    viewProject: "View project",
+    openDemo: "Open demo",
+    viewCode: "View code",
+    moreProjects: "More projects on GitHub",
   },
 
-  /** Compact relative-time suffix: `"3d ago"` / `"3d temu"`. Unit letters (s/m/h/d) are never translated. */
-  agoSuffix: "ago",
+  contact: {
+    heading: "CONTACT",
+    lead: "Have a backend, AI or infrastructure problem worth solving? Send me a note.",
+  },
 
-  checkGithubForMore: "Check github.com/Brbn-jpg for more",
+  checkGithubForMore: "See github.com/Brbn-jpg for more",
 };
 
 export type HomeDict = typeof home;

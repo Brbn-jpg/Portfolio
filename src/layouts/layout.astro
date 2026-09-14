@@ -13,6 +13,7 @@ import { absUrl, alternatesFor, pathFor, type Route } from "../i18n/routes";
 import SiteFooter from "../components/siteFooter.astro";
 import JsonLd from "../components/jsonLd.astro";
 import LangSwitcher from "../components/langSwitcher.astro";
+import SiteNav from "../components/siteNav.astro";
 
 interface Props {
 	lang: Locale;
@@ -234,6 +235,7 @@ const jsonLdGraph = noindex
     <div class="fixed inset-0 z-0 pointer-events-none opacity-10"
           style="background-image: radial-gradient(#22c55e 1px, transparent 1px); background-size: 40px 40px;">
     </div>
+		<SiteNav route={route} lang={lang} />
 		<LangSwitcher route={switcherRoute} lang={lang} />
 		<slot />
 		<SiteFooter lang={lang} />

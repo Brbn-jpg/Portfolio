@@ -14,7 +14,7 @@ const meta: MetaDict = {
     about: {
       title: "O mnie — Jakub Kuźnicki, inżynier i programista Java",
       description:
-        "Ścieżka zawodowa, podejście do inżynierii, sprzęt i FAQ. Jakub Kuźnicki — programista Java w Netcompany, na co dzień Spring Boot i systemy RAG.",
+        "Jak pracuje Jakub Kuźnicki: backend, projekty RAG, krótka ścieżka zawodowa i narzędzia używane w pracy.",
     },
     privacy: {
       title: "Polityka prywatności — brbn.pl",

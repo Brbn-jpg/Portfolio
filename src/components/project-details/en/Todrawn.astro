@@ -1,48 +1,76 @@
 ---
-import DetailHeading from '../detailHeading.astro';
+import DetailHeading from "../detailHeading.astro";
 ---
-<div class="space-y-6 text-slate-400 leading-relaxed">
-  <p>
-    todrawn.com is a full-stack interactive whiteboard SaaS, built end-to-end with a <span class="text-slate-200 font-bold">Java 21</span> and <span class="text-slate-200 font-bold">Spring Boot</span> backend and a <span class="text-slate-200 font-bold">Next.js</span>, <span class="text-slate-200 font-bold">React</span>, and <span class="text-slate-200 font-bold">TypeScript</span> frontend. It is currently deployed and running in production at <a class="text-green-400 hover:underline" href="https://todrawn.com" target="_blank" rel="noreferrer">todrawn.com</a>.
-  </p>
-  <p>
-    The canvas itself is rendered with <span class="text-slate-200 font-bold">Konva</span>, while <span class="text-slate-200 font-bold">WebSockets</span> carry real-time board updates between connected clients. <span class="text-slate-200 font-bold">PostgreSQL</span> persists boards and account data, and <span class="text-slate-200 font-bold">Redis</span> backs the parts of the system that need fast, short-lived state.
+
+<div class="space-y-8 text-slate-400 leading-relaxed">
+  <p class="text-lg text-slate-300">
+    todrawn.com is a full-stack product with two modes: Scribe turns text, code and freehand sketches into hand-drawn
+    videos, while collaborative boards support shared drawing. It is running in production at
+    <a class="text-green-400 hover:underline" href="https://todrawn.com" target="_blank" rel="noreferrer">todrawn.com</a>.
+    This case study focuses on the board architecture, which combines Java 21 and Spring Boot with a Next.js, React
+    and TypeScript frontend.
   </p>
 
-  <DetailHeading>Technical Architecture</DetailHeading>
-  <ul class="list-disc list-inside space-y-2 pl-2 mt-4">
-    <li>
-      <span class="font-bold text-slate-300">Backend (Spring Boot):</span> Built on Java 21, with <span class="text-green-400 font-mono">Spring Security</span> handling authentication and authorization for the API.
-    </li>
-    <li>
-      <span class="font-bold text-slate-300">Frontend (Next.js / React):</span> A TypeScript codebase styled with <span class="text-slate-200 font-bold">Tailwind CSS</span>, with the whiteboard canvas itself implemented on top of Konva.
-    </li>
-    <li>
-      <span class="font-bold text-slate-300">Real-Time Layer:</span> WebSockets propagate drawing and board state between clients, with Redis used alongside PostgreSQL for state that doesn't belong in the primary data store.
-    </li>
-    <li>
-      <span class="font-bold text-slate-300">Data & Persistence:</span> PostgreSQL is the system of record for boards, accounts, and related data.
-    </li>
-  </ul>
+  <section>
+    <DetailHeading>Problem</DetailHeading>
+    <p class="mt-4">
+      The collaborative board mode has to keep drawing and board state in sync for connected clients while accounts,
+      boards and subscriptions remain part of the same product. The architecture addresses those concerns in one
+      deployed application.
+    </p>
+  </section>
 
-  <div class="mt-6 mb-6">
-    <pre class="bg-slate-900 border border-slate-800 rounded-md p-4 text-sm text-slate-300 font-mono overflow-x-auto leading-tight">
-      <code class="language-ascii">
-[ Next.js / React / Konva ] &lt;--WebSocket--&gt; [ Spring Boot API ]
+  <section>
+    <DetailHeading>Responsibilities</DetailHeading>
+    <p class="mt-4">
+      I built the project end to end. The scope covers the Spring Boot API and Spring Security, the Next.js and
+      Konva canvas experience, real-time updates, PostgreSQL and Redis data handling, Stripe billing, and the
+      containerised delivery path.
+    </p>
+  </section>
+
+  <section>
+    <DetailHeading>Decisions and trade-offs</DetailHeading>
+    <ul class="mt-4 list-disc space-y-2 pl-5">
+      <li><span class="font-bold text-slate-300">WebSockets:</span> board updates move between connected clients in real time.</li>
+      <li><span class="font-bold text-slate-300">PostgreSQL and Redis:</span> PostgreSQL stores boards and account data, while Redis supports fast, short-lived state.</li>
+      <li><span class="font-bold text-slate-300">Konva:</span> the canvas renderer is kept in the frontend where drawing interactions happen.</li>
+      <li><span class="font-bold text-slate-300">Delivery:</span> Docker, GitHub Actions and Google Cloud Run provide the build and hosting path; Stripe is integrated in the Spring Boot backend.</li>
+    </ul>
+    <p class="mt-4 text-sm text-slate-500">
+      The public project description does not publish latency, traffic or scale figures, so this case study keeps the
+      result qualitative.
+    </p>
+  </section>
+
+  <section>
+    <DetailHeading>Technical architecture</DetailHeading>
+    <ul class="mt-4 list-disc space-y-2 pl-5">
+      <li><span class="font-bold text-slate-300">Backend:</span> Java 21, Spring Boot and Spring Security handle the API, authentication and authorisation.</li>
+      <li><span class="font-bold text-slate-300">Frontend:</span> Next.js, React and TypeScript provide the UI, with Tailwind CSS and Konva for the canvas.</li>
+      <li><span class="font-bold text-slate-300">Data:</span> PostgreSQL is the system of record for boards, accounts and related data; Redis is used for short-lived state.</li>
+    </ul>
+    <pre class="mt-6 overflow-x-auto rounded-sm border border-slate-800 bg-slate-900 p-4 text-sm leading-tight text-slate-300"><code>[ Next.js / React / Konva ] &lt;--WebSocket--&gt; [ Spring Boot API ]
                                                     ↓
-                                    [ PostgreSQL ]     [ Redis ]
-      </code>
-    </pre>
-  </div>
+                                    [ PostgreSQL ]     [ Redis ]</code></pre>
+  </section>
 
-  <DetailHeading>Payments &amp; Deployment</DetailHeading>
-  <p>
-    Billing runs through <span class="text-slate-200 font-bold">Stripe</span>, integrated directly into the Spring Boot backend. Shipping and hosting are containerized and automated:
-  </p>
-  <ul class="list-disc list-inside space-y-2 pl-2">
-    <li><span class="font-bold text-slate-300">Payments:</span> Stripe handles subscription and payment processing for the SaaS.</li>
-    <li><span class="font-bold text-slate-300">Containerization:</span> The application is packaged with <span class="text-slate-200 font-bold">Docker</span> for consistent builds across environments.</li>
-    <li><span class="font-bold text-slate-300">CI/CD:</span> <span class="text-slate-200 font-bold">GitHub Actions</span> automates the build and deployment pipeline.</li>
-    <li><span class="font-bold text-slate-300">Hosting:</span> The backend runs on <span class="text-slate-200 font-bold">Google Cloud Run</span>.</li>
-  </ul>
+  <section>
+    <DetailHeading>Result</DetailHeading>
+    <p class="mt-4">
+      The result is a live todrawn.com product with Scribe for hand-drawn video creation and collaborative boards,
+      with Stripe subscriptions, a containerised application, automated GitHub Actions delivery and a backend hosted
+      on Google Cloud Run.
+    </p>
+  </section>
+
+  <section>
+    <DetailHeading>Lessons learned</DetailHeading>
+    <p class="mt-4">
+      Building the product end to end connected frontend interactions, real-time transport, persistence,
+      authentication, billing and deployment in one system. It also made the boundary between durable data in
+      PostgreSQL and short-lived coordination in Redis explicit. The public material documents the architecture and
+      production URL; it does not include a performance or incident history.
+    </p>
+  </section>
 </div>

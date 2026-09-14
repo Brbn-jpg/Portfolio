@@ -4,6 +4,15 @@ import type { CommonDict } from "../en/common";
 const common: CommonDict = {
   backToHome: "Powrót do strony głównej",
 
+  homeLabel: "Przejdź do strony głównej",
+  primaryNavigation: "Główna nawigacja",
+  navigation: {
+    projects: "Projekty",
+    experience: "Doświadczenie",
+    about: "O mnie",
+    contact: "Kontakt",
+  },
+
   footer: {
     aboutLabel: "O mnie",
     privacyLabel: "Prywatność",

@@ -2,6 +2,22 @@ import type { Locale } from "../i18n/config";
 
 type Localized<T> = Record<Locale, T>;
 
+export interface CaseStudy {
+  problem: Localized<string>;
+  role: Localized<string>;
+  decisions: Localized<string>;
+  result: Localized<string>;
+}
+
+export interface ProjectScreenshot {
+  src: string;
+  alt: Localized<string>;
+  width?: number;
+  height?: number;
+}
+
+export type ProjectVisual = "rag-flow";
+
 export interface Project {
   /** Stable id: URL slug in both locales, and the key into the detail-component registry. */
   slug: string;
@@ -34,6 +50,12 @@ export interface Project {
   description: Localized<string>;
   /** Fallback prose, shown when a project has no dedicated detail component. */
   longDescription: Localized<string>;
+  /** Structured teaser copy for the strongest projects on the homepage. */
+  caseStudy?: CaseStudy;
+  /** Optional product screenshot shown on cards and detail pages. */
+  screenshot?: ProjectScreenshot;
+  /** Optional code-native visual used when a project has no product screenshot. */
+  visual?: ProjectVisual;
   seo: Localized<{ title: string; description: string }>;
 }
 
@@ -62,23 +84,48 @@ export const allProjects: readonly Project[] = [
       "Google Cloud Run",
     ],
     description: {
-      en: "An interactive whiteboard SaaS built with Java 21 and Spring Boot on the backend, and Next.js, React, and TypeScript on the frontend. The stack also includes PostgreSQL, Redis, WebSockets, Stripe, Docker, and Google Cloud Run.",
-      pl: "Interaktywna tablica SaaS zbudowana w Java 21 i Spring Boot na backendzie oraz Next.js, React i TypeScript na frontendzie. Stack obejmuje też PostgreSQL, Redis, WebSockets, Stripe, Docker i Google Cloud Run.",
+      en: "A creative product with Scribe for turning text, code and sketches into hand-drawn videos, plus collaborative boards. The board mode uses Java 21 and Spring Boot on the backend, and Next.js, React and TypeScript on the frontend.",
+      pl: "Produkt kreatywny z trybem Scribe, który zamienia tekst, kod i szkice w odręcznie rysowane wideo, oraz ze współdzielonymi tablicami. Tryb tablic wykorzystuje Java 21 i Spring Boot na backendzie oraz Next.js, React i TypeScript na frontendzie.",
     },
     longDescription: {
-      en: "todrawn.com is a full-stack interactive whiteboard SaaS. Its technology stack combines Java 21, Spring Boot, Spring Security, PostgreSQL, Redis, and WebSockets with a Next.js, React, TypeScript, Tailwind CSS, and Konva frontend. Stripe handles payments, while Docker, GitHub Actions, and Google Cloud Run support deployment.",
-      pl: "todrawn.com to interaktywna tablica SaaS typu full-stack. Jej stack technologiczny łączy Java 21, Spring Boot, Spring Security, PostgreSQL, Redis i WebSockets z frontendem opartym na Next.js, React, TypeScript, Tailwind CSS i Konva. Stripe obsługuje płatności, a Docker, GitHub Actions i Google Cloud Run wspierają wdrażanie.",
+      en: "todrawn.com is a full-stack product with two modes: Scribe turns text, code and freehand sketches into hand-drawn videos, while collaborative boards support shared drawing. This case study focuses on the board architecture: Java 21, Spring Boot, Spring Security, PostgreSQL, Redis and WebSockets with a Next.js, React, TypeScript, Tailwind CSS and Konva frontend. Stripe handles payments, while Docker, GitHub Actions and Google Cloud Run support deployment.",
+      pl: "todrawn.com to produkt full-stack z dwoma trybami: Scribe zamienia tekst, kod i odręczne szkice w rysowane wideo, a współdzielone tablice obsługują wspólne rysowanie. To case study skupia się na architekturze tablic: Java 21, Spring Boot, Spring Security, PostgreSQL, Redis i WebSockets z frontendem w Next.js, React, TypeScript, Tailwind CSS i Konva. Stripe obsługuje płatności, a Docker, GitHub Actions i Google Cloud Run wspierają wdrażanie.",
+    },
+    screenshot: {
+      src: "/projects/todrawn.jpg",
+      alt: {
+        en: "todrawn.com landing page for Scribe, showing the hand-drawn video workflow and controls for trying Scribe or opening a board.",
+        pl: "Strona główna todrawn.com dla trybu Scribe, pokazująca tworzenie odręcznie rysowanego wideo oraz przyciski wypróbowania Scribe i otwarcia tablicy.",
+      },
+    },
+    caseStudy: {
+      problem: {
+        en: "For the board mode, keep drawing and board state in sync across connected clients while the wider product also supports Scribe, accounts and subscriptions.",
+        pl: "W trybie tablic utrzymać synchronizację rysowania i stanu między podłączonymi klientami, gdy cały produkt obejmuje też Scribe, konta i subskrypcje.",
+      },
+      role: {
+        en: "Built todrawn.com end to end; this case study focuses on the Spring Boot API, Next.js canvas experience, real-time layer, billing and deployment behind the board mode.",
+        pl: "Zbudowałem todrawn.com end to end; to case study skupia się na API w Spring Boot, kanwie Next.js, warstwie czasu rzeczywistego, płatnościach i wdrożeniu trybu tablic.",
+      },
+      decisions: {
+        en: "WebSockets carry board updates; PostgreSQL stores durable data; Redis handles fast, short-lived state; Docker, GitHub Actions and Cloud Run handle delivery.",
+        pl: "WebSockets przenoszą aktualizacje tablicy, PostgreSQL przechowuje trwałe dane, Redis obsługuje szybki stan krótkotrwały, a Docker, GitHub Actions i Cloud Run wspierają dostarczanie.",
+      },
+      result: {
+        en: "A live todrawn.com product combining Scribe with collaborative boards, including a production board mode with Stripe subscriptions.",
+        pl: "Działający produkt todrawn.com łączący Scribe ze współdzielonymi tablicami, w tym produkcyjny tryb tablic z subskrypcjami Stripe.",
+      },
     },
     seo: {
       en: {
-        title: "todrawn.com — Java 21 + Next.js whiteboard SaaS",
+        title: "todrawn.com — Scribe + collaborative boards",
         description:
-          "todrawn.com is a real-time collaborative whiteboard SaaS built by Jakub Kuźnicki: Java 21, Spring Boot, PostgreSQL, Redis, WebSockets, Stripe, Cloud Run.",
+          "todrawn.com combines Scribe hand-drawn video creation with collaborative boards. The board mode uses Java 21, Spring Boot, PostgreSQL, Redis, WebSockets and Next.js.",
       },
       pl: {
-        title: "todrawn.com — SaaS tablicy w Java 21 i Next.js",
+        title: "todrawn.com — Scribe i współdzielone tablice",
         description:
-          "todrawn.com to tablica SaaS czasu rzeczywistego stworzona przez Jakuba Kuźnickiego: Java 21, Spring Boot, PostgreSQL, Redis, WebSockets, Stripe, Cloud Run.",
+          "todrawn.com łączy tworzenie odręcznie rysowanych wideo w Scribe ze współdzielonymi tablicami. Tryb tablic wykorzystuje Java 21, Spring Boot, PostgreSQL, Redis, WebSockets i Next.js.",
       },
     },
   },
@@ -87,6 +134,7 @@ export const allProjects: readonly Project[] = [
     name: "LlamaTalks",
     schemaType: "SoftwareSourceCode",
     lang: "Java",
+    visual: "rag-flow",
     links: {
       github: "https://github.com/Brbn-jpg/llama-talks",
     },
@@ -106,6 +154,24 @@ export const allProjects: readonly Project[] = [
     longDescription: {
       en: "This project explores local LLMs in a Java ecosystem. The Spring Boot server uses Ollama for a RESTful API to the Llama2 model, featuring real-time streaming via SSE, persistent chat history, and a RAG pipeline for document-based Q&A. The modular design allows easy expansion.",
       pl: "Ten projekt eksploruje lokalne modele LLM w ekosystemie Java. Serwer Spring Boot wykorzystuje Ollamę do udostępnienia RESTful API dla modelu Llama2, oferując strumieniowanie w czasie rzeczywistym przez SSE, trwałą historię czatu i potok RAG do odpowiadania na pytania na podstawie dokumentów. Modułowa konstrukcja pozwala na łatwą rozbudowę.",
+    },
+    caseStudy: {
+      problem: {
+        en: "Answer questions from a user's documents while keeping the language model local to the application.",
+        pl: "Odpowiadać na pytania z dokumentów użytkownika, utrzymując model językowy lokalnie w aplikacji.",
+      },
+      role: {
+        en: "Built a Spring Boot chatbot around LangChain4j, Ollama, document ingestion and persistent conversations.",
+        pl: "Zbudowałem chatbota w Spring Boot wokół LangChain4j, Ollamy, ingestii dokumentów i trwałych konwersacji.",
+      },
+      decisions: {
+        en: "The ingestion endpoint sends files through Apache Tika parsing and chunking, then embeddings and semantic retrieval provide context alongside conversation history. LangChain4j connects that context to Ollama, while Reactor/Flux and SSE stream the response; changing embedding dimensions requires re-ingestion.",
+        pl: "Endpoint ingestii prowadzi pliki przez parsowanie i dzielenie w Apache Tika, a następnie embeddingi i wyszukiwanie semantyczne dostarczają kontekst obok historii rozmowy. LangChain4j łączy ten kontekst z Ollamą, a Reactor/Flux i SSE strumieniują odpowiedź; zmiana wymiarów embeddingów wymaga ponownej ingestii.",
+      },
+      result: {
+        en: "An open-source chatbot project with local-model conversations, document Q&A and streamed responses.",
+        pl: "Otwartoźródłowy chatbot z rozmowami na lokalnym modelu, pytaniami do dokumentów i strumieniowanymi odpowiedziami.",
+      },
     },
     seo: {
       en: {
@@ -144,6 +210,31 @@ export const allProjects: readonly Project[] = [
     longDescription: {
       en: "Gamelog is a full-stack web application that helps users organize their video game libraries. It features a Kanban-style dashboard for managing progress, advanced search capabilities, social features like friend requests, and secure user accounts.",
       pl: "Gamelog to aplikacja webowa full-stack, która pomaga użytkownikom organizować biblioteki gier wideo. Oferuje panel w stylu Kanban do zarządzania postępem, zaawansowane możliwości wyszukiwania, funkcje społecznościowe jak zaproszenia do znajomych oraz bezpieczne konta użytkowników.",
+    },
+    screenshot: {
+      src: "/projects/gamelog.jpg",
+      alt: {
+        en: "Gamelog landing page with a backlog headline, navigation, and a collage of game artwork.",
+        pl: "Strona główna Gamelog z hasłem o backlogu, nawigacją i kolażem grafik z gier.",
+      },
+    },
+    caseStudy: {
+      problem: {
+        en: "Give players one place to organize a game library, track progress and keep social features beside the backlog.",
+        pl: "Dać graczom jedno miejsce do organizowania biblioteki, śledzenia postępów i obsługi funkcji społecznościowych obok backlogu.",
+      },
+      role: {
+        en: "Built a full-stack game backlog manager with a Spring Boot API and React interface.",
+        pl: "Zbudowałem pełnostackowego menedżera backlogu gier z API w Spring Boot i interfejsem w React.",
+      },
+      decisions: {
+        en: "A Kanban dashboard models progress; PostgreSQL persists accounts and library data; Redis provides caching; Docker packages the application.",
+        pl: "Panel Kanban modeluje postęp, PostgreSQL przechowuje konta i dane biblioteki, Redis zapewnia cache, a Docker pakuje aplikację.",
+      },
+      result: {
+        en: "A working full-stack tracker with search, playtime, ratings, friend requests and a live demo.",
+        pl: "Działający tracker full-stack z wyszukiwaniem, czasem gry, ocenami, zaproszeniami do znajomych i wersją demo.",
+      },
     },
     seo: {
       en: {
@@ -184,6 +275,33 @@ export const allProjects: readonly Project[] = [
     longDescription: {
       en: "MapGenerator is a procedural world-building tool that produces interactive fantasy maps from a single seed. The backend, built on Spring Boot with FastNoiseLite, generates terrain data and streams it to the client. The Vue 3 + TypeScript frontend renders the world on an HTML5 Canvas with a Google Maps-style pan/zoom viewport, stylized procedural water animation, dynamic height-gradient shading for 3D depth, and procedurally-generated cities and buildings. A virtual canvas hybrid approach with pre-rendered static terrain keeps rendering performant.",
       pl: "MapGenerator to narzędzie do proceduralnego budowania światów, które tworzy interaktywne mapy fantasy z pojedynczego ziarna. Backend, zbudowany na Spring Boot z FastNoiseLite, generuje dane terenu i strumieniuje je do klienta. Frontend Vue 3 + TypeScript renderuje świat na HTML5 Canvas z widokiem pan/zoom w stylu Map Google, stylizowaną proceduralną animacją wody, dynamicznym cieniowaniem gradientu wysokości dla efektu 3D oraz proceduralnie generowanymi miastami i budynkami. Hybrydowe podejście z wirtualnym canvasem i wstępnie wyrenderowanym statycznym terenem utrzymuje wydajność renderowania.",
+    },
+    screenshot: {
+      src: "/projects/mapgenerator.png",
+      width: 1296,
+      height: 1292,
+      alt: {
+        en: "Generated MapGenerator fantasy map with blue ocean, multiple landmasses, biome textures, mountains and cities.",
+        pl: "Wygenerowana mapa fantasy z MapGeneratora z niebieskim oceanem, lądami, teksturami biomów, górami i miastami.",
+      },
+    },
+    caseStudy: {
+      problem: {
+        en: "Turn one seed and a map size into an explorable fantasy world while keeping large maps responsive in the browser.",
+        pl: "Zamienić jedno ziarno i rozmiar mapy w eksplorowalny świat fantasy, zachowując responsywność dużych map w przeglądarce.",
+      },
+      role: {
+        en: "Built the Spring Boot generation backend and Vue/TypeScript Canvas client, including the streaming path, viewport and renderer.",
+        pl: "Zbudowałem backend generacji w Spring Boot oraz klienta Vue/TypeScript z Canvasem, w tym streaming, widok mapy i renderer.",
+      },
+      decisions: {
+        en: "Multiple noise layers model height, moisture, temperature and the continent mask. The client uses a hybrid virtual/offscreen canvas: static land is pre-rendered and only waves are calculated per frame.",
+        pl: "Wiele warstw szumu modeluje wysokość, wilgotność, temperaturę i maskę kontynentów. Klient używa hybrydowej wirtualnej kanwy i warstw offscreen: statyczny ląd jest renderowany wcześniej, a w każdej klatce liczone są tylko fale.",
+      },
+      result: {
+        en: "A working procedural map generator with streamed terrain, pan/zoom navigation, topology shading, procedural textures and cities.",
+        pl: "Działający generator proceduralnych map ze strumieniowanym terenem, nawigacją pan/zoom, cieniowaniem topografii, teksturami i miastami generowanymi proceduralnie.",
+      },
     },
     seo: {
       en: {
@@ -302,6 +420,22 @@ export function localize(project: Project, lang: Locale) {
     ...project,
     description: project.description[lang],
     longDescription: project.longDescription[lang],
+    caseStudy: project.caseStudy
+      ? {
+          problem: project.caseStudy.problem[lang],
+          role: project.caseStudy.role[lang],
+          decisions: project.caseStudy.decisions[lang],
+          result: project.caseStudy.result[lang],
+        }
+      : undefined,
+    screenshot: project.screenshot
+      ? {
+          src: project.screenshot.src,
+          alt: project.screenshot.alt[lang],
+          width: project.screenshot.width,
+          height: project.screenshot.height,
+        }
+      : undefined,
     seo: project.seo[lang],
   };
 }

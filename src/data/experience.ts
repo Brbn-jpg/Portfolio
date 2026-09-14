@@ -26,8 +26,8 @@ export const experience: readonly ExperienceEntry[] = [
       pl: "cze 2026 — obecnie",
     },
     description: {
-      en: "Developing enterprise-level solutions and delivering high-quality software in a professional consulting environment.",
-      pl: "Tworzę rozwiązania klasy enterprise i dostarczam wysokiej jakości oprogramowanie w profesjonalnym środowisku konsultingowym.",
+      en: "Working on enterprise-level Java software at Netcompany.",
+      pl: "Pracuję nad oprogramowaniem Java klasy enterprise w Netcompany.",
     },
   },
   {

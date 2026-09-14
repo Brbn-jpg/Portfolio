@@ -1,113 +1,89 @@
-import type { AboutDict } from "../en/about";
+import type { AboutDict, AboutCard } from "../en/about";
 
-/**
- * Typed against English: a missing key is a build error, never a silent fallback.
- *
- * Left untranslated on purpose: technology/company names (Netcompany, Paweł
- * Weselak — Pragmatyczne Programowanie, Java, Spring Boot, LangChain4j, RAG,
- * DevOps, Full-Stack, Redis, LangChain, WebSockets, Stripe …), hardware model
- * names, `brbn-jpg`, and `Jakub Kuźnicki`. ` ` (non-breaking space) is used
- * after single-letter Polish words (w, i, z, o, a) in headings/short lines.
- */
 const about: AboutDict = {
   backToHome: "Powrót do strony głównej",
 
   header: {
     title: "O mnie",
-    subtitle: "Kilka słów o mojej drodze zawodowej, zainteresowaniach i sprzęcie, którego używam.",
+    subtitle: "Osoba stojąca za backendem.",
   },
 
   whoIAm: {
-    heading: "Kim jestem",
+    heading: "Kilka słów kontekstu",
     paragraphs: [
-      "Nazywam się Jakub Kuźnicki, jestem inżynierem informatyki i zajmuję się backendem oraz architekturą systemów. Od czerwca 2026 pracuję jako Junior Java Developer w Netcompany, gdzie buduję systemy klasy enterprise w Javie i Spring Boot.",
-      "Wcześniej, od marca do czerwca 2025, odbyłem staż jako Backend Developer w Paweł Weselak — Pragmatyczne Programowanie. Budowałem tam pipeline'y do ingestii dokumentów na LangChain i systemy RAG w LangChain4j i Spring Boot, zajmowałem się też konteneryzacją i wdrożeniami rozwiązań opartych na LLM.",
-      "Teraz rozwijam się w stronę DevOpsu i infrastruktury. Postawiłem w domu serwer bare-metal i uczę się na nim sieci oraz wirtualizacji w praktyce.",
-    ] as readonly [string, string, string],
+      "Nazywam się Jakub Kuźnicki, jestem inżynierem informatyki i zajmuję się backendem oraz architekturą systemów. Od czerwca 2026 pracuję jako Junior Java Developer w Netcompany.",
+      "Wcześniej odbyłem staż backendowy w Paweł Weselak — Pragmatyczne Programowanie (marzec–czerwiec 2025), gdzie budowałem pipeline'y ingestii w LangChain i systemy RAG w LangChain4j oraz Spring Boot. Tę samą ciekawość rozwijam po stronie infrastruktury, korzystając z domowego serwera bare-metal.",
+    ] as readonly [string, string],
+  },
+
+  focus: {
+    heading: "Co buduję",
+    items: [
+      {
+        title: "Systemy backendowe",
+        body: "Usługi w Javie i Spring Boot, wraz z decyzjami dotyczącymi danych i wdrożeń potrzebnymi produktowi.",
+      },
+      {
+        title: "Pipeline'y RAG",
+        body: "Ingestia dokumentów i odpowiedzi oparte na źródłach z użyciem LangChain4j lub LangChain, od eksperymentów po działające aplikacje.",
+      },
+      {
+        title: "Infrastruktura w praktyce",
+        body: "Domowy serwer bare-metal daje mi miejsce do praktycznej nauki sieci, wirtualizacji i dostarczania aplikacji.",
+      },
+    ] as readonly AboutCard[],
+  },
+
+  journey: {
+    heading: "Krótka droga",
+    entries: [
+      {
+        title: "2025 · Staż backendowy",
+        body: "Pipeline'y ingestii w LangChain, systemy RAG, konteneryzacja i przetwarzanie danych oparte na LLM.",
+      },
+      {
+        title: "2026 · Netcompany",
+        body: "Junior Java Developer pracujący nad oprogramowaniem Java klasy enterprise.",
+      },
+      {
+        title: "Teraz · Projekty własne",
+        body: "todrawn.com, LlamaTalks i eksperymenty infrastrukturalne przekładają te same pomysły na działające projekty.",
+      },
+    ] as readonly AboutCard[],
   },
 
   interests: {
-    heading: "Moje zainteresowania",
+    heading: "Poza edytorem",
     bikeAlt: "Mój rower Romet Mustang",
     cards: {
-      techHardware: {
-        title: "Technologia i sprzęt",
-        body: "Uwielbiam składać komputery i pasjonuję się specyfikacjami sprzętowymi, zwłaszcza kartami graficznymi (GPU). Zawsze śledzę najnowsze wiadomości i innowacje technologiczne.",
-      },
       ragLlm: {
         title: "RAG & LLM",
-        body: "Lubię budować systemy ekstrakcji danych oparte na modelach AI. Pracowałem głównie z LangChain4j i LangChain, gdzie zbudowałem kompletny potok wczytywania danych.",
+        body: "Lubię prowadzić pomysł AI przez ingestę, wyszukiwanie i interfejs, z którego da się korzystać.",
       },
       cycling: {
         title: "Kolarstwo",
-        body: 'Mój rower: Romet Mustang M1 CS 19" 29". Lubię jeździć zarówno w terenie, jak i po asfalcie.',
+        body: 'Mój rower to Romet Mustang M1 CS 19" 29". Jeżdżę w terenie i po asfalcie.',
       },
       gym: {
-        title: "Siłownia",
-        body: "Niedawno zacząłem swoją przygodę z treningiem siłowym. Uważam, że dyscyplina wymagana na siłowni świetnie uzupełnia skupienie potrzebne w programowaniu. To świetny sposób na zrównoważenie siedzącego trybu życia, a widoczne efekty są ogromną motywacją.",
-      },
-    },
-  },
-
-  timeline: {
-    heading: "Moja droga",
-    entries: {
-      yearOne: {
-        title: "1. rok: Podstawy",
-        body: "Zrozumiałem reprezentację danych na niskim poziomie: arytmetykę binarną, operacje bitowe i algebrę Boole'a. Równolegle zbudowałem solidne podstawy programowania obiektowego (OOP) w C#, koncentrując się na czystej strukturze kodu i bezpieczeństwie typów.",
-      },
-      yearTwo: {
-        title: "2. rok: Algorytmy i Full-Stack",
-        body: "Opanowałem standardowe struktury danych i algorytmy. Przeszedłem od teorii do praktyki, tworząc aplikacje desktopowe. Nauczyłem się projektować relacyjne bazy danych i sprawnie obsługiwać logikę aplikacji.",
-      },
-      yearThree: {
-        title: "3. rok: Specjalizacja i praktyka",
-        body: "Przeszedłem do ekosystemu Javy, aby specjalizować się w backendzie klasy enterprise. Współtworzyłem projekt 'Cibaria' w Spring Boot i Angular, wdrażając branżowe standardy pracy z Gitem.",
-      },
-      yearFour: {
-        title: "4. rok: Praca dyplomowa i zaawansowane projekty",
-        body: "Obroniłem pracę inżynierską na ostatnim roku studiów, a potem zbudowałem 'Gamelog', pełnostackowy menedżer listy gier, w którym opanowałem Redis do wydajnego cache'owania danych, oraz zbadałem połączenie backendu z AI w projekcie 'LlamaTalks' – integrując LLM-y (LangChain) z systemami opartymi na Javie i bazami wektorowymi.",
-      },
-      present: {
-        title: "Teraźniejszość: kariera zawodowa (od 2026)",
-        body: "Od czerwca 2026 pracuję jako Junior Java Developer w Netcompany. Wykorzystuję swoje inżynierskie podstawy w złożonych, wielkoskalowych systemach, jednocześnie w czasie prywatnym eksplorując najnowsze technologie, takie jak RAG i DevOps.",
-      },
-      future: {
-        title: "Przyszłość: rozwój i specjalizacja",
-        body: "Planuję podjąć niestacjonarne (zaoczne) studia magisterskie, zachowując pełną dyspozycyjność w godzinach pracy, jednocześnie pogłębiając wiedzę z informatyki i dalej specjalizując się w skalowalnych architekturach.",
-      },
-    },
-  },
-
-  philosophy: {
-    heading: "Moja filozofia",
-    cards: {
-      cleanCode: {
-        title: "Czysty kod",
-        body: "Wierzę w zasadę DRY (Don't Repeat Yourself). Piszę kod, który jest nie tylko funkcjonalny, ale też czysty, łatwy w utrzymaniu i zrozumiały dla innych.",
-      },
-      continuousLearning: {
-        title: "Ciągła nauka",
-        body: "Świat technologii nieustannie się zmienia, a ja chcę rozwijać się razem z nim. Każdy projekt to okazja, by nauczyć się czegoś nowego i rozwinąć swoje umiejętności.",
-      },
-      problemSolving: {
-        title: "Rozwiązywanie problemów",
-        body: "Postrzegam siebie przede wszystkim jako osobę rozwiązującą problemy. Lubię analizować złożone wyzwania i projektować eleganckie, wydajne rozwiązania.",
+        title: "Trening siłowy",
+        body: "Trening jest dobrą przeciwwagą dla długich godzin przed ekranem.",
       },
     },
   },
 
   mySetup: {
-    heading: "Moje stanowisko pracy",
+    heading: "Stanowisko pracy",
+    lightboxClose: "Zamknij obraz",
     imageAlts: {
-      fullSetup: "Pełne stanowisko biurkowe z dwoma monitorami, niestandardową klawiaturą i obudową PC",
-      pc: "Obudowa PC NZXT H7 Flow z Ryzen 7 5800X3D i RTX 4070 Super Aorus Master w środku",
-      mnk: "Niestandardowa klawiatura mechaniczna z keycapami BoW i myszką Dark Project Nexus",
+      fullSetup: "Stanowisko z dwoma monitorami, klawiaturą mechaniczną i obudową PC",
+      pc: "Obudowa PC NZXT H7 Flow z Ryzen 7 5800X3D i RTX 4070 Super Aorus Master w środku",
+      mnk: "Niestandardowa klawiatura mechaniczna z keycapami BoW i myszką Dark Project Nexus",
     },
   },
 
   gearList: {
-    heading: "Sprzęt",
+    heading: "Sprzęt, jeśli ciekawi",
+    summary: "Otwórz listę sprzętu",
     pcHeading: "PC",
     peripheralsHeading: "Peryferia",
     laptopHeading: "Laptop",
@@ -125,48 +101,6 @@ const about: AboutDict = {
       monitors: "Monitory",
       microphone: "Mikrofon",
       headphones: "Słuchawki",
-    },
-  },
-
-  faq: {
-    heading: "FAQ.sh",
-    subtitle: "Pytania, które padają najczęściej — z konkretną odpowiedzią.",
-    items: {
-      whoIsBrbn: {
-        question: "Kim jestem?",
-        answer:
-          "Nazywam się Jakub Kuźnicki, w sieci brbn-jpg. Jestem programistą backendu Java z Warszawy, z tytułem inżyniera informatyki. Od czerwca 2026 pracuję jako Junior Java Developer w Netcompany, po stażu backendowym, na którym budowałem pipeline'y do ingestii w LangChain i systemy RAG.",
-      },
-      techStack: {
-        question: "Jaki jest mój główny stack technologiczny?",
-        answer:
-          "Trzon to Java i Spring Boot, do tego PostgreSQL i Redis na dane, Docker do pakowania aplikacji i REST API jako domyślny interfejs między usługami. Do pracy z LLM-ami używam LangChain4j na JVM i LangChain w Pythonie. Buduję też frontendy w Astro, React, Angular i Vue, gdy projekt tego wymaga, ale backend to obszar, w którym pracuję najlepiej.",
-      },
-      ragExperience: {
-        question: "Jakie mam doświadczenie z RAG i LLM?",
-        answer:
-          "Zaczęło się od stażu backendowego w Paweł Weselak — Pragmatyczne Programowanie (marzec–czerwiec 2025), gdzie budowałem pipeline'y do ingestii w LangChain i zajmowałem się konteneryzowanym wdrażaniem ekstrakcji danych opartej na LLM. Kontynuowałem samodzielnie projektem LlamaTalks, chatbotem opartym na Spring Boot i LangChain4j, który uruchamia lokalne modele przez Ollama, wczytuje dokumenty do bazy wektorowej i strumieniuje odpowiedzi przez SSE.",
-      },
-      location: {
-        question: "Gdzie pracuję i czy zdalnie?",
-        answer:
-          "Warszawa — pracuję z warszawskiego biura Netcompany. Odnajduję się zarówno w pracy stacjonarnej, jak i hybrydowej czy w pełni zdalnej. Pracuję po polsku (ojczysty) i po angielsku (poziom zawodowy).",
-      },
-      openToWork: {
-        question: "Czy jestem otwarty na nowe oferty?",
-        answer:
-          "Jestem zatrudniony w Netcompany i nie szukam aktywnie pracy, ale czytam każdą wiadomość, która do mnie trafia. Jeśli masz ofertę backendową lub inżyniera AI związaną z Javą, Spring Boot lub RAG, skorzystaj z formularza kontaktowego na tej stronie, a odezwę się.",
-      },
-      largestProject: {
-        question: "Jaki jest mój największy zrealizowany projekt?",
-        answer:
-          "todrawn.com — działająca interaktywna tablica SaaS. Backend zbudowany jest w Javie 21 i Spring Boot, frontend w Next.js, React i TypeScript, a całość wykorzystuje PostgreSQL, Redis, WebSockets, Stripe, Docker i Google Cloud Run.",
-      },
-      whyBrbnJpg: {
-        question: 'Dlaczego "brbn-jpg"?',
-        answer:
-          "To ta sama osoba — ja. Pseudonimu brbn-jpg używam w sieci od lat i to nazwa mojego konta na GitHubie — pseudonim znajdziesz na github.com/Brbn-jpg, a imię i nazwisko w moim CV.",
-      },
     },
   },
 };

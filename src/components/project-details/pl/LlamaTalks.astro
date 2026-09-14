@@ -1,17 +1,18 @@
 ---
 import DetailHeading from '../detailHeading.astro';
+import ProjectVisual from '../../projectVisual.astro';
 ---
 <div class="space-y-6 text-slate-400 leading-relaxed">
   <p>
-    LlamaTalks to wyrafinowana aplikacja chatbota oparta na Spring Boot, która demokratyzuje dostęp do zaawansowanej sztucznej inteligencji, wykorzystując lokalne LLM przez Ollama. Integruje <span class="text-slate-200 font-bold">LangChain4j</span> do orkiestracji złożonych przepływów konwersacyjnych i implementuje solidny potok <span class="text-slate-200 font-bold">Retrieval-Augmented Generation (RAG)</span>. To pozwala użytkownikom na rozmowę z ich własnymi danymi, zapewniając, że odpowiedzi są ugruntowane w dostarczonym kontekście, a nie tylko w danych treningowych modelu.
+    LlamaTalks to aplikacja czatowa w Spring Boot, która używa lokalnych modeli przez <span class="text-slate-200 font-bold">Ollamę</span>. <span class="text-slate-200 font-bold">LangChain4j</span> łączy pamięć rozmowy z potokiem <span class="text-slate-200 font-bold">Retrieval-Augmented Generation (RAG)</span>, dzięki czemu pytania mogą korzystać z przesłanych dokumentów.
   </p>
   <p>
-    Zaprojektowana dla wydajności i skalowalności, aplikacja obsługuje w pełni reaktywne przesyłanie odpowiedzi w czasie rzeczywistym przy użyciu Reactor/Flux i Server-Sent Events (SSE). Tworzy bezproblemowy efekt „pisania" podobny do komercyjnych interfejsów LLM.
+    Endpoint czatu strumieniuje generowany tekst przez Reactor/Flux i Server-Sent Events (SSE). Ingestia dokumentów działa osobno: Apache Tika parsuje pliki, fragmenty są zamieniane na embeddingi i zapisywane do wyszukiwania semantycznego, a następnie pobrany kontekst trafia do lokalnego modelu razem z historią rozmowy.
   </p>
 
   <DetailHeading>Architektura techniczna</DetailHeading>
   <p>
-    System podąża za modularną architekturą gotową do mikrousług:
+    Ścieżka żądania składa się z dwóch połączonych przepływów:
   </p>
   <ul class="list-disc list-inside space-y-2 pl-2 mt-4">
     <li>
@@ -28,15 +29,12 @@ import DetailHeading from '../detailHeading.astro';
     </li>
   </ul>
 
-  <div class="mt-6 mb-6">
-    <pre class="bg-slate-900 border border-slate-800 rounded-md p-4 text-sm text-slate-300 font-mono overflow-x-auto leading-tight">
-      <code class="language-ascii">
-[ User Request ] --&gt; [ Spring Boot API ] --&gt; [ LangChain4j Orchestrator ]
-                            ↓                        ↓
-                     [ Vector Store ]  &lt;--   [ Ollama (Local LLM) ]
-      </code>
-    </pre>
-  </div>
+  <ProjectVisual variant="rag-flow" lang="pl" />
+
+  <DetailHeading>Granica modeli</DetailHeading>
+  <p>
+    Wymiary embeddingów są częścią kontraktu przechowywania danych. Zmiana modelu embeddingowego może zmienić ten wymiar, dlatego przed ponownym wyszukiwaniem semantycznym trzeba wyczyścić bazę i ponownie wczytać wszystkie dokumenty.
+  </p>
 
   <DetailHeading>Kluczowe funkcje</DetailHeading>
   <ul class="list-disc list-inside space-y-2 pl-2">

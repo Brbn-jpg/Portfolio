@@ -16,7 +16,7 @@ const t = useTranslations(lang);
 const p = localize(project, lang);
 const ProjectComponent = projectDetails[lang][project.slug as ProjectId];
 const demoLabel = t.projects.demoLabels[project.links.demoLabel ?? 'demo'];
-const backHref = `${pathFor({ page: 'home' }, lang)}#repositories`;
+const backHref = `${pathFor({ page: 'home' }, lang)}#projects`;
 ---
 <main class="relative z-10 max-w-4xl mx-auto px-6 py-12 md:py-20">
   <div class="mb-8">
@@ -48,6 +48,20 @@ const backHref = `${pathFor({ page: 'home' }, lang)}#repositories`;
       </div>
     </div>
   </header>
+
+  {p.screenshot && (
+    <figure class="mb-12 aspect-[8/5] w-full overflow-hidden rounded-sm border border-slate-800 bg-slate-950/70 shadow-2xl">
+      <img
+        src={p.screenshot.src}
+        width={p.screenshot.width ?? 1440}
+        height={p.screenshot.height ?? 900}
+        alt={p.screenshot.alt}
+        loading="eager"
+        decoding="async"
+        class="block h-full w-full object-contain"
+      />
+    </figure>
+  )}
 
   <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
     <div class="md:col-span-2">

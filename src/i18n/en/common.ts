@@ -8,6 +8,15 @@ const common = {
   /** Used by the bilingual 404 page — each language block links to its own home. */
   backToHome: "Back to home",
 
+  homeLabel: "Go to homepage",
+  primaryNavigation: "Primary navigation",
+  navigation: {
+    projects: "Projects",
+    experience: "Experience",
+    about: "About",
+    contact: "Contact",
+  },
+
   footer: {
     aboutLabel: "About Me",
     privacyLabel: "Privacy",

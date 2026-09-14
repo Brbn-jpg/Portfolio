@@ -33,7 +33,7 @@ const webpageId = `${pageCanonical}#webpage`;
 
 /**
  * There is no `/projects` index yet, so the middle breadcrumb rung points at
- * the `/#repositories` section of the homepage — Google resolves fragment
+ * the `/#projects` section of the homepage — Google resolves fragment
  * URLs fine, and the `name` carries the actual signal. The last item has no
  * `item`: it's the current page. Rung names come from `t.projects.breadcrumb`
  * so PL gets translated rung names for free once PL project pages exist.
@@ -43,7 +43,7 @@ const breadcrumbNode = {
   '@id': `${pageCanonical}#breadcrumb`,
   itemListElement: [
     { '@type': 'ListItem', position: 1, name: t.projects.breadcrumb.home, item: SITE_URL },
-    { '@type': 'ListItem', position: 2, name: t.projects.breadcrumb.projects, item: `${SITE_URL}/#repositories` },
+    { '@type': 'ListItem', position: 2, name: t.projects.breadcrumb.projects, item: `${SITE_URL}/#projects` },
     { '@type': 'ListItem', position: 3, name: project.name },
   ],
 };

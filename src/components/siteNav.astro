@@ -1,0 +1,52 @@
+---
+import type { Locale } from "../i18n/config";
+import { pathFor, type Route } from "../i18n/routes";
+import { useTranslations } from "../i18n/utils";
+
+interface Props {
+  lang: Locale;
+  route: Route;
+}
+
+const { lang, route } = Astro.props;
+const t = useTranslations(lang);
+const homeHref = pathFor({ page: "home" }, lang);
+
+const links = [
+  { key: "projects", href: `${homeHref}#projects` },
+  { key: "experience", href: `${homeHref}#experience` },
+  { key: "about", href: pathFor({ page: "about" }, lang) },
+  { key: "contact", href: `${homeHref}#contact` },
+] as const;
+---
+
+<nav
+  aria-label={t.common.primaryNavigation}
+  class="relative z-30 mx-6 mr-28 flex max-w-5xl items-center gap-1 overflow-x-auto px-0 pt-4 font-mono text-xs uppercase tracking-[0.16em] text-slate-500 scrollbar-none sm:mx-auto sm:px-6"
+>
+  <a
+    href={homeHref}
+    class="mr-3 shrink-0 text-green-400 transition-colors hover:text-green-300 focus-visible:outline focus-visible:outline-1 focus-visible:outline-green-400"
+    aria-label={t.common.homeLabel}
+  >
+    ~/brbn.pl
+  </a>
+  <span class="mr-1 text-slate-700" aria-hidden="true">/</span>
+  {links.map((link, index) => (
+    <>
+      {index > 0 && <span class="shrink-0 px-1 text-slate-700" aria-hidden="true">·</span>}
+      <a
+        href={link.href}
+        aria-current={
+          (link.key === "about" && route.page === "about") ||
+          (link.key === "projects" && route.page === "project")
+            ? "page"
+            : undefined
+        }
+        class="shrink-0 rounded-sm px-2 py-2 transition-colors hover:text-green-400 focus-visible:outline focus-visible:outline-1 focus-visible:outline-green-400 aria-[current=page]:text-slate-200"
+      >
+        {t.common.navigation[link.key]}
+      </a>
+    </>
+  ))}
+</nav>

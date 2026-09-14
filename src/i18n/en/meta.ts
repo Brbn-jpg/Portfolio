@@ -15,7 +15,7 @@ const meta = {
     about: {
       title: "About Jakub Kuźnicki — CS Engineer, Java & RAG Developer",
       description:
-        "Career timeline, engineering philosophy, workstation setup and FAQ for Jakub Kuźnicki, a Warsaw-based Java developer working on Spring Boot and RAG.",
+        "How Jakub Kuźnicki works: backend engineering, RAG projects, a short career path and the tools behind the work.",
     },
     privacy: {
       title: "Privacy Policy — brbn.pl",

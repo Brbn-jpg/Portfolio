@@ -1,35 +1,110 @@
 ---
-import type { LocalizedProject } from '../data/projects';
-import type { Locale } from '../i18n/config';
-import { pathFor } from '../i18n/routes';
+import { ArrowUpRight, Github } from "lucide-react";
+import type { LocalizedProject } from "../data/projects";
+import type { Locale } from "../i18n/config";
+import { pathFor } from "../i18n/routes";
+import { useTranslations } from "../i18n/utils";
+import ProjectVisual from "./projectVisual.astro";
 
-/**
- * Takes an already-localized project, not the raw `Project` — the raw shape
- * has `description: {en, pl}`, and Astro `interface Props` is compile-time
- * only, so accepting it here would silently render `[object Object]` instead
- * of failing the build. Requiring `LocalizedProject` makes skipping
- * `localize()` a type error at the call site instead.
- */
 interface Props {
   project: LocalizedProject;
   lang: Locale;
 }
 
 const { project, lang } = Astro.props;
-const href = pathFor({ page: 'project', project }, lang);
+const t = useTranslations(lang);
+const copy = t.home.caseStudy;
+const detailHref = pathFor({ page: "project", project }, lang);
+const tags = project.technologies.slice(0, project.caseStudy ? 5 : project.technologies.length);
+const hiddenTagCount = project.technologies.length - tags.length;
 ---
 
-<a href={href} class="bg-slate-900/50 border border-slate-800 p-5 rounded-sm flex flex-col group hover:border-green-500 transition-colors">
-  <h3 class="text-lg font-bold text-slate-100 mb-2 group-hover:text-green-400 transition-colors">
-    {project.name}
-  </h3>
-  <p class="text-slate-400 text-sm mb-4 flex-grow leading-relaxed">{project.description}</p>
-  <div class="flex flex-wrap gap-2 mt-auto">
-    {project.technologies.map(tag => (
-      <span class="bg-slate-800 px-2 py-1 text-xs text-slate-400 font-mono rounded">
-        {tag}
-      </span>
-    ))}
-  </div>
-</a>
+<article class="flex h-full flex-col border border-slate-800 bg-slate-900/35 p-5 transition-colors hover:border-green-500/60 md:p-6">
+  <header class="flex items-start justify-between gap-4">
+    <div>
+      <p class="mb-2 font-mono text-[11px] uppercase tracking-[0.14em] text-slate-500">{project.lang}</p>
+      <h3 class="text-xl font-bold tracking-tight text-slate-100">{project.name}</h3>
+    </div>
+    {project.caseStudy && <span class="font-mono text-xs text-green-400">{t.home.chrome.caseStudy}</span>}
+  </header>
 
+  {project.screenshot ? (
+    <figure class="mt-5 aspect-[8/5] w-full overflow-hidden rounded-sm border border-slate-800 bg-slate-950/70">
+      <img
+        src={project.screenshot.src}
+        width={project.screenshot.width ?? 1440}
+        height={project.screenshot.height ?? 900}
+        alt={project.screenshot.alt}
+        loading="lazy"
+        decoding="async"
+        class="block h-full w-full object-cover"
+      />
+    </figure>
+  ) : project.visual === "rag-flow" ? (
+    <ProjectVisual variant="rag-flow" lang={lang} compact />
+  ) : null}
+
+  {project.caseStudy ? (
+    <dl class="mt-6 space-y-4 text-sm">
+      <div>
+        <dt class="mb-1 font-mono text-[11px] uppercase tracking-[0.14em] text-green-400">{copy.problem}</dt>
+        <dd class="leading-relaxed text-slate-400">{project.caseStudy.problem}</dd>
+      </div>
+      <div>
+        <dt class="mb-1 font-mono text-[11px] uppercase tracking-[0.14em] text-green-400">{copy.role}</dt>
+        <dd class="leading-relaxed text-slate-400">{project.caseStudy.role}</dd>
+      </div>
+      <div>
+        <dt class="mb-1 font-mono text-[11px] uppercase tracking-[0.14em] text-green-400">{copy.decisions}</dt>
+        <dd class="leading-relaxed text-slate-400">{project.caseStudy.decisions}</dd>
+      </div>
+      <div>
+        <dt class="mb-1 font-mono text-[11px] uppercase tracking-[0.14em] text-green-400">{copy.result}</dt>
+        <dd class="leading-relaxed text-slate-300">{project.caseStudy.result}</dd>
+      </div>
+    </dl>
+  ) : (
+    <p class="mt-5 flex-1 text-sm leading-relaxed text-slate-400">{project.description}</p>
+  )}
+
+  <footer class="mt-auto pt-6">
+    <div class="flex flex-wrap gap-2 border-t border-slate-800 pt-4">
+      {tags.map((tag) => (
+        <span class="border border-slate-800 bg-slate-950/50 px-2 py-1 font-mono text-[11px] text-slate-500">{tag}</span>
+      ))}
+      {hiddenTagCount > 0 && <span class="px-1 py-1 font-mono text-[11px] text-slate-600">+{hiddenTagCount}</span>}
+    </div>
+
+    <div class="mt-5 flex flex-wrap items-center gap-x-4 gap-y-3 font-mono text-xs">
+      <a
+        href={detailHref}
+        class="inline-flex items-center gap-1 text-green-400 transition-colors hover:text-green-300 focus-visible:outline focus-visible:outline-1 focus-visible:outline-green-400"
+      >
+        {project.caseStudy ? copy.readCaseStudy : copy.viewProject}
+        <ArrowUpRight size={14} aria-hidden="true" />
+      </a>
+      {project.links.demo && (
+        <a
+          href={project.links.demo}
+          target="_blank"
+          rel="noreferrer"
+          class="inline-flex items-center gap-1 text-slate-500 transition-colors hover:text-slate-200 focus-visible:outline focus-visible:outline-1 focus-visible:outline-green-400"
+        >
+          {copy.openDemo}
+          <ArrowUpRight size={14} aria-hidden="true" />
+        </a>
+      )}
+      {project.links.github && (
+        <a
+          href={project.links.github}
+          target="_blank"
+          rel="noreferrer"
+          class="inline-flex items-center gap-1 text-slate-500 transition-colors hover:text-slate-200 focus-visible:outline focus-visible:outline-1 focus-visible:outline-green-400"
+        >
+          <Github size={14} aria-hidden="true" />
+          {copy.viewCode}
+        </a>
+      )}
+    </div>
+  </footer>
+</article>
