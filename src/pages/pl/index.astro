@@ -2,17 +2,10 @@
 import Layout from '../../layouts/layout.astro';
 import HomePage from '../../components/pages/homePage.astro';
 import { useTranslations } from '../../i18n/utils';
-import { recentCommitsPromise } from '../../data/githubActivity';
 
 const lang = 'pl' as const;
 const t = useTranslations(lang);
 
-/**
- * Build-time GitHub fetch lives in `src/data/githubActivity.ts`, shared with
- * `index.astro`, and memoized at module scope so it runs exactly once per
- * build rather than once per locale.
- */
-const recentCommits = await recentCommitsPromise;
 ---
 
 <Layout
@@ -23,5 +16,5 @@ const recentCommits = await recentCommitsPromise;
   ogType="profile"
   pageType="ProfilePage"
 >
-  <HomePage lang={lang} recentCommits={recentCommits} />
+  <HomePage lang={lang} />
 </Layout>

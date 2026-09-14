@@ -125,7 +125,6 @@ const privacy: PrivacyDict = {
   thirdPartyRequests: {
     articleRef: "// art. 13 ust. 1 lit. e RODO",
     noRequests: "Wczytanie dowolnej strony w tej witrynie nie wysyła żadnych żądań do jakiejkolwiek strony trzeciej. Fonty, obrazy, style i skrypty są serwowane wyłącznie z tej domeny — nic nie jest pobierane z Google Fonts ani żadnego innego CDN-u.",
-    githubBuildTime: "Lista ostatnich commitów na stronie głównej jest pobierana z API GitHuba podczas budowania strony, a nie podczas Twojej wizyty. Twoja przeglądarka nigdy nie kontaktuje się z GitHubem, więc Twój adres IP nigdy do niego nie trafia.",
     formOnly: "Jedynym wyjątkiem jest wysłanie formularza kontaktowego, które przekazuje Twój adres e-mail i wiadomość do Formspree Inc., jak opisano wyżej. Poza tym: żadnego beacona analitycznego, żadnego piksela reklamowego, żaden skrypt strony trzeciej nie działa na tej stronie.",
   },
 

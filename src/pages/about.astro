@@ -1,53 +1,18 @@
 ---
-import Layout from '../layouts/layout.astro';
-import AboutPage from '../components/pages/aboutPage.astro';
-import { SITE_URL } from '../consts';
-import { absUrl, pathFor } from '../i18n/routes';
-import { useTranslations } from '../i18n/utils';
-import { getFaqItems } from '../components/faq.astro';
+import Layout from "../layouts/layout.astro";
+import AboutPage from "../components/pages/aboutPage.astro";
+import { useTranslations } from "../i18n/utils";
 
-const lang = 'en' as const;
+const lang = "en" as const;
 const t = useTranslations(lang);
-
-/**
- * FAQPage for GEO — an explicit Q -> A pair is the most directly consumable
- * shape for an LLM answering "who is Jakub Kuźnicki". Google restricted FAQ
- * rich results to authoritative government/health sites in 2023, so this is
- * not expected to produce a SERP snippet; the payoff is entity resolution and
- * AI retrieval, not a visual result.
- *
- * `acceptedAnswer.text` is built straight from `getFaqItems(lang)`, the same
- * dictionary-backed helper `faq.astro` renders from, so the JSON-LD copy can
- * never drift from what a visitor actually reads.
- *
- * The `@id` is the fixed EN canonical, not `{canonical}#faq`: the FAQ answers
- * one set of real-world questions about one person, so — like the project
- * nodes — both locale documents reference the same node rather than each
- * minting its own.
- */
-const aboutCanonical = absUrl(pathFor({ page: 'about' }, lang));
-const faqPageNode = {
-  "@type": "FAQPage",
-  "@id": `${SITE_URL}/about#faq`,
-  isPartOf: { "@id": `${aboutCanonical}#webpage` },
-  about: { "@id": `${SITE_URL}/#person` },
-  mainEntity: getFaqItems(lang).map((item) => ({
-    "@type": "Question",
-    name: item.question,
-    acceptedAnswer: {
-      "@type": "Answer",
-      text: item.answer,
-    },
-  })),
-};
 ---
 
 <Layout
   lang={lang}
-  route={{ page: 'about' }}
+  route={{ page: "about" }}
   title={t.meta.about.title}
   description={t.meta.about.description}
   pageType="AboutPage"
-  jsonLd={[faqPageNode]}>
+>
   <AboutPage lang={lang} />
 </Layout>

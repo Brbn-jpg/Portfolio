@@ -1,17 +1,18 @@
 ---
 import DetailHeading from '../detailHeading.astro';
+import ProjectVisual from '../../projectVisual.astro';
 ---
 <div class="space-y-6 text-slate-400 leading-relaxed">
   <p>
-    LlamaTalks is a sophisticated Spring Boot-based chatbot application that democratizes access to advanced AI by leveraging local LLMs through Ollama. It integrates <span class="text-slate-200 font-bold">LangChain4j</span> to orchestrate complex conversational flows and implements a robust <span class="text-slate-200 font-bold">Retrieval-Augmented Generation (RAG)</span> pipeline. This allows users to chat with their own data, ensuring responses are grounded in provided context rather than just the model's training data.
+    LlamaTalks is a Spring Boot chat application that uses local models through <span class="text-slate-200 font-bold">Ollama</span>. <span class="text-slate-200 font-bold">LangChain4j</span> connects conversation memory with a <span class="text-slate-200 font-bold">Retrieval-Augmented Generation (RAG)</span> pipeline, so questions can be answered from uploaded documents.
   </p>
   <p>
-    Designed for performance and scalability, the application supports fully reactive, real-time response streaming using Reactor/Flux and Server-Sent Events (SSE). It creates a seamless "typing" effect similar to commercial LLM interfaces.
+    The chat endpoint streams generated text through Reactor/Flux and Server-Sent Events (SSE). Document ingestion runs separately: Apache Tika parses files, chunks are embedded and stored for semantic retrieval, then the retrieved context is sent with conversation history to the local model.
   </p>
 
   <DetailHeading>Technical Architecture</DetailHeading>
   <p>
-    The system follows a modular microservices-ready architecture:
+    The request path follows two connected flows:
   </p>
   <ul class="list-disc list-inside space-y-2 pl-2 mt-4">
     <li>
@@ -28,15 +29,12 @@ import DetailHeading from '../detailHeading.astro';
     </li>
   </ul>
   
-  <div class="mt-6 mb-6">
-    <pre class="bg-slate-900 border border-slate-800 rounded-md p-4 text-sm text-slate-300 font-mono overflow-x-auto leading-tight">
-      <code class="language-ascii">
-[ User Request ] --&gt; [ Spring Boot API ] --&gt; [ LangChain4j Orchestrator ]
-                            ↓                        ↓
-                     [ Vector Store ]  &lt;--   [ Ollama (Local LLM) ]
-      </code>
-    </pre>
-  </div>
+  <ProjectVisual variant="rag-flow" lang="en" />
+
+  <DetailHeading>Model boundary</DetailHeading>
+  <p>
+    Embedding dimensions are part of the storage contract. Switching the embedding model can change that dimension, so the database must be cleared and every document ingested again before semantic retrieval is used.
+  </p>
 
   <DetailHeading>Key Features</DetailHeading>
   <ul class="list-disc list-inside space-y-2 pl-2">

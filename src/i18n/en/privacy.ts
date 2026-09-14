@@ -138,7 +138,6 @@ const privacy = {
   thirdPartyRequests: {
     articleRef: "// art. 13(1)(e)",
     noRequests: "Loading any page on this site makes no requests to any third party at all. Fonts, images, styles and scripts are all served from this domain — nothing is fetched from Google Fonts or any other CDN.",
-    githubBuildTime: "The recent-commit list on the homepage is fetched from the GitHub API when the site is built, not when you visit it. Your browser never contacts GitHub, so your IP address never reaches it.",
     formOnly: "The one exception is submitting the contact form, which sends your email address and message to Formspree Inc. as described above. Beyond that: no analytics beacon, no ad pixel, no third-party script runs on this site.",
   },
 

@@ -1,0 +1,89 @@
+---
+import type { Locale } from "../i18n/config";
+
+interface Props {
+  variant: "rag-flow";
+  lang: Locale;
+  compact?: boolean;
+}
+
+const { variant, lang, compact = false } = Astro.props;
+
+const copy = {
+  en: {
+    ariaLabel:
+      "LlamaTalks RAG pipeline: documents are parsed and chunked, converted to embeddings, searched in a vector store, combined with conversation history, sent to Ollama, and streamed over SSE.",
+    eyebrow: "RAG PIPELINE",
+    caption: "grounded response",
+    flow: "document → retrieve context → local model → streamed answer",
+    stages: [
+      { number: "01", title: "Document", detail: "Tika → chunks" },
+      { number: "02", title: "Vector store", detail: "embeddings + retrieval" },
+      { number: "03", title: "Ollama", detail: "context + history" },
+      { number: "04", title: "SSE", detail: "Reactor/Flux" },
+    ],
+    footer: "LangChain4j orchestration · PostgreSQL history",
+  },
+  pl: {
+    ariaLabel:
+      "Potok RAG LlamaTalks: dokumenty są parsowane i dzielone na fragmenty, zamieniane na embeddingi, wyszukiwane w magazynie wektorowym, łączone z historią rozmowy, przekazywane do Ollamy i strumieniowane przez SSE.",
+    eyebrow: "PIPELINE RAG",
+    caption: "odpowiedź z kontekstem",
+    flow: "dokument → kontekst → lokalny model → odpowiedź na żywo",
+    stages: [
+      { number: "01", title: "Dokument", detail: "Tika → fragmenty" },
+      { number: "02", title: "Vector store", detail: "embeddingi + retrieval" },
+      { number: "03", title: "Ollama", detail: "kontekst + historia" },
+      { number: "04", title: "SSE", detail: "Reactor/Flux" },
+    ],
+    footer: "orkiestracja LangChain4j · historia w PostgreSQL",
+  },
+}[lang];
+
+if (variant !== "rag-flow") {
+  throw new Error(`Unknown project visual variant: ${variant}`);
+}
+---
+
+<figure
+  class:list={[
+    "w-full rounded-sm border border-slate-800 bg-slate-950/70",
+    compact
+      ? "mt-5 flex aspect-[8/5] flex-col overflow-hidden p-3 md:p-4"
+      : "my-8 p-5 md:p-6",
+  ]}
+  aria-label={copy.ariaLabel}
+>
+  <figcaption class:list={["flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1 font-mono", compact ? "mb-2" : "mb-4"]}>
+    <span class="text-[10px] uppercase tracking-[0.18em] text-green-400">{copy.eyebrow}</span>
+    <span class="text-[11px] text-slate-500">{copy.caption}</span>
+  </figcaption>
+
+  <p
+    class:list={["overflow-x-auto whitespace-nowrap font-mono text-[10px] text-slate-500", compact ? "sr-only" : "mb-4"]}
+    aria-hidden="true"
+  >
+    {copy.flow}
+  </p>
+
+  <ol class:list={["grid min-h-0", compact ? "grid-cols-4 flex-1 gap-1" : "grid-cols-2 gap-2 md:grid-cols-4"]}>
+    {copy.stages.map((stage, index) => (
+      <li class:list={[
+        "relative min-w-0 border border-slate-800 bg-slate-900/60",
+        compact ? "p-2" : "p-4",
+        compact ? "h-full" : "",
+        index === 2 ? "border-green-500/35" : "",
+      ]}>
+        <span class:list={["block font-mono text-green-500/80", compact ? "mb-1 text-[9px]" : "mb-2 text-[10px]"]}>{stage.number}</span>
+        <strong class:list={["block break-words font-semibold text-slate-200", compact ? "text-[10px] leading-tight" : "text-xs"]}>{stage.title}</strong>
+        <span class:list={["block break-words font-mono text-slate-500", compact ? "mt-1 text-[9px] leading-tight" : "mt-1 text-xs leading-relaxed"]}>{stage.detail}</span>
+      </li>
+    ))}
+  </ol>
+
+  <p
+    class:list={["border-t border-slate-800 font-mono text-slate-500", compact ? "sr-only" : "mt-4 pt-3 text-[10px] leading-relaxed"]}
+  >
+    {copy.footer}
+  </p>
+</figure>

@@ -1,8 +1,8 @@
 /**
  * Single source of truth for facts about the site and the person.
  *
- * Read by <head> meta tags, JSON-LD, the `cat identity.json` block and llms.txt,
- * so those can never drift apart. If a fact changes, it changes here only.
+ * Read by <head> meta tags, JSON-LD and llms.txt, so those can never drift
+ * apart. If a fact changes, it changes here only.
  */
 
 export const SITE_URL = "https://brbn.pl";
@@ -60,45 +60,3 @@ export const PERSON = {
   // JSON-LD graph. Omitted rather than guessed — a wrong claim is worse than none.
   alumniOf: null,
 } as const;
-
-/**
- * Rows for the `$ cat identity.json` block on the homepage.
- *
- * A function of the locale, not a constant: the JSON *keys* stay English
- * (they read as field names, like the surrounding shell transcript), but the
- * values that are prose must follow the page language. Names, company names,
- * dates and technology names never translate.
- *
- * Sourced from PERSON so this block and the JSON-LD Person node cannot drift.
- */
-export const identityFor = (
-  lang: "en" | "pl",
-): ReadonlyArray<{ key: string; value: string | readonly string[] }> => [
-  { key: "name", value: PERSON.name },
-  { key: "handle", value: PERSON.handle },
-  { key: "role", value: PERSON.jobTitle[lang] },
-  { key: "employer", value: PERSON.employer.name },
-  { key: "since", value: PERSON.employer.since },
-  { key: "location", value: lang === "pl" ? "Warszawa, Polska" : "Warsaw, Poland" },
-  { key: "education", value: PERSON.degree[lang] },
-  { key: "core", value: ["Java", "Spring Boot", "PostgreSQL", "Redis", "Docker"] },
-  {
-    key: "focus",
-    value:
-      lang === "pl"
-        ? ["potoki RAG", "integracja z LLM", "architektura backendu"]
-        : ["RAG pipelines", "LLM integration", "backend architecture"],
-  },
-  { key: "also", value: ["Python", "TypeScript", "Astro", "React"] },
-  {
-    key: "languages",
-    value:
-      lang === "pl"
-        ? ["polski (ojczysty)", "angielski (zawodowy)"]
-        : ["Polish (native)", "English (professional)"],
-  },
-  {
-    key: "open_to",
-    value: lang === "pl" ? "role backendowe / AI engineering" : "backend / AI engineering roles",
-  },
-];

@@ -16,7 +16,7 @@ const MIN_SUBMIT_DELAY_MS = 3000;
  * language the sender was reading) and the CV button order: PL pages show
  * `[ PL ]` before `[ ENG ]`.
  */
-const ContactForm = ({ formspreeId, locale, t }) => {
+const ContactForm = ({ formspreeId, locale, privacyHref = "/privacy", t }) => {
   const [isFormVisible, setIsFormVisible] = useState(false);
   const [showCvOptions, setShowCvOptions] = useState(false);
   const [status, setStatus] = useState("");
@@ -233,7 +233,7 @@ const ContactForm = ({ formspreeId, locale, t }) => {
             {t.notice.intro} {t.notice.controller} {t.notice.basis}{" "}
             {t.notice.retention}{" "}
             <a
-              href="/privacy"
+              href={privacyHref}
               className="text-green-400 underline hover:text-green-300"
             >
               {t.notice.linkText}
