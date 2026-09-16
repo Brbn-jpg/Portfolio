@@ -12,6 +12,11 @@ const meta = {
       description:
         "Jakub Kuźnicki (brbn-jpg) is a Java backend developer in Warsaw, Poland, building Spring Boot services and RAG/LLM systems. Projects, CV and contact.",
     },
+    projects: {
+      title: "Projects by Jakub Kuźnicki — Java & RAG portfolio",
+      description:
+        "Explore Jakub Kuźnicki's Java backend and RAG portfolio: todrawn.com, LlamaTalks, Gamelog, MapGenerator and other systems built with Spring Boot.",
+    },
     about: {
       title: "About Jakub Kuźnicki — CS Engineer, Java & RAG Developer",
       description:

@@ -1,4 +1,4 @@
-# https://brbn.pl/robots.txt
+# https://www.brbn.pl/robots.txt
 #
 # Policy: this is a personal portfolio. Its whole purpose is to be read, indexed
 # and quoted — by search engines and by AI systems alike. Retrieval bots produce
@@ -67,4 +67,4 @@ User-agent: CCBot
 Allow: /
 Disallow: /cv/
 
-Sitemap: https://brbn.pl/sitemap.xml
+Sitemap: https://www.brbn.pl/sitemap.xml

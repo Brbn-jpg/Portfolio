@@ -30,20 +30,19 @@ const projectId = `${absUrl(pathFor({ page: 'project', project }, 'en'))}#projec
 
 const pageCanonical = absUrl(pathFor({ page: 'project', project }, lang));
 const webpageId = `${pageCanonical}#webpage`;
+const projectImage = absUrl(project.screenshot?.src ?? project.ogImage.src);
 
 /**
- * There is no `/projects` index yet, so the middle breadcrumb rung points at
- * the `/#projects` section of the homepage — Google resolves fragment
- * URLs fine, and the `name` carries the actual signal. The last item has no
- * `item`: it's the current page. Rung names come from `t.projects.breadcrumb`
- * so PL gets translated rung names here.
+ * The middle breadcrumb rung points at the complete Polish project index. The
+ * last item has no `item`: it is the current page. Rung names come from the
+ * locale dictionary so the visible and structured labels stay aligned.
  */
 const breadcrumbNode = {
   '@type': 'BreadcrumbList',
   '@id': `${pageCanonical}#breadcrumb`,
   itemListElement: [
     { '@type': 'ListItem', position: 1, name: t.projects.breadcrumb.home, item: SITE_URL },
-    { '@type': 'ListItem', position: 2, name: t.projects.breadcrumb.projects, item: `${SITE_URL}/#projects` },
+    { '@type': 'ListItem', position: 2, name: t.projects.breadcrumb.projects, item: absUrl('/pl/projekty') },
     { '@type': 'ListItem', position: 3, name: project.name },
   ],
 };
@@ -61,34 +60,32 @@ const runtimePlatform = project.technologies.some((tech) => tech.startsWith('Jav
  * and a manual-action risk. `todrawn` has real Stripe pricing, but the exact
  * numbers aren't known here, so it's omitted rather than guessed.
  */
-const projectNode =
-  project.schemaType === 'WebApplication'
+const projectNode = {
+  '@type': project.schemaType,
+  '@id': projectId,
+  name: project.name,
+  description: localized.description,
+  inLanguage: lang,
+  datePublished: project.datePublished,
+  dateModified: project.dateModified,
+  image: projectImage,
+  mainEntityOfPage: { '@id': webpageId },
+  isPartOf: { '@id': WEBSITE_ID },
+  author: { '@id': PERSON_ID },
+  creator: { '@id': PERSON_ID },
+  keywords: project.technologies.join(', '),
+  ...(project.links.demo ? { url: project.links.demo } : {}),
+  ...(project.schemaType === 'WebApplication'
     ? {
-        '@type': 'WebApplication',
-        '@id': projectId,
-        name: project.name,
-        description: localized.description,
         applicationCategory: 'BusinessApplication',
         operatingSystem: 'Web browser',
-        url: project.links.demo,
-        keywords: project.technologies.join(', '),
-        author: { '@id': PERSON_ID },
-        creator: { '@id': PERSON_ID },
       }
     : {
-        '@type': 'SoftwareSourceCode',
-        '@id': projectId,
-        name: project.name,
-        description: localized.description,
-        codeRepository: project.links.github,
+        ...(project.links.github ? { codeRepository: project.links.github } : {}),
         programmingLanguage: project.lang,
         runtimePlatform,
-        keywords: project.technologies.join(', '),
-        author: { '@id': PERSON_ID },
-        creator: { '@id': PERSON_ID },
-        isPartOf: { '@id': WEBSITE_ID },
-        mainEntityOfPage: { '@id': webpageId },
-      };
+      }),
+};
 ---
 <Layout
   lang={lang}
@@ -96,6 +93,8 @@ const projectNode =
   title={localized.seo.title}
   description={localized.seo.description}
   ogType="article"
+  ogImage={localized.ogImage.src}
+  ogImageAlt={localized.ogImage.alt}
   mainEntityId={projectId}
   jsonLd={[projectNode, breadcrumbNode]}>
   <ProjectPage lang={lang} project={project} />

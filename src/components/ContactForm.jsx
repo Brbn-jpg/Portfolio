@@ -119,14 +119,14 @@ const ContactForm = ({ formspreeId, locale, privacyHref = "/privacy", t }) => {
         className={`flex items-center gap-2 animate-in fade-in slide-in-from-left-4 duration-300 ${isMobileColumn ? "flex-col" : ""}`}
       >
         {!isMobileColumn && (
-          <span className="text-slate-500 font-mono text-xs hidden sm:inline mr-1">
+          <span className="text-slate-400 font-mono text-xs hidden sm:inline mr-1">
             {t.cvButton.langPrefix}
           </span>
         )}
         {locale === "pl" ? [plLink, engLink] : [engLink, plLink]}
         <button
           onClick={() => setShowCvOptions(false)}
-          className="flex items-center justify-center text-slate-500 hover:text-slate-300 p-3 transition-colors"
+          className="flex items-center justify-center text-slate-400 hover:text-slate-300 p-3 transition-colors"
           aria-label={t.cvButton.cancelLabel}
         >
           <X size={20} />
@@ -213,7 +213,7 @@ const ContactForm = ({ formspreeId, locale, privacyHref = "/privacy", t }) => {
             name="email"
             placeholder={t.emailPlaceholder}
             required
-            className="w-full bg-slate-800 border border-slate-700 rounded-sm px-3 py-2 mb-3 text-slate-300 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-green-500"
+            className="w-full bg-slate-800 border border-slate-700 rounded-sm px-3 py-2 mb-3 text-slate-300 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-green-500"
           />
           <label htmlFor="contact-message" className="sr-only">
             {t.messageLabel}
@@ -225,10 +225,10 @@ const ContactForm = ({ formspreeId, locale, privacyHref = "/privacy", t }) => {
             required
             rows={4}
             maxLength={5000}
-            className="w-full bg-slate-800 border border-slate-700 rounded-sm px-3 py-2 mb-3 text-slate-300 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-green-500"
+            className="w-full bg-slate-800 border border-slate-700 rounded-sm px-3 py-2 mb-3 text-slate-300 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-green-500"
           ></textarea>
 
-          <div className="text-xs text-slate-500 leading-relaxed border-l-2 border-slate-700 pl-3 mb-3">
+          <div className="text-xs text-slate-400 leading-relaxed border-l-2 border-slate-700 pl-3 mb-3">
             <span className="text-slate-400 font-bold">{t.notice.marker}</span>{" "}
             {t.notice.intro} {t.notice.controller} {t.notice.basis}{" "}
             {t.notice.retention}{" "}

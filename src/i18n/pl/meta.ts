@@ -11,6 +11,11 @@ const meta: MetaDict = {
       description:
         "Jakub Kuźnicki (brbn-jpg) — programista backendu Java z Warszawy. Buduję usługi w Spring Boot i systemy RAG/LLM. Projekty, CV i kontakt.",
     },
+    projects: {
+      title: "Projekty Jakuba Kuźnickiego — portfolio Java i RAG",
+      description:
+        "Poznaj portfolio backendowe Jakuba Kuźnickiego: todrawn.com, LlamaTalks, Gamelog, MapGenerator i inne systemy zbudowane w Spring Boot.",
+    },
     about: {
       title: "O mnie — Jakub Kuźnicki, inżynier i programista Java",
       description:

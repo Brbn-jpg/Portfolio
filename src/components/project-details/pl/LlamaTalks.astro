@@ -3,13 +3,6 @@ import DetailHeading from '../detailHeading.astro';
 import ProjectVisual from '../../projectVisual.astro';
 ---
 <div class="space-y-6 text-slate-400 leading-relaxed">
-  <p>
-    LlamaTalks to aplikacja czatowa w Spring Boot, która używa lokalnych modeli przez <span class="text-slate-200 font-bold">Ollamę</span>. <span class="text-slate-200 font-bold">LangChain4j</span> łączy pamięć rozmowy z potokiem <span class="text-slate-200 font-bold">Retrieval-Augmented Generation (RAG)</span>, dzięki czemu pytania mogą korzystać z przesłanych dokumentów.
-  </p>
-  <p>
-    Endpoint czatu strumieniuje generowany tekst przez Reactor/Flux i Server-Sent Events (SSE). Ingestia dokumentów działa osobno: Apache Tika parsuje pliki, fragmenty są zamieniane na embeddingi i zapisywane do wyszukiwania semantycznego, a następnie pobrany kontekst trafia do lokalnego modelu razem z historią rozmowy.
-  </p>
-
   <DetailHeading>Architektura techniczna</DetailHeading>
   <p>
     Ścieżka żądania składa się z dwóch połączonych przepływów:

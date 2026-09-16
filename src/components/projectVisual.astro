@@ -56,11 +56,11 @@ if (variant !== "rag-flow") {
 >
   <figcaption class:list={["flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1 font-mono", compact ? "mb-2" : "mb-4"]}>
     <span class="text-[10px] uppercase tracking-[0.18em] text-green-400">{copy.eyebrow}</span>
-    <span class="text-[11px] text-slate-500">{copy.caption}</span>
+    <span class="text-[11px] text-slate-400">{copy.caption}</span>
   </figcaption>
 
   <p
-    class:list={["overflow-x-auto whitespace-nowrap font-mono text-[10px] text-slate-500", compact ? "sr-only" : "mb-4"]}
+    class:list={["overflow-x-auto whitespace-nowrap font-mono text-[10px] text-slate-400", compact ? "sr-only" : "mb-4"]}
     aria-hidden="true"
   >
     {copy.flow}
@@ -76,13 +76,13 @@ if (variant !== "rag-flow") {
       ]}>
         <span class:list={["block font-mono text-green-500/80", compact ? "mb-1 text-[9px]" : "mb-2 text-[10px]"]}>{stage.number}</span>
         <strong class:list={["block break-words font-semibold text-slate-200", compact ? "text-[10px] leading-tight" : "text-xs"]}>{stage.title}</strong>
-        <span class:list={["block break-words font-mono text-slate-500", compact ? "mt-1 text-[9px] leading-tight" : "mt-1 text-xs leading-relaxed"]}>{stage.detail}</span>
+        <span class:list={["block break-words font-mono text-slate-400", compact ? "mt-1 text-[9px] leading-tight" : "mt-1 text-xs leading-relaxed"]}>{stage.detail}</span>
       </li>
     ))}
   </ol>
 
   <p
-    class:list={["border-t border-slate-800 font-mono text-slate-500", compact ? "sr-only" : "mt-4 pt-3 text-[10px] leading-relaxed"]}
+    class:list={["border-t border-slate-800 font-mono text-slate-400", compact ? "sr-only" : "mt-4 pt-3 text-[10px] leading-relaxed"]}
   >
     {copy.footer}
   </p>

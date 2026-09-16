@@ -22,7 +22,7 @@ const hiddenTagCount = project.technologies.length - tags.length;
 <article class="flex h-full flex-col border border-slate-800 bg-slate-900/35 p-5 transition-colors hover:border-green-500/60 md:p-6">
   <header class="flex items-start justify-between gap-4">
     <div>
-      <p class="mb-2 font-mono text-[11px] uppercase tracking-[0.14em] text-slate-500">{project.lang}</p>
+      <p class="mb-2 font-mono text-[11px] uppercase tracking-[0.14em] text-slate-400">{project.lang}</p>
       <h3 class="text-xl font-bold tracking-tight text-slate-100">{project.name}</h3>
     </div>
     {project.caseStudy && <span class="font-mono text-xs text-green-400">{t.home.chrome.caseStudy}</span>}
@@ -30,15 +30,19 @@ const hiddenTagCount = project.technologies.length - tags.length;
 
   {project.screenshot ? (
     <figure class="mt-5 aspect-[8/5] w-full overflow-hidden rounded-sm border border-slate-800 bg-slate-950/70">
-      <img
-        src={project.screenshot.src}
-        width={project.screenshot.width ?? 1440}
-        height={project.screenshot.height ?? 900}
-        alt={project.screenshot.alt}
-        loading="lazy"
-        decoding="async"
-        class="block h-full w-full object-cover"
-      />
+      <picture>
+        {project.screenshot.avif && <source srcset={project.screenshot.avif} type="image/avif" />}
+        {project.screenshot.webp && <source srcset={project.screenshot.webp} type="image/webp" />}
+        <img
+          src={project.screenshot.src}
+          width={project.screenshot.width ?? 1440}
+          height={project.screenshot.height ?? 900}
+          alt={project.screenshot.alt}
+          loading="lazy"
+          decoding="async"
+          class="block h-full w-full object-cover"
+        />
+      </picture>
     </figure>
   ) : project.visual === "rag-flow" ? (
     <ProjectVisual variant="rag-flow" lang={lang} compact />
@@ -70,9 +74,9 @@ const hiddenTagCount = project.technologies.length - tags.length;
   <footer class="mt-auto pt-6">
     <div class="flex flex-wrap gap-2 border-t border-slate-800 pt-4">
       {tags.map((tag) => (
-        <span class="border border-slate-800 bg-slate-950/50 px-2 py-1 font-mono text-[11px] text-slate-500">{tag}</span>
+        <span class="border border-slate-800 bg-slate-950/50 px-2 py-1 font-mono text-[11px] text-slate-400">{tag}</span>
       ))}
-      {hiddenTagCount > 0 && <span class="px-1 py-1 font-mono text-[11px] text-slate-600">+{hiddenTagCount}</span>}
+      {hiddenTagCount > 0 && <span class="px-1 py-1 font-mono text-[11px] text-slate-400">+{hiddenTagCount}</span>}
     </div>
 
     <div class="mt-5 flex flex-wrap items-center gap-x-4 gap-y-3 font-mono text-xs">
@@ -88,7 +92,7 @@ const hiddenTagCount = project.technologies.length - tags.length;
           href={project.links.demo}
           target="_blank"
           rel="noreferrer"
-          class="inline-flex items-center gap-1 text-slate-500 transition-colors hover:text-slate-200 focus-visible:outline focus-visible:outline-1 focus-visible:outline-green-400"
+          class="inline-flex items-center gap-1 text-slate-400 transition-colors hover:text-slate-200 focus-visible:outline focus-visible:outline-1 focus-visible:outline-green-400"
         >
           {copy.openDemo}
           <ArrowUpRight size={14} aria-hidden="true" />
@@ -99,7 +103,7 @@ const hiddenTagCount = project.technologies.length - tags.length;
           href={project.links.github}
           target="_blank"
           rel="noreferrer"
-          class="inline-flex items-center gap-1 text-slate-500 transition-colors hover:text-slate-200 focus-visible:outline focus-visible:outline-1 focus-visible:outline-green-400"
+          class="inline-flex items-center gap-1 text-slate-400 transition-colors hover:text-slate-200 focus-visible:outline focus-visible:outline-1 focus-visible:outline-green-400"
         >
           <Github size={14} aria-hidden="true" />
           {copy.viewCode}

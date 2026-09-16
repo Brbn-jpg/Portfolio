@@ -5,7 +5,7 @@
  * apart. If a fact changes, it changes here only.
  */
 
-export const SITE_URL = "https://brbn.pl";
+export const SITE_URL = "https://www.brbn.pl";
 export const SITE_NAME = "brbn.pl";
 
 export const DEFAULT_OG_IMAGE = "/og/brbn-pl.png";

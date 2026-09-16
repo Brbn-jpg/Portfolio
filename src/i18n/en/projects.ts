@@ -5,9 +5,23 @@
  * `src/data/projects.ts` — this dictionary only owns the surrounding chrome.
  */
 const projects = {
+  index: {
+    eyebrow: "Selected work",
+    title: "Projects built to solve real problems",
+    intro:
+      "A selection of backend systems, AI experiments and full-stack products. Each project includes the decisions, constraints and evidence behind the implementation.",
+    githubCta: "See more on GitHub",
+    githubDescription: "Browse the public repositories and implementation details.",
+  },
   backToProjects: "Back to all projects",
   languagesLabel: "Language(s):",
   technologiesUsed: "Technologies Used",
+  summary: "Summary",
+  verifiedFacts: "Verified facts",
+  limitation: "Evidence limit",
+  verification: "How this was verified",
+  published: "Published",
+  updated: "Updated",
   viewOnGithub: "View on GitHub",
   /** Resolves `Project.links.demoLabel` (a key, not a raw string) to a display label. */
   demoLabels: {

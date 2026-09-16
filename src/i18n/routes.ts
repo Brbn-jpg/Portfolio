@@ -14,6 +14,7 @@ import { defaultLocale, hreflangOf, locales, type Locale } from "./config";
  */
 const PAGE_PATHS = {
   home: { en: "/", pl: "/pl" },
+  projects: { en: "/projects", pl: "/pl/projekty" },
   about: { en: "/about", pl: "/pl/o-mnie" },
   privacy: { en: "/privacy", pl: "/pl/prywatnosc" },
   notFound: { en: "/404", pl: "/pl/404" },
@@ -58,6 +59,7 @@ export function alternatesFor(route: Route): { hreflang: string; href: string }[
 export function sitemapRoutes(): Route[] {
   return [
     { page: "home" },
+    { page: "projects" },
     { page: "about" },
     { page: "privacy" },
     ...allProjects.map((project) => ({ page: "project", project }) as const),

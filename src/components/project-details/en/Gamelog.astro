@@ -2,45 +2,27 @@
 import DetailHeading from '../detailHeading.astro';
 ---
 <div class="space-y-6 text-slate-400 leading-relaxed">
-  <p>
-    Gamelog is a comprehensive full-stack application designed to help gamers manage their growing backlog. It provides a centralized hub to track game progress, rate titles, and share libraries with friends.
-  </p>
-  <p>
-    Built with a modern tech stack featuring <span class="text-slate-200 font-bold">Spring Boot 3</span> on the backend and <span class="text-slate-200 font-bold">React 19</span> on the frontend, it ensures a responsive and robust user experience. The system is designed as a distributed application using Docker for orchestration.
-  </p>
+  <section>
+    <DetailHeading>Implementation</DetailHeading>
+    <ul class="mt-4 list-disc space-y-2 pl-5">
+      <li><span class="font-bold text-slate-300">Monorepo:</span> the public repository contains the server API and the client interface in separate application areas.</li>
+      <li><span class="font-bold text-slate-300">Backend:</span> Java and Spring Boot expose the application API; PostgreSQL stores accounts and library data, while Redis supports short-lived cached data.</li>
+      <li><span class="font-bold text-slate-300">Frontend:</span> React renders the library and Kanban-style progress board.</li>
+      <li><span class="font-bold text-slate-300">Packaging:</span> Docker and Docker Compose describe the local application stack.</li>
+    </ul>
+  </section>
 
-  <DetailHeading>Technical Architecture</DetailHeading>
-  <p>
-    The project adopts a layered architecture to separate concerns and ensure maintainability. 
-  </p>
-  <ul class="list-disc list-inside space-y-2 pl-2 mt-4">
-    <li>
-      <span class="font-bold text-slate-300">Backend (Spring Boot 3):</span> Leverages Java 21 and Spring Security for robust API protection. It utilizes <span class="text-green-400 font-mono">Redis</span> to cache temporary data such as email verification codes and password reset links, optimizing performance and security for short-lived tokens.
-    </li>
-    <li>
-      <span class="font-bold text-slate-300">Frontend (React 19):</span> A Single Page Application (SPA) styled with Tailwind CSS. It uses React Context API for global state management and React DnD for the interactive Kanban board.
-    </li>
-    <li>
-      <span class="font-bold text-slate-300">Database & Infrastructure:</span> Data is persisted in PostgreSQL, while the entire stack is containerized using Docker and Docker Compose for consistent deployment environments.
-    </li>
-  </ul>
+  <section>
+    <DetailHeading>Product surface</DetailHeading>
+    <p class="mt-4">
+      The product supports game library organization, progress tracking, playtime, ratings, wishlist management, game search and friend requests. The final live demo is available at <a class="text-green-400 hover:underline" href="https://gameloggd.vercel.app/" target="_blank" rel="noreferrer">gameloggd.vercel.app</a>.
+    </p>
+  </section>
 
-  <DetailHeading>Key Features</DetailHeading>
-  <ul class="list-disc list-inside space-y-2 pl-2">
-    <li><span class="font-bold text-slate-300">Kanban Dashboard:</span> An intuitive drag-and-drop interface to manage game statuses (e.g., "Playing", "Completed", "Ditched").</li>
-    <li><span class="font-bold text-slate-300">Social System:</span> Users can send friend requests, view friends' libraries, and compare gaming statistics, fostering a community experience.</li>
-    <li><span class="font-bold text-slate-300">Secure Authentication:</span> JWT-based stateless authentication with email verification flow powered by Redis caching.</li>
-    <li><span class="font-bold text-slate-300">Advanced Discovery:</span> A rich game database with filtering by platform, genre, developer, and more, allowing users to easily expand their backlog.</li>
-  </ul>
-
-  <DetailHeading>Deployment &amp; Infrastructure</DetailHeading>
-  <p>
-    The application is deployed across a high-availability cloud infrastructure:
-  </p>
-  <ul class="list-disc list-inside space-y-2 pl-2">
-    <li><span class="font-bold text-slate-300">Frontend:</span> Deployed on <span class="text-slate-200 font-bold">Vercel</span> for optimized React performance and global CDN distribution.</li>
-    <li><span class="font-bold text-slate-300">Backend:</span> The Spring Boot application is containerized and hosted on <span class="text-slate-200 font-bold">AWS EC2</span>.</li>
-    <li><span class="font-bold text-slate-300">Database:</span> PostgreSQL data is managed by <span class="text-slate-200 font-bold">AWS RDS</span>, providing automated backups and scalability.</li>
-    <li><span class="font-bold text-slate-300">SSL & Networking:</span> Secure communication is handled by <span class="text-slate-200 font-bold">Caddy</span>, which automatically manages SSL certificates using <span class="text-slate-200 font-bold">nip.io</span> for dynamic DNS mapping to the server's IP.</li>
-  </ul>
+  <section>
+    <DetailHeading>Evidence boundary</DetailHeading>
+    <p class="mt-4">
+      The public monorepo records 37 commits. It and the live demo establish the feature scope, but do not provide public usage, latency or retention measurements.
+    </p>
+  </section>
 </div>

@@ -1,0 +1,38 @@
+name: SEO smoke-check and IndexNow
+
+on:
+  workflow_dispatch:
+    inputs:
+      submit_indexnow:
+        description: Submit the canonical sitemap URLs to IndexNow after verification
+        required: true
+        default: false
+        type: boolean
+
+permissions:
+  contents: read
+
+jobs:
+  verify-and-submit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Verify production SEO
+        run: npm run seo:verify
+
+      - name: Submit canonical URLs to IndexNow
+        if: ${{ inputs.submit_indexnow == true }}
+        env:
+          INDEXNOW_KEY: ${{ secrets.INDEXNOW_KEY }}
+        run: npm run seo:indexnow

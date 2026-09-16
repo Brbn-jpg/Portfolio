@@ -2,26 +2,27 @@
 import DetailHeading from '../detailHeading.astro';
 ---
 <div class="space-y-6 text-slate-400 leading-relaxed">
-  <p>
-    A personal portfolio website built for <span class="text-slate-200 font-bold">Sebastian Sośniak</span>, designed to showcase his projects, skills and experience in a clean, content-first layout. The site is built with <span class="text-slate-200 font-bold">Astro</span>, <span class="text-slate-200 font-bold">TypeScript</span> and <span class="text-slate-200 font-bold">Tailwind CSS</span>, and deployed on Vercel.
-  </p>
-  <p>
-    The brief was simple: load instantly, look modern, and stay easy to maintain. Astro's island architecture made it possible to ship almost entirely static HTML while still allowing small interactive components where they add value.
-  </p>
+  <section>
+    <DetailHeading>Delivery model</DetailHeading>
+    <p class="mt-4">
+      The site is a content-first portfolio for Sebastian Sośniak. Astro renders the pages as mostly static output, while TypeScript keeps the components and supporting utilities type-safe. The visual layer uses Tailwind CSS and the delivered product is available at <a class="text-green-400 hover:underline" href="https://metricmind.pl" target="_blank" rel="noreferrer">metricmind.pl</a>.
+    </p>
+  </section>
 
-  <DetailHeading>Highlights</DetailHeading>
-  <ul class="list-disc list-inside space-y-3 pl-2">
-    <li><span class="font-bold text-slate-300">Static-First Performance:</span> Pages are rendered to static HTML at build time, so first paint is near-instant on any connection.</li>
-    <li><span class="font-bold text-slate-300">Type-Safe Components:</span> TypeScript across the whole codebase keeps refactors safe as the site grows.</li>
-    <li><span class="font-bold text-slate-300">Tailwind-Driven Design:</span> Utility-first styling enables a consistent visual language without bespoke CSS sprawl.</li>
-    <li><span class="font-bold text-slate-300">Continuous Deployment:</span> Hosted on Vercel with automatic preview builds on every push, so the live site always reflects the latest commit on main.</li>
-  </ul>
+  <section>
+    <DetailHeading>Implementation decisions</DetailHeading>
+    <ul class="mt-4 list-disc space-y-2 pl-5">
+      <li><span class="font-bold text-slate-300">Static-first rendering:</span> project and experience content is prepared at build time.</li>
+      <li><span class="font-bold text-slate-300">Typed components:</span> TypeScript provides a shared contract while the page grows.</li>
+      <li><span class="font-bold text-slate-300">Utility styling:</span> Tailwind CSS keeps the presentation consistent without a separate bespoke style system.</li>
+      <li><span class="font-bold text-slate-300">Hosting:</span> Vercel serves the live site and its public deployment path.</li>
+    </ul>
+  </section>
 
-  <DetailHeading>Stack</DetailHeading>
-  <ul class="list-disc list-inside space-y-2 pl-2">
-    <li><span class="font-bold text-slate-300">Framework:</span> Astro for static rendering and component composition.</li>
-    <li><span class="font-bold text-slate-300">Language:</span> TypeScript for type-safety in components and utilities.</li>
-    <li><span class="font-bold text-slate-300">Styling:</span> Tailwind CSS for a fast, consistent design system.</li>
-    <li><span class="font-bold text-slate-300">Hosting:</span> Vercel, with the live site available at <a class="text-green-400 hover:underline" href="https://metricmind.pl" target="_blank" rel="noreferrer">metricmind.pl</a>.</li>
-  </ul>
+  <section>
+    <DetailHeading>Evidence boundary</DetailHeading>
+    <p class="mt-4">
+      The public repository records 10 commits. No public analytics or conversion history is available, so the result is stated as the delivered live portfolio and its implementation choices.
+    </p>
+  </section>
 </div>

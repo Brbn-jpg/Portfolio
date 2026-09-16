@@ -3,7 +3,6 @@ import { Github, ArrowRight, ArrowLeft } from 'lucide-react';
 import { projectDetails, type ProjectId } from '../project-details/registry';
 import { localize, type Project } from '../../data/projects';
 import { useTranslations } from '../../i18n/utils';
-import { pathFor } from '../../i18n/routes';
 import type { Locale } from '../../i18n/config';
 
 interface Props {
@@ -16,7 +15,13 @@ const t = useTranslations(lang);
 const p = localize(project, lang);
 const ProjectComponent = projectDetails[lang][project.slug as ProjectId];
 const demoLabel = t.projects.demoLabels[project.links.demoLabel ?? 'demo'];
-const backHref = `${pathFor({ page: 'home' }, lang)}#projects`;
+const backHref = lang === 'pl' ? '/pl/projekty' : '/projects';
+const formatDate = (value: string) =>
+  new Intl.DateTimeFormat(lang === 'pl' ? 'pl-PL' : 'en-GB', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+  }).format(new Date(`${value}T00:00:00Z`));
 ---
 <main class="relative z-10 max-w-4xl mx-auto px-6 py-12 md:py-20">
   <div class="mb-8">
@@ -29,7 +34,7 @@ const backHref = `${pathFor({ page: 'home' }, lang)}#projects`;
   <header class="mb-12 border-b border-slate-800 pb-8">
     <h1 class="text-5xl md:text-6xl font-black text-slate-100 mb-4 tracking-tight">{p.name}</h1>
     <div class="flex items-center justify-between">
-      <div class="text-sm font-mono text-slate-500">
+      <div class="text-sm font-mono text-slate-400">
         {t.projects.languagesLabel} <span class="text-slate-300">{p.lang}</span>
       </div>
       <div class="flex items-center gap-4">
@@ -47,19 +52,27 @@ const backHref = `${pathFor({ page: 'home' }, lang)}#projects`;
         )}
       </div>
     </div>
+    <div class="mt-5 flex flex-wrap gap-x-6 gap-y-2 font-mono text-xs text-slate-400">
+      <span>{t.projects.published}: <time datetime={p.datePublished}>{formatDate(p.datePublished)}</time></span>
+      <span>{t.projects.updated}: <time datetime={p.dateModified}>{formatDate(p.dateModified)}</time></span>
+    </div>
   </header>
 
   {p.screenshot && (
     <figure class="mb-12 aspect-[8/5] w-full overflow-hidden rounded-sm border border-slate-800 bg-slate-950/70 shadow-2xl">
-      <img
-        src={p.screenshot.src}
-        width={p.screenshot.width ?? 1440}
-        height={p.screenshot.height ?? 900}
-        alt={p.screenshot.alt}
-        loading="eager"
-        decoding="async"
-        class="block h-full w-full object-contain"
-      />
+      <picture>
+        {p.screenshot.avif && <source srcset={p.screenshot.avif} type="image/avif" />}
+        {p.screenshot.webp && <source srcset={p.screenshot.webp} type="image/webp" />}
+        <img
+          src={p.screenshot.src}
+          width={p.screenshot.width ?? 1440}
+          height={p.screenshot.height ?? 900}
+          alt={p.screenshot.alt}
+          loading="eager"
+          decoding="async"
+          class="block h-full w-full object-contain"
+        />
+      </picture>
     </figure>
   )}
 
@@ -71,11 +84,35 @@ const backHref = `${pathFor({ page: 'home' }, lang)}#projects`;
         </div>
       )}
 
+      {p.summary && (
+        <section aria-labelledby="project-summary" class="mb-10">
+          <h2 id="project-summary" class="mb-4 font-mono text-xs uppercase tracking-[0.18em] text-green-400">{t.projects.summary}</h2>
+          <p class="text-lg leading-relaxed text-slate-300">{p.summary}</p>
+        </section>
+      )}
+
+      <section aria-labelledby="verified-facts" class="mb-10 border-y border-slate-800 py-7">
+        <h2 id="verified-facts" class="mb-4 font-mono text-xs uppercase tracking-[0.18em] text-green-400">{t.projects.verifiedFacts}</h2>
+        <ul class="list-disc space-y-2 pl-5 text-sm leading-relaxed text-slate-400">
+          {p.verifiedFacts.map((fact) => <li>{fact}</li>)}
+        </ul>
+      </section>
+
+      <aside class="mb-10 border-l-2 border-amber-500/60 pl-4 text-sm leading-relaxed text-slate-400">
+        <h2 class="mb-2 font-mono text-xs uppercase tracking-[0.18em] text-amber-300">{t.projects.limitation}</h2>
+        <p>{p.limitation}</p>
+      </aside>
+
       {ProjectComponent ? (
         <ProjectComponent />
       ) : (
         <p class="text-slate-400 leading-relaxed">{p.longDescription}</p>
       )}
+
+      <p class="mt-12 border-t border-slate-800 pt-6 font-mono text-sm text-slate-400">
+        <span class="mr-3 text-slate-400">{t.projects.verification}:</span>
+        <a href={p.verification.url} target="_blank" rel="noreferrer" class="text-green-400 hover:text-green-300 hover:underline">{p.verification.label} ↗</a>
+      </p>
     </div>
     <div class="md:col-span-1">
       <h3 class="text-slate-100 font-bold mb-4 flex items-center gap-2 font-mono text-lg tracking-tight">

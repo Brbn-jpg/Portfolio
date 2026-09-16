@@ -6,7 +6,7 @@ import tailwind from "@astrojs/tailwind";
 
 // https://astro.build/config
 export default defineConfig({
-  site: "https://brbn.pl",
+  site: "https://www.brbn.pl",
   // Vercel strips trailing slashes; matching that keeps canonical, hreflang, OG
   // and sitemap URLs identical to what is actually served (no redirect hops).
   trailingSlash: "never",
